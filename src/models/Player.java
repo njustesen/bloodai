@@ -16,18 +16,18 @@ public abstract class Player {
 	protected PlayerStatus playerStatus;
 	private Square position;
 
-	private String teamName;
+	private String teamId;
 	private Team team;
 
 	
-	public Player(Race race, String title, int number, String teamName) {
+	public Player(Race race, String title, int number, String teamId) {
 		super();
 		this.race = race;
 		this.title = title;
 		this.number = number;
 		this.playerStatus = new PlayerStatus(); 
 		this.position = null;
-		this.teamName = teamName;
+		this.teamId = teamId;
 		this.team = null;
 
 	}
@@ -36,8 +36,8 @@ public abstract class Player {
 		return race;
 	}
 
-	public String getTeamName() {
-		return teamName;
+	public String getTeamId() {
+		return teamId;
 	}
 
 	public String getTitle() {
@@ -139,7 +139,7 @@ public abstract class Player {
 		result = prime * result + ((skills == null) ? 0 : skills.hashCode());
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
 		result = prime * result
-				+ ((teamName == null) ? 0 : teamName.hashCode());
+				+ ((teamId == null) ? 0 : teamId.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -187,10 +187,10 @@ public abstract class Player {
 				return false;
 		} else if (!team.equals(other.team))
 			return false;
-		if (teamName == null) {
-			if (other.teamName != null)
+		if (teamId == null) {
+			if (other.teamId != null)
 				return false;
-		} else if (!teamName.equals(other.teamName))
+		} else if (!teamId.equals(other.teamId))
 			return false;
 		if (title == null) {
 			if (other.title != null)

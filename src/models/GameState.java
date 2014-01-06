@@ -39,6 +39,7 @@ public class GameState {
 	private boolean playerPlaced;
 	private boolean awaitPush;
 	private boolean awaitFollowUp;
+	private boolean rerollAllowed;
 	
 	public GameState(Team homeTeam, Team awayTeam, Pitch pitch) {
 		super();
@@ -65,6 +66,278 @@ public class GameState {
 		this.currentDiceRoll = null;
 		this.currentFoul = null;
 		this.playerPlaced = false;
+		this.rerollAllowed = false;
+	}
+	
+	public boolean isAbleToReroll(Team team) {
+		
+		if (!rerollAllowed)
+			return false;
+		
+		if (gameStage == GameStage.HOME_TURN){
+			
+			if (team != homeTeam)
+				return false;
+			
+		} else if (gameStage == GameStage.AWAY_TURN){
+			
+			if (team != awayTeam)
+				return false;
+			
+		} else {
+			return false;
+		}
+		
+		if (team.getTeamStatus().getRerolls() > 0 &&
+				!team.getTeamStatus().rerolledThisTurn())
+			return true;
+		
+		return false;
+	}
+	
+	public Team getMovingTeam() {
+		if (gameStage == GameStage.HOME_TURN)
+			return homeTeam;
+		else if (gameStage == GameStage.AWAY_TURN)
+			return awayTeam;
+		else if (gameStage == GameStage.BLITZ)
+			return kickingTeam;
+		
+		return null;
+	}
+	
+	public boolean isBallCarried(Player player) {
+		
+		Square playerOn = player.getPosition();
+		Square ballOn = pitch.getBall().getSquare();
+		
+		if (playerOn != null &&
+				ballOn != null &&
+				playerOn.getX() == ballOn.getX() && 
+				playerOn.getY() == ballOn.getY() && 
+				pitch.getBall().isUnderControl()){
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public Team owner(Player player) {
+		if (homeTeam.getPlayers().contains(player)){
+			return homeTeam;
+		} 
+		return awayTeam;
+	}
+	
+	public Team oppositeTeam(Team team) {
+		if (team ==homeTeam){
+			return awayTeam;
+		}
+		
+		return homeTeam;
+	}
+	
+	public boolean nextToEachOther(Player a, Player b) {
+		
+		if (pitch.isOnPitch(a) &&
+				pitch.isOnPitch(b)){
+			
+			Square aPos = a.getPosition();
+			Square bPos = b.getPosition();
+			
+			// Not equal
+			if (aPos.getX() == bPos.getX() && aPos.getY() == bPos.getY()){
+				return false;
+			}
+			
+			// At most one away
+			if (Math.abs( aPos.getX() - bPos.getX() ) <= 1 ){
+				if (Math.abs( aPos.getY() - bPos.getY() ) <= 1 ){
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
+	}
+	
+	public boolean nextToEachOther(Player player, Square square) {
+		
+		if (pitch.isOnPitch(player)){
+			
+			Square aPos = player.getPosition();
+			
+			// Not equal
+			if (aPos.getX() == square.getX() && aPos.getY() == square.getY()){
+				return false;
+			}
+			
+			// At most one away
+			if (Math.abs( aPos.getX() - square.getX() ) <= 1 ){
+				if (Math.abs( aPos.getY() - square.getY() ) <= 1 ){
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public BlockSum blockSum(Player attacker, Player defender) {
+		
+		int attStr = attacker.getST();
+		int defStr = defender.getST();
+		
+		attStr += assists(attacker, defender);
+		defStr += assists(defender, attacker);
+		
+		if (attStr > defStr * 2){
+			return BlockSum.ATTACKER_DOUBLE_STRONG;
+		} else if (defStr > attStr * 2){
+			return BlockSum.DEFENDER_DOUBLE_STRONG;
+		} else if (attStr > defStr){
+			return BlockSum.ATTACKER_STRONGER;
+		} else if (attStr < defStr){
+			return BlockSum.DEFENDER_STRONGER;
+		}
+		
+		return BlockSum.EQUAL;
+	}
+	
+	public int assists(Player attacker, Player defender) {
+		
+		int assists = 0;
+		
+		Square defPos = defender.getPosition();
+		
+		for(int y = -1; y <= 1; y++){
+			
+			for(int x = -1; x <= 1; x++){
+				
+				Square sq = new Square(x + defPos.getX(), y + defPos.getY());
+				
+				Player player = pitch.getPlayerAt(sq);
+				
+				if (player == null ||
+						player == attacker || 
+						player == defender || 
+						owner(player) == owner(defender) ||
+						player.getPlayerStatus().getStanding() != Standing.UP){
+				
+					continue;
+				}
+					
+				if (!inTacklesZoneExcept(player, defender)){
+					
+					assists++;
+					
+				}
+			}
+			
+		}
+		
+		return assists;
+	}
+
+	private boolean inTacklesZoneExcept(Player player, Player exception) {
+		
+		Square square = player.getPosition();
+		
+		for(int y = -1; y <= 1; y++){
+			for(int x = -1; x <= 1; x++){
+				
+				Square test = new Square(square.getX() + x, square.getY() + y);
+				
+				Player p = pitch.getPlayerAt(test); 
+				
+				// Opposite team or exception?
+				if (p == null ||
+						owner(p) == owner(player) ||
+						p == exception){
+					continue;
+				}
+					
+				if (p.getPlayerStatus().getStanding() == Standing.UP){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean isInTackleZone(Player player) {
+		
+		for(int y = -1; y <= 1; y++){
+			for(int x = -1; x <= 1; x++){
+				
+				Square test = new Square(player.getPosition().getX() + x, player.getPosition().getY() + y);
+				
+				Player p = pitch.getPlayerAt(test); 
+				
+				// Opposite team?
+				if (p != null &&
+						owner(p) != owner(player)){
+					
+					if (p.getPlayerStatus().getStanding() == Standing.UP){
+						return true;
+					}
+					
+					
+				}
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	public int numberOfTackleZones(Player player){
+		int num = 0;
+		
+		for(int y = -1; y <= 1; y++){
+			for(int x = -1; x <= 1; x++){
+				
+				Square test = new Square(player.getPosition().getX() + x, player.getPosition().getY() + y);
+				
+				Player p = pitch.getPlayerAt(test); 
+				
+				// Opposite team and up
+				if (p != null &&
+						owner(p) != owner(player)){
+					
+					if (p.getPlayerStatus().getStanding() == Standing.UP){
+						num++;
+					}
+					
+				}
+			}
+		}
+		
+		return num;
+		
+	}
+	
+	public boolean onDifferentTeams(Player a, Player b) {
+		if (owner(a) != owner(b))
+			return true;
+		return false;
+	}
+	
+	public void placePlayerOnSquare(Player player, Square square) {
+		pitch.getPlayerArr()[square.getY()][square.getX()] = player;
+		player.setPosition(square);
+	}
+	
+	public void removePlayerFromCurrentSquare(Player player) {
+		pitch.removePlayer(player);
+		player.setPosition(null);
 	}
 	
 	public Pitch getPitch() {
@@ -295,6 +568,14 @@ public class GameState {
 	public void setCurrentFoul(Foul currentFoul) {
 		this.currentFoul = currentFoul;
 	}
+	
+	public boolean isRerollAllowed() {
+		return rerollAllowed;
+	}
+
+	public void setRerollAllowed(boolean rerollAllowed) {
+		this.rerollAllowed = rerollAllowed;
+	}
 
 	@Override
 	public int hashCode() {
@@ -343,6 +624,7 @@ public class GameState {
 				+ ((receivingTeam == null) ? 0 : receivingTeam.hashCode());
 		result = prime * result + (refAgainstAwayTeam ? 1231 : 1237);
 		result = prime * result + (refAgainstHomeTeam ? 1231 : 1237);
+		result = prime * result + (rerollAllowed ? 1231 : 1237);
 		result = prime * result + ((weather == null) ? 0 : weather.hashCode());
 		return result;
 	}
@@ -453,9 +735,12 @@ public class GameState {
 			return false;
 		if (refAgainstHomeTeam != other.refAgainstHomeTeam)
 			return false;
+		if (rerollAllowed != other.rerollAllowed)
+			return false;
 		if (weather != other.weather)
 			return false;
 		return true;
 	}
-	
+
+
 }

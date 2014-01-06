@@ -11,10 +11,12 @@ public class Team {
 	protected int cheerleaders;
 	protected TeamStatus teamStatus;
 	protected String teamName;
+	protected String id;
 	
-	public Team(ArrayList<Player> players, int rerolls,
+	public Team(String id, ArrayList<Player> players, int rerolls,
 			int fanFactor, int assistantCoaches, String teamName) {
 		super();
+		this.id = id;
 		this.players = players;
 		this.rerolls = rerolls;
 		this.fanFactor = fanFactor;
@@ -93,6 +95,10 @@ public class Team {
 				return p;
 		}
 		return null;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	@Override
