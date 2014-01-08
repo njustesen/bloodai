@@ -43,16 +43,21 @@ public class PassUpdater extends GameUpdater {
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 		
-		Player passer = state.getCurrentPass().getPasser();
-		Player catcher = state.getCurrentPass().getCatcher();
+		Player passer = null;
+		Player catcher = null;
 		
+		if (state.getCurrentPass() == null){
+			passer = state.getCurrentPass().getPasser();
+			catcher = state.getCurrentPass().getCatcher();
+		} else {
+			passer = extractPlayer(state, action, 0);
+			catcher = extractPlayer(state, action, 1);
+		}
+	
 		if (passer.getPlayerStatus().getTurn() != PlayerTurn.PASS_ACTION)
 			return;
 			
 		if (state.onDifferentTeams(passer, catcher))
-			return;
-		
-		if (state.getCurrentPass() != null)
 			return;
 		
 		if (!state.isBallCarried(passer))

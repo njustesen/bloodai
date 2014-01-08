@@ -118,7 +118,7 @@ public class BaseLineAI extends AIAgent{
 			Player defender = state.getCurrentBlock().getDefender();
 			Player attacker = state.getCurrentBlock().getAttacker();
 			
-			if(attacker.getTeamName() == myTeam(state).getTeamName()){
+			if(attacker.getTeamId() == myTeam(state).getId()){
 				
 				for(int i = 0; i < dices.size(); i++){
 					//DEFENDER_KNOCKED_DOWN
@@ -174,7 +174,7 @@ public class BaseLineAI extends AIAgent{
 					
 				}
 				
-			}else if(defender.getTeamName() == myTeam(state).getTeamName()){
+			}else if(defender.getTeamId() == myTeam(state).getTeamName()){
 			
 				for(int i = 0; i < dices.size(); i++){
 					//DEFENDER_KNOCKED_DOWN
@@ -586,7 +586,7 @@ public class BaseLineAI extends AIAgent{
 					for(int j = -1; j <= 1; j++){
 						Player opponent = state.getPitch().getPlayerAt(new Square(playerPos.getX()+i,playerPos.getY()+j));
 						if(opponent != null){
-							if(opponent.getTeamName() != player.getTeamName()){
+							if(opponent.getTeamId() != player.getTeamId()){
 								enemies.add(opponent);
 								//System.out.println("LOOP 2");
 							}
@@ -708,7 +708,7 @@ public class BaseLineAI extends AIAgent{
 			}else{ 
 			
 				//if player from team has the ball
-				if(state.getPitch().getPlayerAt(b.getSquare()).getTeamName() == player.getTeamName()){
+				if(state.getPitch().getPlayerAt(b.getSquare()).getTeamId() == player.getTeamId()){
 						
 					//if not grouped up
 					if(!isGroupedUp(state.getPitch().getPlayerAt(b.getSquare()), state)){
@@ -875,7 +875,7 @@ public class BaseLineAI extends AIAgent{
 		
 		Square ballPosition = state.getPitch().getBall().getSquare();
 		
-		if(state.getPitch().getPlayerAt(ballPosition) != null && state.getPitch().getPlayerAt(ballPosition).getTeamName() != player.getTeamName()){
+		if(state.getPitch().getPlayerAt(ballPosition) != null && state.getPitch().getPlayerAt(ballPosition).getTeamId() != player.getTeamId()){
 			if(canReachPosition(player, ballPosition, state)){
 				i = 4;
 			}
@@ -885,7 +885,7 @@ public class BaseLineAI extends AIAgent{
 				Square playerSquare = p.getPosition();
 				if(//state.getPitch().getBall().getSquare().getX() == playerSquare.getX() &&  <--only for ball carriers
 					//state.getPitch().getBall().getSquare().getY() == playerSquare.getY() &&
-					player.getTeamName() != p.getTeamName()){
+					player.getTeamId() != p.getTeamId()){
 	//				System.out.println("GOING FOR KIIIIIILL");
 					i = 1;
 				}

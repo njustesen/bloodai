@@ -67,30 +67,6 @@ public class EndTurnUpdater extends GameUpdater {
 				NewTurnUpdater.getInstance().update(state, action, rulebook);
 			}
 		
-		} else if (state.getGameStage() == GameStage.HIGH_KICK){
-			
-			Square ballOn = state.getPitch().getBall().getSquare();
-			
-			if (state.getPitch().getPlayerAt(ballOn) != null || selectedPlayer == null){
-				EndKickOffUpdater.getInstance().update(state, action, rulebook);
-				return;
-			}
-			
-			if (state.owner(selectedPlayer) == state.getReceivingTeam() && 
-					state.getPitch().isOnPitch(selectedPlayer) && 
-					!inTacklesZoneExcept(selectedPlayer, selectedPlayer)){
-				
-				// Place player under ball
-				placePlayerUnderBall(selectedPlayer);
-				
-				state.getPitch().getBall().setOnGround(true);
-				catchBall();
-				
-				//endKickOffPhas0e();
-				state.setGameStage(GameStage.KICK_OFF);
-				//startNewTurn();
-				
-			}
 		} else if (state.getGameStage() == GameStage.KICK_OFF){
 	
 			EndKickOffUpdater.getInstance().update(state, action, rulebook);

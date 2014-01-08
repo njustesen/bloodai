@@ -75,7 +75,7 @@ public class SelectDieUpdater extends GameUpdater {
 				state.setCurrentDiceRoll(null);
 				
 				// Player fall
-				movePlayer(state.getCurrentDodge().getPlayer(), state.getCurrentDodge().getSquare(), true);
+				movePlayer(state, state.getCurrentDodge().getPlayer(), state.getCurrentDodge().getSquare(), true);
 				//knockDown(state.getCurrentDodge().getPlayer(), true);
 				
 				return;
@@ -86,7 +86,7 @@ public class SelectDieUpdater extends GameUpdater {
 				state.setAwaitReroll(false);
 				
 				// Player fall
-				movePlayer(state.getCurrentGoingForIt().getPlayer(), state.getCurrentGoingForIt().getSquare(), true);
+				movePlayer(state, state.getCurrentGoingForIt().getPlayer(), state.getCurrentGoingForIt().getSquare(), true);
 				//knockDown(state.getCurrentGoingForIt().getPlayer(), true);
 				state.setCurrentDiceRoll(null);
 				

@@ -96,7 +96,7 @@ public class ThrowInUpdater extends GameUpdater {
 		Player player = state.getPitch().getPlayerAt(sq);
 		
 		if (player != null){
-			catchBall();
+			CatchUpdater.getInstance().update(state, action, rulebook);
 		} else if (!state.getPitch().isBallInsidePitch()){
 			ThrowInUpdater.getInstance().update(state, action, rulebook);
 		} else {

@@ -1,12 +1,28 @@
 package game;
 
 import game.rulebooks.RuleBook;
+import game.updaters.BlockUpdater;
+import game.updaters.CoinTossUpdater;
 import game.updaters.EndPhaseUpdater;
+import game.updaters.EndPlayerTurnUpdater;
+import game.updaters.EndSetupUpdater;
+import game.updaters.FollowUpUpdater;
+import game.updaters.FoulUpdater;
 import game.updaters.GameStartUpdater;
 import game.updaters.GameUpdater;
+import game.updaters.HandOffUpdater;
+import game.updaters.InterceptionUpdater;
+import game.updaters.KickBallUpdater;
+import game.updaters.MovePlayerUpdater;
+import game.updaters.PassUpdater;
+import game.updaters.PlaceBallOnPlayerUpdater;
+import game.updaters.PlaceBallUpdater;
+import game.updaters.PlacePlayerUpdater;
+import game.updaters.PushUpdater;
 import game.updaters.RerollUpdater;
 import game.updaters.SelectActionUpdater;
 import game.updaters.SelectDieUpdater;
+import game.updaters.StandUpUpdater;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +38,7 @@ import ai.actions.EndSetupAction;
 import ai.actions.FollowUpAction;
 import ai.actions.FoulPlayerAction;
 import ai.actions.HandOffPlayerAction;
+import ai.actions.KickBallAction;
 import ai.actions.PlayerAction;
 import ai.actions.SelectInterceptionAction;
 import ai.actions.MovePlayerAction;
@@ -129,7 +146,7 @@ public class GameMaster {
 			awaitUI = true;
 		
 		if (action != null)
-			performAIAction(action);
+			performAction(action);
 		
 	}
 	
@@ -172,7 +189,7 @@ public class GameMaster {
 			else 
 				home = true;
 		} else if (state.getGameStage() == GameStage.KICK_OFF){
-			startNewTurn();
+			home = false;
 		} else if (state.getGameStage() == GameStage.KICKING_SETUP){
 			if (state.getKickingTeam() == state.getHomeTeam())
 				home = true;
@@ -218,21 +235,10 @@ public class GameMaster {
 		return home;
 	}
 
-	public void performAIAction(Action action) {
+	public void performAction(Action action) {
 
 		if (action == null)
 			return;
-		
-		// Extract players
-		Player playerA = null;
-		Player playerB = null;
-		
-		if (action instanceof PlayerAction){
-			playerA = identifyPlayer(((PlayerAction) action).getPlayer());
-		} else if (action instanceof DoublePlayerAction){
-			playerA = identifyPlayer(((DoublePlayerAction) action).getPlayerA());
-			playerB = identifyPlayer(((DoublePlayerAction) action).getPlayerB());
-		}
 		
 		if(action instanceof RerollAction){
 			
@@ -244,113 +250,82 @@ public class GameMaster {
 			
 		} else if(action instanceof PlacePlayerAction){
 			
-			//TODO: HER!
-			placePlayerIfAllowed(playerA, ((PlacePlayerAction)action).getSquare());
-			
-		} else if(action instanceof SelectPlayerAction){
-			
-			if (state.getGameStage() == GameStage.HIGH_KICK)
-				EndPhaseUpdater.getInstance().update(state, action, rulebook);
+			PlacePlayerUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof SelectPlayerTurnAction){
 			
 			SelectActionUpdater.getInstance().update(state, action, rulebook);
-			selectAction(((SelectPlayerTurnAction) action).getTurn());
 			
 		} else if(action instanceof PlaceBallOnPlayerAction){
 			
-			Square square = playerA.getPosition();
-			state.getPitch().getBall().setSquare(square);
-			state.getPitch().getBall().setOnGround(true);
-			state.getPitch().getBall().setUnderControl(true);
-			endPhase();
+			PlaceBallOnPlayerUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof MovePlayerAction){
 			
-			movePlayerIfAllowed(playerA, ((MovePlayerAction) action).getSquare());
+			MovePlayerUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof StandPlayerUpAction){
 			
-			standPlayerUpIfAllowed(playerA);
+			StandUpUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof BlockPlayerAction){
 			
-			blockTarget = playerB;
-			performBlock(playerA, playerB);
+			BlockUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof PassPlayerAction){
 			
-			passTarget = playerB;
-			performPass(playerA, playerB);
+			PassUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof HandOffPlayerAction){
 			
-			handOffTarget = playerB;
-			performHandOff(playerA, playerB);
+			HandOffUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof FoulPlayerAction){
 
-			foulTarget = playerB;
-			performFoul(playerA, playerB);
+			FoulUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof FollowUpAction){
 
-			followUp(((FollowUpAction) action).isFollowUp());
+			FollowUpUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof SelectPushSquareAction){
 			
-			Square from = state.getCurrentBlock().getCurrentPush().getFrom();
-			
-			pushToSquare(from, ((SelectPushSquareAction) action).getSquare());
+			PushUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof EndPlayerTurnAction){
 			
-			playerA.getPlayerStatus().setTurn(PlayerTurn.USED);
+			EndPlayerTurnUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof EndPhaseAction){
 			
-			endPhase();
+			EndPhaseUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof SelectInterceptionAction){
 			
-			continueInterception(playerA);
+			InterceptionUpdater.getInstance().update(state, action, rulebook);
+			
+		} else if(action instanceof KickBallAction){
+			
+			KickBallUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof SelectCoinSideAction){
 			
-			pickCoinSide(((SelectCoinSideAction)action).isHeads());
+			CoinTossUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof SelectCoinTossEffectAction){
 			
-			pickCoinTossEffect(((SelectCoinTossEffectAction)action).isReceive());
+			CoinTossUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof EndSetupAction){
 			
-			endSetup();
+			EndSetupUpdater.getInstance().update(state, action, rulebook);
 			
 		} else if(action instanceof PlaceBallAction){
 			
-			placeBall(((PlaceBallAction)action).getSquare());
-			
-			endPhase();
+			PlaceBallUpdater.getInstance().update(state, action, rulebook);
 			
 		}
 		
-	}
-
-	private Player identifyPlayer(Player player) {
-		
-		String teamId = player.getTeamId();
-		Team team = null;
-		
-		if (teamId.equals(state.getHomeTeam().getId()))
-			team = state.getHomeTeam();
-		else if (teamId.equals(state.getAwayTeam().getId()))
-			team = state.getAwayTeam();
-		
-		if (team == null)
-			return null;
-		
-		return team.getPlayer(player.getNumber());
 	}
 
 }

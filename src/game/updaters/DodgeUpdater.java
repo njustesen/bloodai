@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.MovePlayerAction;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -28,20 +29,24 @@ public class DodgeUpdater extends GameUpdater {
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 		
-		if (state.getCurrentDodge() == null)
-			return;
-				
+		Player player = null;
+		Square square = null;
+		int success = 0;
+		if (state.getCurrentDodge() == null){
+			player = extractPlayer(state, action, 0);
+			square = ((MovePlayerAction)action).getSquare();
+			success = state.getCurrentDodge().getSuccess(); 
+		} else {
+			player = state.getCurrentDodge().getPlayer();
+			square = state.getCurrentDodge().getSquare();
+			success = rulebook.dodgeSuccess(state, player, square);
+		}
+		
 		DiceRoll r = new DiceRoll();
 		D6 d = new D6();
 		d.roll();
 		int result = d.getResultAsInt();
 		state.setCurrentDiceRoll(r);
-		
-		// Success?
-		Player player = state.getCurrentDodge().getPlayer();
-		Square square = state.getCurrentDodge().getSquare();
-		
-		int success = state.getCurrentDodge().getSuccess();
 		
 		if (result == 6 || (result != 1 && result >= success)){
 

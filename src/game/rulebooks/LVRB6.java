@@ -2,6 +2,8 @@ package game.rulebooks;
 
 import game.GameLog;
 import models.GameState;
+import models.Player;
+import models.Square;
 import models.Weather;
 import models.dice.D6;
 
@@ -85,6 +87,24 @@ public class LVRB6 implements RuleBook {
 			case POURING_RAIN : GameLog.push("Weather changed to pouring rain."); break;
 			case BLIZZARD : GameLog.push("Weather changed to blizzard."); break;
 		}
+	}
+
+	@Override
+	public int dodgeSuccess(GameState state, Player player, Square square) {
+	
+		int roll = 6 - player.getAG() + state.numberOfTackleZones(player);
+		
+		return Math.max( 2, Math.min(6, roll) );
+		
+	}
+
+	@Override
+	public int calculateFoulSum(GameState state, Player fouler, Player target) {
+		
+		int attAss = state.assists(fouler, target);
+		int defAss = state.assists(target, fouler);
+		
+		return attAss - defAss;
 	}
 
 }

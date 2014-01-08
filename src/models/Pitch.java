@@ -6,7 +6,6 @@ import java.util.Arrays;
 import models.actions.Pass;
 
 import game.GameLog;
-import view.InputManager;
 
 public class Pitch {
 	private Player[][] playerArr = new Player[17][28];
@@ -15,7 +14,6 @@ public class Pitch {
 	private Dugout awayDogout;
 	private Team homeTeam;
 	private Team awayTeam;
-	private InputManager inputManager;
 	private ArrayList<Player> dungeon;
 	
 	public Pitch(Team home, Team away){
@@ -268,10 +266,6 @@ public class Pitch {
 		if (getDogout(team) == getHomeDogout())
 			return true;
 		return false;
-	}
-	
-	public InputManager getInputManager() {
-		return inputManager;
 	}
 
 	public Player[][] getPlayerArr() {
@@ -909,8 +903,6 @@ public class Pitch {
 				+ ((homeDogout == null) ? 0 : homeDogout.hashCode());
 		result = prime * result
 				+ ((homeTeam == null) ? 0 : homeTeam.hashCode());
-		result = prime * result
-				+ ((inputManager == null) ? 0 : inputManager.hashCode());
 		result = prime * result + Arrays.hashCode(playerArr);
 		return result;
 	}
@@ -954,10 +946,6 @@ public class Pitch {
 				return false;
 		} else if (!homeTeam.equals(other.homeTeam))
 			return false;
-		if (inputManager == null) {
-			if (other.inputManager != null)
-				return false;
-		}
 		if (!Arrays.deepEquals(playerArr, other.playerArr))
 			return false;
 		return true;

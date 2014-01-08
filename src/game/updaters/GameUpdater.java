@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import sound.Sound;
 import ai.actions.Action;
+import ai.actions.DoublePlayerAction;
+import ai.actions.PlayerAction;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import models.GameStage;
@@ -15,12 +17,41 @@ import models.Standing;
 import models.Team;
 import models.Weather;
 import models.actions.Dodge;
+import models.actions.Push;
 import models.dice.D6;
 import models.dice.DiceRoll;
 
 public abstract class GameUpdater {
 
 	public abstract void update(GameState state, Action action, RuleBook rulebook);
+	
+	protected Player extractPlayer(GameState state, Action action, int num){
+		
+		if (action instanceof PlayerAction && num == 0){
+			return identifyPlayer(state, ((PlayerAction) action).getPlayer());
+		} else if (action instanceof DoublePlayerAction && num == 1){
+			return identifyPlayer(state, ((DoublePlayerAction) action).getPlayerB());
+		}
+		
+		return null;
+		
+	}
+	
+	private Player identifyPlayer(GameState state, Player player) {
+		
+		String teamId = player.getTeamId();
+		Team team = null;
+		
+		if (teamId.equals(state.getHomeTeam().getId()))
+			team = state.getHomeTeam();
+		else if (teamId.equals(state.getAwayTeam().getId()))
+			team = state.getAwayTeam();
+		
+		if (team == null)
+			return null;
+		
+		return team.getPlayer(player.getNumber());
+	}
 	
 	protected void movePlayer(GameState state, Player player, Square square, boolean falling) {
 
@@ -78,6 +109,107 @@ public abstract class GameUpdater {
 			PickupUpdater.getInstance().update(state, null, null);
 		}
 		
+	}
+	
+	protected boolean isPlayerTurn(GameState state, Player player) {
+		
+		boolean playerTurn = false;
+		
+		if (state.getGameStage() == GameStage.HOME_TURN && 
+				state.getHomeTeam() == state.owner(player)){
+			
+			playerTurn = true;
+			
+		} else if (state.getGameStage() == GameStage.AWAY_TURN && 
+				state.getAwayTeam() == state.owner(player)){
+			
+			playerTurn = true;
+			
+		} else if (state.getGameStage() == GameStage.BLITZ && 
+				state.getKickingTeam() == state.owner(player)){
+			
+			playerTurn = true;
+			
+		} else if (state.getGameStage() == GameStage.QUICK_SNAP && 
+				state.getReceivingTeam() == state.owner(player)){
+			
+			playerTurn = true;
+			
+		} else if (state.getGameStage() == GameStage.PERFECT_DEFENSE &&
+				state.getKickingTeam() == state.owner(player)){
+					
+			//playerTurn = true;
+			
+		}
+		
+		return playerTurn;
+	}
+	
+	protected ArrayList<Square> eliminatedPushSquares(GameState state, Push push) {
+		
+		ArrayList<Square> squaresOOB = new ArrayList<Square>();
+		ArrayList<Square> squaresWithPlayers = new ArrayList<Square>();
+		ArrayList<Square> squaresWithoutPlayers = new ArrayList<Square>();
+		for (Square sq : push.getPushSquares()){
+			if (state.getPitch().isOnPitch(sq)){
+				if (state.getPitch().getPlayerAt(sq) == null){
+					squaresWithoutPlayers.add(sq);
+				} else {
+					squaresWithPlayers.add(sq);
+				}
+			} else {
+				squaresOOB.add(sq);
+			}
+		}
+		
+		if (squaresWithoutPlayers.size() == 3){
+			return squaresWithoutPlayers;
+		} else if (squaresWithoutPlayers.size() == 0){
+			if (squaresOOB.size() > 0){
+				return squaresOOB;
+			}
+			return squaresWithPlayers;
+		}
+		
+		return squaresWithoutPlayers;
+	}
+	
+	protected boolean playerMovementLeft(GameState state, Player player) {
+
+		boolean movementLeft = false;
+		
+		if (player.getPlayerStatus().getStanding() == Standing.UP){
+			
+			// Quick snap
+			if (state.getGameStage() == GameStage.QUICK_SNAP){
+				
+				if (player.getPlayerStatus().getMovementUsed() == 0){
+					
+					return true;
+					
+				} 
+				
+				return false;
+				
+			} 
+
+			// Normal turn
+			if (player.getPlayerStatus().getMovementUsed() < player.getMA()){
+				
+				// Normal move
+				movementLeft = true;
+				
+			}
+			
+		} else if (player.getPlayerStatus().getStanding() == Standing.DOWN && 
+				player.getPlayerStatus().getMovementUsed() + 3 < player.getMA()){
+
+			// Stand up and move
+			movementLeft = true;
+				
+		}
+		
+		return movementLeft;
 	}
 	
 	protected void dodgeToMovePlayer(GameState state, Player player, Square square) {
@@ -186,7 +318,7 @@ public abstract class GameUpdater {
 		}
 		
 	}
-
+	
 	protected void touchdown(GameState state, Team team) {
 		
 		// Add score
@@ -289,7 +421,7 @@ public abstract class GameUpdater {
 			p.getPlayerStatus().setStanding(Standing.UP);
 		
 	}
-
+	
 	protected void fixStunnedPlayers(Team team) {
 		
 		for(Player p : team.getPlayers()){

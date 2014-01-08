@@ -79,7 +79,7 @@ public class KickScatterUpdater extends GameUpdater {
 		if (player != null){
 			
 			if (player.getPlayerStatus().getStanding() == Standing.UP)
-				catchBall();
+				CatchUpdater.getInstance().update(state, action, rulebook);
 			else
 				ScatterBallUpdater.getInstance().update(state, action, rulebook);
 			

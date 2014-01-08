@@ -86,6 +86,9 @@ public class CatchUpdater extends GameUpdater {
 			
 			state.getPitch().getBall().setUnderControl(true);
 			
+			state.setCurrentPass(null);
+			state.setCurrentHandOff(null);
+			
 			// Touchdown
 			if (state.getPitch().isBallInEndzone(state.oppositeTeam(state.owner(player))))
 				touchdown(state, state.owner(player));
@@ -110,6 +113,9 @@ public class CatchUpdater extends GameUpdater {
 					if (state.getPitch().isBallInEndzone(state.oppositeTeam(state.owner(player))))
 						touchdown(state, state.owner(player));
 					
+					state.setCurrentPass(null);
+					state.setCurrentHandOff(null);
+					
 					return;
 					
 				}
@@ -126,14 +132,15 @@ public class CatchUpdater extends GameUpdater {
 			boolean endTurn = false;
 			if (state.getCurrentPass() != null || state.getCurrentHandOff() != null){
 				endTurn = true;
-				state.setCurrentPass(null);
-				state.setCurrentHandOff(null);
 			}
 			
 			ScatterBallUpdater.getInstance().update(state, action, rulebook);
 			
 			if (endTurn)
 				EndTurnUpdater.getInstance().update(state, action, rulebook);
+			
+			state.setCurrentPass(null);
+			state.setCurrentHandOff(null);
 			
 		}
 	}

@@ -15,16 +15,15 @@ import models.Team;
 import models.TeamFactory;
 
 import game.GameMaster;
+import game.rulebooks.LVRB6;
 import sound.FakeSoundManager;
 import sound.SoundManager;
 import test.DiceTester;
-import view.InputManager;
-import view.Renderer;
 
 public class Main {
 
-	private static InputManager inputManager;
-	private static Renderer renderer;
+	//private static InputManager inputManager;
+	//private static Renderer renderer;
 	private static GameMaster gameMaster;
 	
 	/**
@@ -63,12 +62,8 @@ public class Main {
 	public static void initialize(Team home, Team away, AIAgent homeAgent, AIAgent awayAgent, boolean fast, boolean restart){
 
 		Pitch pitch = new Pitch(home, away);
-		gameMaster = new GameMaster(new GameState(home, away, pitch), homeAgent, awayAgent, fast, restart);
-		gameMaster.enableLogging();
-		gameMaster.setSoundManager(new SoundManager());
-		//gameMaster.setSoundManager(new FakeSoundManager());
-		inputManager = new InputManager(gameMaster);
-		renderer = new Renderer(600, gameMaster, inputManager);
+		gameMaster = new GameMaster(new GameState(home, away, pitch), new LVRB6(), homeAgent, awayAgent);
+		//renderer = new Renderer(60, gameMaster, inputManager);
 	}
 	
 	public static void startGame(){
@@ -83,11 +78,11 @@ public class Main {
 
 		while(true){
 			
-			//startTime = new Date().getTime();
-			if (renderer != null){
-				renderer.renderFrame();
-				renderer.paintComponent(renderer.getGraphics());
-			}
+//			//startTime = new Date().getTime();
+//			if (renderer != null){
+//				renderer.renderFrame();
+//				renderer.paintComponent(renderer.getGraphics());
+//			}
 			
 			gameMaster.update();
 			

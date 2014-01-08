@@ -2,10 +2,13 @@ package game.updaters;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
+
 import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -39,11 +42,15 @@ public class BlockUpdater extends GameUpdater {
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 		
-		if (state.getCurrentBlock() == null)
-			return;
-		
-		Player attacker = state.getCurrentBlock().getAttacker();
-		Player defender = state.getCurrentBlock().getDefender();
+		Player attacker = null;
+		Player defender = null;
+		if (state.getCurrentBlock() == null){
+			attacker = extractPlayer(state, action, 0);
+			defender = extractPlayer(state, action, 1);
+		} else {
+			attacker = state.getCurrentBlock().getAttacker();
+			defender = state.getCurrentBlock().getDefender();
+		}
 		
 		if (!allowedToBlock(state, attacker))
 			return;
@@ -228,36 +235,7 @@ public class BlockUpdater extends GameUpdater {
 		EndTurnUpdater.getInstance().update(state, null, null);
 		
 	}
-
-	private ArrayList<Square> eliminatedPushSquares(GameState state, Push push) {
-		
-		ArrayList<Square> squaresOOB = new ArrayList<Square>();
-		ArrayList<Square> squaresWithPlayers = new ArrayList<Square>();
-		ArrayList<Square> squaresWithoutPlayers = new ArrayList<Square>();
-		for (Square sq : push.getPushSquares()){
-			if (state.getPitch().isOnPitch(sq)){
-				if (state.getPitch().getPlayerAt(sq) == null){
-					squaresWithoutPlayers.add(sq);
-				} else {
-					squaresWithPlayers.add(sq);
-				}
-			} else {
-				squaresOOB.add(sq);
-			}
-		}
-		
-		if (squaresWithoutPlayers.size() == 3){
-			return squaresWithoutPlayers;
-		} else if (squaresWithoutPlayers.size() == 0){
-			if (squaresOOB.size() > 0){
-				return squaresOOB;
-			}
-			return squaresWithPlayers;
-		}
-		
-		return squaresWithoutPlayers;
-	}
-
+	
 	private boolean allowedToBlock(GameState state, Player player) {
 		
 		boolean allowed = false;

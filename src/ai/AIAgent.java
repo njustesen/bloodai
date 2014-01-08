@@ -145,7 +145,7 @@ public abstract class AIAgent {
 		Square sq = state.getPitch().getBall().getSquare();
 		Player ballCarrier = state.getPitch().getPlayerAt(sq);
 		
-		if(ballCarrier != null && ballCarrier.getTeamName() == p.getTeamName()){
+		if(ballCarrier != null && ballCarrier.getTeamId() == p.getTeamId()){
 			for(int i = -1; i <= 1; i += 2){
 				for(int j = -1; j <= 1; j += 2){
 					if(state.getPitch().getPlayerAt(new Square(sq.getX()+i,sq.getY()+j)) == null){
@@ -197,7 +197,7 @@ public abstract class AIAgent {
 		
 		int best = 10000;
 		
-		if(state.getAwayTeam().getTeamName() == player.getTeamName()){
+		if(state.getAwayTeam().getId() == player.getTeamId()){
 			theList = state.getHomeTeam().getPlayers();
 		}else{
 			theList = state.getAwayTeam().getPlayers();
@@ -225,49 +225,49 @@ public abstract class AIAgent {
 	//	Square playerPos = player.getPosition();
 		int x = pos.getX();
 		int y = pos.getY();
-		String myTeam = myTeam(state).getTeamName();
+		String myTeam = myTeam(state).getId();
 		int count = 0;
 		
 		for(int i = 0; i < 8; i++){
 			switch(i){
 				case 0: Square up = new Square(x, y-1);
 					if(state.getPitch().getPlayerAt(up) != null)
-						if(state.getPitch().getPlayerAt(up).getTeamName() != myTeam) 
+						if(state.getPitch().getPlayerAt(up).getTeamId() != myTeam) 
 							if(state.getPitch().getPlayerAt(up).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 1: Square upRight = new Square(x+1, y-1); 
 					if(state.getPitch().getPlayerAt(upRight) != null)
-						if(state.getPitch().getPlayerAt(upRight).getTeamName() != myTeam)
+						if(state.getPitch().getPlayerAt(upRight).getTeamId() != myTeam)
 							if(state.getPitch().getPlayerAt(upRight).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 2: Square right = new Square(x+1, y);
 					if(state.getPitch().getPlayerAt(right) != null)
-						if(state.getPitch().getPlayerAt(right).getTeamName() != myTeam) 
+						if(state.getPitch().getPlayerAt(right).getTeamId() != myTeam) 
 							if(state.getPitch().getPlayerAt(right).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 3: Square downRight = new Square(x+1, y+1); 
 					if(state.getPitch().getPlayerAt(downRight) != null)
-						if(state.getPitch().getPlayerAt(downRight).getTeamName() != myTeam)
+						if(state.getPitch().getPlayerAt(downRight).getTeamId() != myTeam)
 							if(state.getPitch().getPlayerAt(downRight).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 4: Square down = new Square(x, y+1);
 					if(state.getPitch().getPlayerAt(down) != null)
-						if(state.getPitch().getPlayerAt(down).getTeamName() != myTeam) 
+						if(state.getPitch().getPlayerAt(down).getTeamId() != myTeam) 
 							if(state.getPitch().getPlayerAt(down).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 5: Square downLeft = new Square(x-1, y+1); 
 					if(state.getPitch().getPlayerAt(downLeft) != null)
-						if(state.getPitch().getPlayerAt(downLeft).getTeamName() != myTeam)
+						if(state.getPitch().getPlayerAt(downLeft).getTeamId() != myTeam)
 							if(state.getPitch().getPlayerAt(downLeft).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 6: Square left = new Square(x-1, y);
 					if(state.getPitch().getPlayerAt(left) != null)
-						if(state.getPitch().getPlayerAt(left).getTeamName() != myTeam)
+						if(state.getPitch().getPlayerAt(left).getTeamId() != myTeam)
 							if(state.getPitch().getPlayerAt(left).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				case 7: Square upLeft = new Square(x-1, y-1);
 					if(state.getPitch().getPlayerAt(upLeft) != null)
-						if(state.getPitch().getPlayerAt(upLeft).getTeamName() != myTeam)
+						if(state.getPitch().getPlayerAt(upLeft).getTeamId() != myTeam)
 							if(state.getPitch().getPlayerAt(upLeft).getPlayerStatus().getStanding() == Standing.UP)
 								count++; break;
 				default: break;

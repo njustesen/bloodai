@@ -324,6 +324,33 @@ public class GameState {
 		
 	}
 	
+	public void removePlayerFromReserves(Player player) {
+		pitch.getDogout(owner(player)).getReserves().remove(player);
+	}
+	
+	public void movePlayerToReserves(Player player, boolean home) {
+		
+		if (owner(player) == homeTeam && home){
+			
+			removePlayerFromCurrentSquare(player);
+			
+			removePlayerFromReserves(player);
+			
+			pitch.getHomeDogout().getReserves().add(player);
+			
+			
+		} else if (owner(player) == awayTeam && !home){
+			
+			removePlayerFromCurrentSquare(player);
+			
+			removePlayerFromReserves(player);
+			
+			pitch.getAwayDogout().getReserves().add(player);
+			
+		}
+		
+	}
+	
 	public boolean onDifferentTeams(Player a, Player b) {
 		if (owner(a) != owner(b))
 			return true;

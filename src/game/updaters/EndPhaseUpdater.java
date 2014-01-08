@@ -28,16 +28,15 @@ public class EndPhaseUpdater extends GameUpdater {
 			return;
 		
 		switch(state.getGameStage()){
-			case KICKING_SETUP : endSetup(); break;
-			case RECEIVING_SETUP : endSetup(); break;
-			case HOME_TURN : endTurn(); break;
-			case AWAY_TURN : endTurn(); break;
-			case KICK_PLACEMENT : kickBall(); break;
-			case BLITZ : endTurn(); break;
-			case QUICK_SNAP : endTurn(); break;
-			case HIGH_KICK : endTurn(); break;
-			case PERFECT_DEFENSE : endTurn(); break;
-			case PLACE_BALL_ON_PLAYER : endTurn(); break;
+			case KICKING_SETUP : EndSetupUpdater.getInstance().update(state, action, rulebook); break;
+			case RECEIVING_SETUP : EndSetupUpdater.getInstance().update(state, action, rulebook); break;
+			case HOME_TURN : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case AWAY_TURN : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case BLITZ : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case QUICK_SNAP : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case HIGH_KICK : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case PERFECT_DEFENSE :EndTurnUpdater.getInstance().update(state, action, rulebook); break;
+			case PLACE_BALL_ON_PLAYER : EndTurnUpdater.getInstance().update(state, action, rulebook); break;
 			default:
 			return;
 		}
