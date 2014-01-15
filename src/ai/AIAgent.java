@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import Statistics.StatisticManager;
 import ai.actions.Action;
 import game.GameMaster;
 import models.Ball;
@@ -30,8 +29,6 @@ public abstract class AIAgent {
 	}
 
 	public Action takeAction(GameMaster master, GameState state) {
-		
-		StatisticManager.actions++;
 		
 		if (state.getGameStage() == GameStage.HOME_TURN || 
 				state.getGameStage() == GameStage.AWAY_TURN){
