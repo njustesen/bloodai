@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sound.Sound;
 import ai.actions.Action;
 import ai.actions.DoublePlayerAction;
+import ai.actions.IllegalActionException;
 import ai.actions.PlayerAction;
 import game.GameLog;
 import game.rulebooks.RuleBook;
@@ -23,7 +24,7 @@ import models.dice.DiceRoll;
 
 public abstract class GameUpdater {
 
-	public abstract void update(GameState state, Action action, RuleBook rulebook);
+	public abstract void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException;
 	
 	protected Player extractPlayer(GameState state, Action action, int num){
 		
@@ -53,7 +54,7 @@ public abstract class GameUpdater {
 		return team.getPlayer(player.getNumber());
 	}
 	
-	protected void movePlayer(GameState state, Player player, Square square, boolean falling) {
+	protected void movePlayer(GameState state, Player player, Square square, boolean falling) throws IllegalActionException {
 
 		// Use movement
 		if (player.getPlayerStatus().getStanding() == Standing.DOWN){
@@ -228,7 +229,7 @@ public abstract class GameUpdater {
 		return Math.max( 2, Math.min(6, roll) );
 	}
 
-	protected void knockDown(GameState state, Player player, boolean armourRoll) {
+	protected void knockDown(GameState state, Player player, boolean armourRoll) throws IllegalActionException {
 		
 		player.getPlayerStatus().setTurn(PlayerTurn.USED);
 		

@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -39,18 +40,17 @@ public class CatchUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Square square = state.getPitch().getBall().getSquare();
 		
 		if (square == null)
-			return;
+			throw new IllegalActionException("No square assigned!");
 		
 		Player player = state.getPitch().getPlayerAt(square);
 		
-		if (player == null || square == null){	
-			return;
-		}
+		if (player == null)	
+			throw new IllegalActionException("No player assigned!");;
 		
 		int zones = state.numberOfTackleZones(player);
 		int success = 6 - player.getAG() + zones + 1;

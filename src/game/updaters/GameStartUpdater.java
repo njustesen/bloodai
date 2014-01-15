@@ -6,6 +6,7 @@ import game.rulebooks.RuleBook;
 import java.util.Date;
 
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 
 import sound.Sound;
 
@@ -25,7 +26,7 @@ public class GameStartUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		// Legal action?
 		if (state.getGameStage() == GameStage.START_UP){
@@ -43,6 +44,8 @@ public class GameStartUpdater extends GameUpdater {
 			state.getPitch().getHomeDogout().putPlayersInReserves();
 			state.getPitch().getAwayDogout().putPlayersInReserves();
 			
+		} else {
+			throw new IllegalActionException("Game has already started!");
 		}
 		
 	}

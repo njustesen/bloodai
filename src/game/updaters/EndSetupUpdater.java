@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -24,7 +25,7 @@ public class EndSetupUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getGameStage() == GameStage.KICKING_SETUP){
 			
@@ -40,6 +41,8 @@ public class EndSetupUpdater extends GameUpdater {
 			// Kicking team	
 			if (state.getPitch().isSetupLegal(state.getKickingTeam(), state.getHalf()))
 				state.setGameStage(GameStage.RECEIVING_SETUP);
+			else
+				throw new IllegalActionException("Illegal setup!");
 			
 		} else if (state.getGameStage() == GameStage.RECEIVING_SETUP){
 			
@@ -56,8 +59,12 @@ public class EndSetupUpdater extends GameUpdater {
 			// Receiving team	
 			if (state.getPitch().isSetupLegal(state.getReceivingTeam(), state.getHalf()))
 				state.setGameStage(GameStage.KICK_PLACEMENT);
-			
+			else
+				throw new IllegalActionException("Illegal setup!");
+		} else {
+			throw new IllegalActionException("Illegal game stage!");
 		}
+			
 	}
 	
 }

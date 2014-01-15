@@ -1,5 +1,7 @@
 package game;
 
+import java.util.HashMap;
+
 import game.rulebooks.RuleBook;
 import game.updaters.BlockUpdater;
 import game.updaters.CoinTossUpdater;
@@ -9,6 +11,7 @@ import game.updaters.EndSetupUpdater;
 import game.updaters.FollowUpUpdater;
 import game.updaters.FoulUpdater;
 import game.updaters.GameStartUpdater;
+import game.updaters.GameUpdater;
 import game.updaters.HandOffUpdater;
 import game.updaters.InterceptionUpdater;
 import game.updaters.KickBallUpdater;
@@ -32,6 +35,7 @@ import ai.actions.EndSetupAction;
 import ai.actions.FollowUpAction;
 import ai.actions.FoulPlayerAction;
 import ai.actions.HandOffPlayerAction;
+import ai.actions.IllegalActionException;
 import ai.actions.KickBallAction;
 import ai.actions.SelectInterceptionAction;
 import ai.actions.MovePlayerAction;
@@ -86,14 +90,17 @@ public class GameMaster {
 		
 		// Begin game if not started
 		if (state.getGameStage() == GameStage.START_UP){
-			GameStartUpdater.getInstance().update(state, null, rulebook);
+			try {
+				GameStartUpdater.getInstance().update(state, null, rulebook);
+			} catch (IllegalActionException e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 		
 		// If game is ended
-		if (state.getGameStage() == GameStage.GAME_ENDED){
+		if (state.getGameStage() == GameStage.GAME_ENDED)
 			return;
-		}
 
 		boolean home = isHomeTurn(state);
 		
@@ -108,8 +115,15 @@ public class GameMaster {
 		else
 			awaitUI = true;
 		
-		if (action != null)
-			performAction(action);
+		if (action != null){
+			
+			try {
+				performAction(action);
+			} catch (IllegalActionException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 	}
 	
@@ -198,7 +212,7 @@ public class GameMaster {
 		return home;
 	}
 
-	public void performAction(Action action) {
+	public void performAction(Action action) throws IllegalActionException {
 
 		if (action == null)
 			return;

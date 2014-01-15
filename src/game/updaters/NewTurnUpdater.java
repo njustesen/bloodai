@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Square;
@@ -21,7 +22,7 @@ public class NewTurnUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
 		if (state.getGameStage() == GameStage.KICK_OFF || 
 				state.getGameStage() == GameStage.BLITZ || 
@@ -73,6 +74,8 @@ public class NewTurnUpdater extends GameUpdater {
 			
 			state.setRerollAllowed(true);
 				
+		} else {
+			throw new IllegalActionException("Illegal game stage!");
 		}
 	}
 }

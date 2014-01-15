@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.BlockSum;
 import models.GameStage;
 import models.GameState;
@@ -36,7 +37,7 @@ public class SelectDieUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getCurrentDiceRoll() != null){
 			

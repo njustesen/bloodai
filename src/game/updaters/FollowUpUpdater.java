@@ -9,6 +9,7 @@ import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
 import ai.actions.FollowUpAction;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
@@ -41,7 +42,7 @@ public class FollowUpUpdater extends PushUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		boolean follow = ((FollowUpAction) action).isFollowUp();
 		
@@ -71,7 +72,7 @@ public class FollowUpUpdater extends PushUpdater {
 		
 	}
 
-	private void endPushingBlock(GameState state){
+	private void endPushingBlock(GameState state) throws IllegalActionException{
 		
 		if (state.getCurrentBlock().getResult() == DiceFace.DEFENDER_KNOCKED_DOWN){
 			
@@ -100,7 +101,7 @@ public class FollowUpUpdater extends PushUpdater {
 		
 	}
 
-	private void pushToSquare(GameState state, Square from, Square to) {
+	private void pushToSquare(GameState state, Square from, Square to) throws IllegalActionException {
 		
 		if (state.getCurrentBlock().getCurrentPush().isAmongSquares(to)){
 			

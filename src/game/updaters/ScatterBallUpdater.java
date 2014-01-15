@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sound.Sound;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -25,13 +26,13 @@ public class ScatterBallUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		int result = (int) (Math.random() * 8 + 1);
 		Square ballOn = state.getPitch().getBall().getSquare();
 		
 		if (ballOn == null)
-			return;
+			throw new IllegalActionException("Ball is out of bounds!");
 			
 		switch (result){
 		case 1 : ballOn = new Square(ballOn.getX() - 1, ballOn.getY() - 1); break;

@@ -1,4 +1,4 @@
-package game.updaters.kickoffevents;
+package game.updaters.kickoff;
 
 import sound.Sound;
 import game.GameLog;
@@ -17,20 +17,20 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class PerfectDefenseUpdater extends GameUpdater {
+public class BlitzUpdater extends GameUpdater {
 	
-	private static PerfectDefenseUpdater instance;
+	private static BlitzUpdater instance;
 	
-	public static PerfectDefenseUpdater getInstance(){
+	public static BlitzUpdater getInstance(){
 		if (instance == null)
-			instance = new PerfectDefenseUpdater();
+			instance = new BlitzUpdater();
 		return instance;
 	}
 
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 	
-		state.setGameStage(GameStage.PERFECT_DEFENSE);
+		state.setGameStage(GameStage.BLITZ);
 		
 	}
 }

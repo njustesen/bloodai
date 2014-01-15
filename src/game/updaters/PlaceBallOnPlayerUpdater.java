@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -39,7 +40,7 @@ public class PlaceBallOnPlayerUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		// TODO: gamestage and correct team?
 		Player player = extractPlayer(state, action, 0);

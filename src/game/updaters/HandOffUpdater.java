@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -42,7 +43,7 @@ public class HandOffUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player passer = null;
 		Player catcher = null;
@@ -56,16 +57,16 @@ public class HandOffUpdater extends GameUpdater {
 		}
 	
 		if (passer.getPlayerStatus().getTurn() != PlayerTurn.HAND_OFF_ACTION)
-			return;
+			throw new IllegalActionException("Passer not handing off!");
 			
 		if (state.onDifferentTeams(passer, catcher))
-			return;
+			throw new IllegalActionException("Passer and catcher are not on same team!");
 		
 		if (!state.isBallCarried(passer))
-			return;
+			throw new IllegalActionException("The passer does not control the ball!");
 		
 		if (!state.nextToEachOther(passer, catcher))
-			return;
+			throw new IllegalActionException("Passer is not next to catcher!");
 		
 		state.owner(passer).getTeamStatus().setHasHandedOf(true);
 		

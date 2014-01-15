@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -26,12 +27,12 @@ public class ThrowInUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
 		Square ballOn = state.getPitch().getBall().getSquare();
 		
 		if (ballOn == null)
-			return;
+			throw new IllegalActionException("Ball is out of bounds!");
 			
 		int x = 0;
 		int y = 0;

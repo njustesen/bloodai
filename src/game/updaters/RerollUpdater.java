@@ -3,6 +3,7 @@ package game.updaters;
 import sound.Sound;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Team;
@@ -19,7 +20,7 @@ public class RerollUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Team movingTeam = state.getMovingTeam();
 		
@@ -27,7 +28,7 @@ public class RerollUpdater extends GameUpdater {
 		if (!state.isAwaitingReroll() || 
 				state.getCurrentDiceRoll() == null || 
 				!state.isAbleToReroll(movingTeam))
-			return;
+			throw new IllegalActionException("Reroll not allowed!");
 		
 		movingTeam.useReroll();
 		state.setAwaitReroll(false);

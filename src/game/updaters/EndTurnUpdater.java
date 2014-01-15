@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Square;
@@ -21,12 +22,11 @@ public class EndTurnUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
-		if (state.isAwaitingFollowUp() || state.isAwaitingPush() || state.isAwaitingReroll()){
+		if (state.isAwaitingFollowUp() || state.isAwaitingPush() || state.isAwaitingReroll())
 			if (state.getGameStage() != GameStage.PLACE_BALL_ON_PLAYER)
-				return;
-		}
+				throw new IllegalActionException("Game is awaitin a follow up, push or reroll decision!");
 		
 		// Clear state for activity
 		state.setCurrentBlock(null);

@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -41,7 +42,7 @@ public class PassUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player passer = null;
 		Player catcher = null;
@@ -55,16 +56,16 @@ public class PassUpdater extends GameUpdater {
 		}
 	
 		if (passer.getPlayerStatus().getTurn() != PlayerTurn.PASS_ACTION)
-			return;
+			throw new IllegalActionException("Passer is not passing!");
 			
 		if (state.onDifferentTeams(passer, catcher))
-			return;
+			throw new IllegalActionException("Passer and catcher not on same team!");
 		
 		if (!state.isBallCarried(passer))
-			return;
+			throw new IllegalActionException("Passer does not control the ball!");
 		
 		if (passingRange(state, passer, catcher) == PassRange.OUT_OF_RANGE)
-			return;
+			throw new IllegalActionException("Catcher is out of range!");
 		
 		state.owner(passer).getTeamStatus().setHasPassed(true);
 		int success = getPassSuccessRoll(state, passer, passingRange(state, passer, catcher));
@@ -99,7 +100,7 @@ public class PassUpdater extends GameUpdater {
 		
 	}
 	
-	private void continuePass(GameState state, int result, boolean execute) {
+	private void continuePass(GameState state, int result, boolean execute) throws IllegalActionException {
 		
 		state.setAwaitReroll(false);
 		
@@ -175,12 +176,12 @@ public class PassUpdater extends GameUpdater {
 		
 	}
 	
-	private void scatterPass(GameState state) {
+	private void scatterPass(GameState state) throws IllegalActionException {
 		
 		int scatters = 3;
 		Square ballOn = state.getPitch().getBall().getSquare();
 		if (ballOn == null)
-			return;
+			throw new IllegalActionException("Ball is out of bounds!");
 		
 		while(scatters > 0){
 			int result = (int) (Math.random() * 8 + 1);

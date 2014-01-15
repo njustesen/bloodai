@@ -8,6 +8,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
@@ -40,7 +41,7 @@ public class BlockUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player attacker = null;
 		Player defender = null;
@@ -53,13 +54,13 @@ public class BlockUpdater extends GameUpdater {
 		}
 		
 		if (!allowedToBlock(state, attacker))
-			return;
+			throw new IllegalActionException("Attacker not allowed to block!");
 			
 		if (!state.onDifferentTeams(attacker, defender))
-			return;
+			throw new IllegalActionException("Attacker and defender on the same team!");
 		
 		if (!state.nextToEachOther(attacker, defender))
-			return;
+			throw new IllegalActionException("Attacker not standing next to defender!");
 				
 		if (attacker.getPlayerStatus().getTurn() == PlayerTurn.UNUSED)
 			attacker.getPlayerStatus().setTurn(PlayerTurn.BLOCK_ACTION);
@@ -162,7 +163,7 @@ public class BlockUpdater extends GameUpdater {
 		
 	}
 	
-	private void continueBlock(GameState state, DiceFace face) {
+	private void continueBlock(GameState state, DiceFace face) throws IllegalActionException {
 
 		state.setAwaitReroll(false);
 		
@@ -191,7 +192,7 @@ public class BlockUpdater extends GameUpdater {
 		
 	}
 
-	private void bothDown(GameState state, Block block) {
+	private void bothDown(GameState state, Block block) throws IllegalActionException {
 		
 		if (!block.getDefender().getSkills().contains(Skill.BLOCK)){
 			knockDown(state, block.getDefender(), true);
@@ -226,7 +227,7 @@ public class BlockUpdater extends GameUpdater {
 		
 	}
 	
-	private void attackerDown(GameState state, Block block) {
+	private void attackerDown(GameState state, Block block) throws IllegalActionException {
 		
 		state.setCurrentBlock(null);
 		

@@ -3,18 +3,19 @@ package game.updaters;
 import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
-import game.updaters.kickoffevents.BlitzUpdater;
-import game.updaters.kickoffevents.BrilliantCoachingUpdater;
-import game.updaters.kickoffevents.ChangingWeatherUpdater;
-import game.updaters.kickoffevents.CheeringFansUpdater;
-import game.updaters.kickoffevents.GetTheRefUpdater;
-import game.updaters.kickoffevents.HighKickUpdater;
-import game.updaters.kickoffevents.PerfectDefenseUpdater;
-import game.updaters.kickoffevents.PitchInvasionUpdater;
-import game.updaters.kickoffevents.QuickSnapUpdater;
-import game.updaters.kickoffevents.RiotUpdater;
-import game.updaters.kickoffevents.ThrowARockUpdater;
+import game.updaters.kickoff.BlitzUpdater;
+import game.updaters.kickoff.BrilliantCoachingUpdater;
+import game.updaters.kickoff.ChangingWeatherUpdater;
+import game.updaters.kickoff.CheeringFansUpdater;
+import game.updaters.kickoff.GetTheRefUpdater;
+import game.updaters.kickoff.HighKickUpdater;
+import game.updaters.kickoff.PerfectDefenseUpdater;
+import game.updaters.kickoff.PitchInvasionUpdater;
+import game.updaters.kickoff.QuickSnapUpdater;
+import game.updaters.kickoff.RiotUpdater;
+import game.updaters.kickoff.ThrowARockUpdater;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Square;
@@ -33,7 +34,7 @@ public class KickOffUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
 		D6 da = new D6();
 		D6 db = new D6();
@@ -60,6 +61,7 @@ public class KickOffUpdater extends GameUpdater {
 			case 10: BlitzUpdater.getInstance().update(state, action, rulebook); break;
 			case 11: ThrowARockUpdater.getInstance().update(state, action, rulebook); break;
 			case 12: PitchInvasionUpdater.getInstance().update(state, action, rulebook); break;
+			default: throw new IllegalActionException("Magic dice?!");
 		}
 		
 	}

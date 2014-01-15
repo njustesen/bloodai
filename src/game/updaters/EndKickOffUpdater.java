@@ -3,6 +3,7 @@ package game.updaters;
 import sound.Sound;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Team;
@@ -19,11 +20,11 @@ public class EndKickOffUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getGameStage() == GameStage.PERFECT_DEFENSE && 
 				!state.getPitch().isSetupLegal(state.getKickingTeam(), state.getHalf()))
-			return;
+			throw new IllegalActionException("Illegal setup!");
 		
 		KickScatterUpdater.getInstance().update(state, action, rulebook);
 		

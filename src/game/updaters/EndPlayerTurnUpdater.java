@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import models.GameStage;
 import models.GameState;
@@ -28,31 +29,31 @@ public class EndPlayerTurnUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if(state.getCurrentBlock() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing block and cannot end players turn!");
 		
 		if(state.getCurrentPass() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing pass and cannot end players turn!");
 		
 		if(state.getCurrentDodge() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing dodge and cannot end players turn!");
 		
 		if(state.getCurrentPickUp() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing pickup and cannot end players turn!");
 		
 		if(state.getCurrentCatch() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing catch and cannot end players turn!");
 		
 		if(state.getCurrentFoul() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing foul and cannot end players turn!");
 		
 		if(state.getCurrentGoingForIt() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing going for it and cannot end players turn!");
 		
 		if(state.getCurrentHandOff() != null)
-			return;
+			throw new IllegalActionException("Game has an ongoing hand off and cannot end players turn!");
 		
 		Player player = extractPlayer(state, action, 0);
 		player.getPlayerStatus().setTurn(PlayerTurn.USED);

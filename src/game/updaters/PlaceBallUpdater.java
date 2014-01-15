@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.PlaceBallAction;
 import ai.actions.SelectCoinSideAction;
@@ -31,7 +32,7 @@ public class PlaceBallUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Square square = ((PlaceBallAction)action).getSquare();
 		state.getPitch().getBall().setSquare(square);

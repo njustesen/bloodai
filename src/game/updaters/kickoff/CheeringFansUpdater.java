@@ -1,4 +1,4 @@
-package game.updaters.kickoffevents;
+package game.updaters.kickoff;
 
 import sound.Sound;
 import game.GameLog;
@@ -18,13 +18,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class BrilliantCoachingUpdater extends GameUpdater {
+public class CheeringFansUpdater extends GameUpdater {
 	
-	private static BrilliantCoachingUpdater instance;
+	private static CheeringFansUpdater instance;
 	
-	public static BrilliantCoachingUpdater getInstance(){
+	public static CheeringFansUpdater getInstance(){
 		if (instance == null)
-			instance = new BrilliantCoachingUpdater();
+			instance = new CheeringFansUpdater();
 		return instance;
 	}
 
@@ -39,11 +39,11 @@ public class BrilliantCoachingUpdater extends GameUpdater {
 		
 		int homeResult = home.getResultAsInt() + 
 				state.getHomeTeam().getTeamStatus().getFAME() + 
-				state.getHomeTeam().getAssistantCoaches();
+				state.getHomeTeam().getCheerleaders();
 		
 		int awayResult = away.getResultAsInt() + 
 				state.getAwayTeam().getTeamStatus().getFAME() + 
-				state.getAwayTeam().getAssistantCoaches();
+				state.getAwayTeam().getCheerleaders();
 		
 		if (homeResult >= awayResult){
 			int rr = state.getHomeTeam().getTeamStatus().getRerolls() + 1;

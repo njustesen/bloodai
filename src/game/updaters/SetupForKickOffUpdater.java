@@ -1,6 +1,7 @@
 package game.updaters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sound.Sound;
 import game.rulebooks.RuleBook;
@@ -27,7 +28,7 @@ public class SetupForKickOffUpdater extends GameUpdater {
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 		
-ArrayList<Player> collapsedPlayers = new ArrayList<Player>();
+		List<Player> collapsedPlayers = new ArrayList<Player>();
 		
 		if (state.getWeather() == Weather.SWELTERING_HEAT){
 			
@@ -63,9 +64,8 @@ ArrayList<Player> collapsedPlayers = new ArrayList<Player>();
 		state.getPitch().getBall().setOnGround(false);
 		state.getPitch().getBall().setSquare(null);
 		
-		for (Player p : collapsedPlayers){
+		for (Player p : collapsedPlayers)
 			p.getPlayerStatus().setStanding(Standing.DOWN);
-		}
 		
 		state.setGameStage(GameStage.KICKING_SETUP);
 		

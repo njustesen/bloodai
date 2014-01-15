@@ -8,6 +8,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
@@ -40,22 +41,22 @@ public class FoulUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player fouler = extractPlayer(state, action, 0);
 		Player target = extractPlayer(state, action, 1);
 		
 		if (!state.onDifferentTeams(fouler, target))
-			return;
+			throw new IllegalActionException("Fouler and target are on the same team!");
 		
 		if (!state.nextToEachOther(fouler, target))
-			return;
+			throw new IllegalActionException("Fouler and target are not next each other!");
 		
 		if (target.getPlayerStatus().getStanding() == Standing.UP)
-			return;
+			throw new IllegalActionException("Target are not on the ground!");
 		
 		if (state.owner(fouler).getTeamStatus().hasFouled())
-			return;
+			throw new IllegalActionException("The foulers team has already fouled!");
 		
 		if (fouler.getPlayerStatus().getTurn() == PlayerTurn.UNUSED)
 			fouler.getPlayerStatus().setTurn(PlayerTurn.FOUL_ACTION);

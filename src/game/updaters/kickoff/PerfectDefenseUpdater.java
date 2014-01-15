@@ -1,4 +1,4 @@
-package game.updaters.kickoffevents;
+package game.updaters.kickoff;
 
 import sound.Sound;
 import game.GameLog;
@@ -17,20 +17,20 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class QuickSnapUpdater extends GameUpdater {
+public class PerfectDefenseUpdater extends GameUpdater {
 	
-	private static QuickSnapUpdater instance;
+	private static PerfectDefenseUpdater instance;
 	
-	public static QuickSnapUpdater getInstance(){
+	public static PerfectDefenseUpdater getInstance(){
 		if (instance == null)
-			instance = new QuickSnapUpdater();
+			instance = new PerfectDefenseUpdater();
 		return instance;
 	}
 
 	@Override
 	public void update(GameState state, Action action, RuleBook rulebook) {
 	
-		state.setGameStage(GameStage.QUICK_SNAP);
+		state.setGameStage(GameStage.PERFECT_DEFENSE);
 		
 	}
 }

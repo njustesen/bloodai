@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectCoinSideAction;
 import ai.actions.SelectCoinTossEffectAction;
@@ -29,18 +30,18 @@ public class KickBallUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getGameStage() != GameStage.KICK_PLACEMENT)
 			return;
 		
 		// Ball not placed?
 		if (state.getPitch().getBall().getSquare() == null)
-			return;
+			throw new IllegalActionException("No square assigned!");
 		
 		// Ball corectly placed?
 		if (!state.getPitch().ballCorreclyPlaced(state.getKickingTeam()))
-			return;
+			throw new IllegalActionException("Ball incorrectly placed!");
 		
 		//state.setGameStage(GameStage.KICK_OFF);
 		

@@ -1,4 +1,4 @@
-package game.updaters.kickoffevents;
+package game.updaters.kickoff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import game.updaters.CatchUpdater;
 import game.updaters.GameUpdater;
 import game.updaters.ScatterBallUpdater;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -42,7 +43,7 @@ public class ThrowARockUpdater extends GameUpdater {
 	 * on the pitch are eligible) and roll for the effects of 
 	 * the injury straight away. No Armour roll is required.
 	 */
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
 		D6 home = new D6();
 		D6 away = new D6();
@@ -71,7 +72,7 @@ public class ThrowARockUpdater extends GameUpdater {
 		
 	}
 	
-	private void throwRockAt(GameState state, Team team) {
+	private void throwRockAt(GameState state, Team team) throws IllegalActionException {
 		
 		List<Player> targets = new ArrayList<Player>();
 		

@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
 import models.GameStage;
@@ -39,12 +40,12 @@ public class InterceptionUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player player = extractPlayer(state, action, 0);
 		
 		if (!state.getCurrentPass().getInterceptionPlayers().contains(player))
-			return;
+			throw new IllegalActionException("Selected player is not among the allowed intercepters!");
 		
 		DiceRoll roll = new DiceRoll();
 		D6 d = new D6();

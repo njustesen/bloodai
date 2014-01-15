@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
 import models.GameStage;
 import models.GameState;
@@ -29,14 +30,17 @@ public class PickupUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Square square = state.getPitch().getBall().getSquare();
 		
 		Player player = state.getPitch().getPlayerAt(square);
 		
-		if (player == null || square == null)
-			return;
+		if (player == null)
+			throw new IllegalActionException("Player not assigned!");
+		
+		if ( square == null)
+			throw new IllegalActionException("Square not assigned!");
 		
 		int zones = state.numberOfTackleZones(player);
 		int success = 6 - player.getAG() + zones;

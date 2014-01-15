@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.PlacePlayerAction;
 import ai.actions.SelectDieAction;
@@ -41,18 +42,17 @@ public class MovePlayerUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.isAwaitingReroll())
-			return;
+			throw new IllegalActionException("Game is awaiting a reroll decision!");
 		
 		Player player = extractPlayer(state, action, 0);
 		Square square = ((MovePlayerAction)action).getSquare();
 		boolean moveAllowed = moveAllowed(state, action, rulebook);
 		
-		if (!moveAllowed){
-			return;
-		}
+		if (!moveAllowed)
+			throw new IllegalActionException("Move not allowed!");
 		
 		// Player turn
 		if (player.getPlayerStatus().getTurn() == PlayerTurn.UNUSED){
@@ -73,44 +73,38 @@ public class MovePlayerUpdater extends GameUpdater {
 		}
 	}
 	
-	private boolean moveAllowed(GameState state, Action action, RuleBook rulebook) {
+	private boolean moveAllowed(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		Player player = extractPlayer(state, action, 0);
 		Square square = ((MovePlayerAction)action).getSquare();
 		
 		// Block?
-		if (state.isAwaitingPush() || state.isAwaitingFollowUp()){
-			return false;
-		}
+		if (state.isAwaitingPush() || state.isAwaitingFollowUp())
+			throw new IllegalActionException("Game is awaiting a follow up decision!");
 		
 		// Legal square
-		if (!state.nextToEachOther(player, square)){
-			return false;
-		}
+		if (!state.nextToEachOther(player, square))
+			throw new IllegalActionException("Player is not next to the selected square!");
 		
 		// Square on pitch
-		if (!state.getPitch().isOnPitch(square)){
-			return false;
-		}
+		if (!state.getPitch().isOnPitch(square))
+			throw new IllegalActionException("Player is not on the pitch!");
 		
 		// Square occupied?
-		if (state.getPitch().getPlayerAt(square) != null){
-			return false;
-		}
+		if (state.getPitch().getPlayerAt(square) != null)
+			throw new IllegalActionException("The selected square is occupied!");
 		
 		// Turn
-		if (!isPlayerTurn(state, player)){
-			return false;
-		}
+		if (!isPlayerTurn(state, player))
+			throw new IllegalActionException("Not players turn!");
 		
 		// Player turn
-		if (player.getPlayerStatus().getTurn() == PlayerTurn.USED){
-			return false;
-		}
+		if (player.getPlayerStatus().getTurn() == PlayerTurn.USED)
+			throw new IllegalActionException("The selected player is already used!");
 		
 		// Enough movement left?
 		if (playerMovementLeft(state, player))
-			return true;
+			throw new IllegalActionException("Player has no movement left!");
 		
 		// Able to sprint
 		if (state.getGameStage() != GameStage.QUICK_SNAP){

@@ -8,6 +8,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import ai.actions.SelectPushSquareAction;
@@ -41,10 +42,10 @@ public class PushUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getCurrentBlock() == null)
-			return;
+			throw new IllegalActionException("No current block!");
 		
 		Square from = state.getCurrentBlock().getCurrentPush().getFrom();
 		Square to = ((SelectPushSquareAction) action).getSquare();
@@ -85,7 +86,7 @@ public class PushUpdater extends GameUpdater {
 		
 	}
 	
-	protected void performPush(GameState state, Square to) {
+	protected void performPush(GameState state, Square to) throws IllegalActionException {
 		
 		boolean scatterBall = false;
 		boolean throwIn = false;
@@ -150,9 +151,8 @@ public class PushUpdater extends GameUpdater {
 			return;
 		}
 		
-		if (scatterBall){
+		if (scatterBall)
 			ScatterBallUpdater.getInstance().update(state, null, null);
-		}
 		
 	}
 	

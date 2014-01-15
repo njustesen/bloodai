@@ -6,6 +6,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectDieAction;
 import models.BlockSum;
@@ -40,18 +41,17 @@ public class StandUpUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.isAwaitingReroll())
-			return;
+			throw new IllegalActionException("Game is awaiting a reroll!");
 		
 		Player player = extractPlayer(state, action, 0);
 		
 		boolean standUpAllowed = standUpAllowed(state, player);
 		
-		if (!standUpAllowed){
-			return;
-		}
+		if (!standUpAllowed)
+			throw new IllegalActionException("Player not allowed to stand up!");
 		
 		// Player turn
 		if (player.getPlayerStatus().getTurn() == PlayerTurn.UNUSED){

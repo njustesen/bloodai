@@ -4,6 +4,7 @@ import sound.Sound;
 import game.GameLog;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
+import ai.actions.IllegalActionException;
 import ai.actions.MovePlayerAction;
 import ai.actions.SelectCoinSideAction;
 import ai.actions.SelectCoinTossEffectAction;
@@ -29,7 +30,7 @@ public class CoinTossUpdater extends GameUpdater {
 	}
 
 	@Override
-	public void update(GameState state, Action action, RuleBook rulebook) {
+	public void update(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		// Legal action?
 		if (state.getGameStage() == GameStage.COIN_TOSS && action instanceof SelectCoinSideAction){
@@ -78,7 +79,10 @@ public class CoinTossUpdater extends GameUpdater {
 			
 			state.setGameStage(GameStage.KICKING_SETUP);
 			
+		} else {
+			throw new IllegalActionException("Wrong game stage!");
 		}
+		
 		
 	}
 	
