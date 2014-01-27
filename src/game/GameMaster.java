@@ -165,4 +165,8 @@ public class GameMaster {
 		
 	}
 
+	public GameState getState() {
+		return state;
+	}
+
 }

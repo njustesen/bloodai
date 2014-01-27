@@ -41,11 +41,11 @@ public class GameState {
 	private boolean awaitFollowUp;
 	private boolean rerollAllowed;
 	
-	public GameState(Team homeTeam, Team awayTeam, Pitch pitch) {
+	public GameState(Team homeTeam, Team awayTeam) {
 		super();
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
-		this.pitch = pitch;
+		this.pitch = new Pitch(homeTeam, awayTeam);
 		this.half = 1;
 		this.awayTurn = 0;
 		this.homeTurn = 0;

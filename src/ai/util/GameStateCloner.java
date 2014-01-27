@@ -51,7 +51,8 @@ public class GameStateCloner {
 		Team home = cloneTeam(state.getHomeTeam());
 		Team away = cloneTeam(state.getAwayTeam());
 		
-		GameState s = new GameState(home, away, clonePitch(state.getPitch(), home, away));
+		GameState s = new GameState(home, away);
+		s.setPitch(clonePitch(state.getPitch(), home, away));
 		s.setAwaitFollowUp(state.isAwaitingFollowUp());
 		s.setAwaitPush(state.isAwaitingPush());
 		s.setAwaitReroll(state.isAwaitingReroll());

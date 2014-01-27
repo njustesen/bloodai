@@ -62,26 +62,16 @@ public class BBImage{
 	 */
 	public BBImage(String fileName){
 		if(fileName.endsWith(".JPG") || fileName.endsWith(".PNG") || fileName.endsWith(".GIF") || fileName.endsWith(".BMP") || fileName.endsWith(".BNM") ||
-		   fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp") || fileName.endsWith(".bnm")){	
-				//String path = getClass().getClassLoader().getResource(".").getPath();		
+			fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp") || fileName.endsWith(".bnm")){	
 			try {
-
-				
-				//System.out.println(new File("media/pictures/")
-			    //.getCanonicalPath());
-						
-						image = ImageIO.read(new File("./media/pictures/"+fileName));
-						
-//						java.net.URL url = getClass().getResource("/pictures/"+fileName);
-//						image = ImageIO.read(url);
-//						image = new ImageIcon(url);
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+				image = ImageIO.read(new File("./media/pictures/"+fileName));
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 					
 				
-				}else{throw new RuntimeException("wrong image file format "+ this);}
+			}else{throw new RuntimeException("wrong image file format "+ this);}
 	}
 
 	/**

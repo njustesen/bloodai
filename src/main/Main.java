@@ -13,11 +13,11 @@ import game.GameMaster;
 import game.rulebooks.LVRB6;
 import sound.FakeSoundManager;
 import sound.SoundManager;
+import ui.BloodBowlUI;
 
 public class Main {
 
-	//private static InputManager inputManager;
-	//private static Renderer renderer;
+	private static BloodBowlUI ui;
 	private static GameMaster gameMaster;
 	
 	/**
@@ -38,17 +38,20 @@ public class Main {
 		AIAgent homeAgent = null;
 		AIAgent awayAgent = null;
 		
+		gameMaster = new GameMaster(new GameState(homeTeam, awayTeam), new LVRB6(), homeAgent, awayAgent);
+		ui = new BloodBowlUI(gameMaster);
+		loop();
+		
 	}
 	
-	private static void loop(long startTime) {
+	private static void loop() {
 
 		while(true){
 			
-//			//startTime = new Date().getTime();
-//			if (renderer != null){
-//				renderer.renderFrame();
-//				renderer.paintComponent(renderer.getGraphics());
-//			}
+			//startTime = new Date().getTime();
+			if (ui != null){
+				ui.repaint();
+			}
 			
 			gameMaster.update();
 			
