@@ -2,29 +2,29 @@ package game;
 
 import java.util.HashMap;
 
+import game.process.BlockProcess;
+import game.process.CoinTossProcess;
+import game.process.EndPhaseProcess;
+import game.process.EndPlayerTurnProcess;
+import game.process.EndSetupProcess;
+import game.process.FollowUpProcess;
+import game.process.FoulProcess;
+import game.process.GameStartProcess;
+import game.process.GameProcess;
+import game.process.HandOffProcess;
+import game.process.InterceptionProcess;
+import game.process.KickBallProcess;
+import game.process.MovePlayerProcess;
+import game.process.PassProcess;
+import game.process.PlaceBallOnPlayerProcess;
+import game.process.PlaceBallProcess;
+import game.process.PlacePlayerProcess;
+import game.process.PushProcess;
+import game.process.RerollProcess;
+import game.process.SelectActionProcess;
+import game.process.SelectDieProcess;
+import game.process.StandUpProcess;
 import game.rulebooks.RuleBook;
-import game.updaters.BlockUpdater;
-import game.updaters.CoinTossUpdater;
-import game.updaters.EndPhaseUpdater;
-import game.updaters.EndPlayerTurnUpdater;
-import game.updaters.EndSetupUpdater;
-import game.updaters.FollowUpUpdater;
-import game.updaters.FoulUpdater;
-import game.updaters.GameStartUpdater;
-import game.updaters.GameUpdater;
-import game.updaters.HandOffUpdater;
-import game.updaters.InterceptionUpdater;
-import game.updaters.KickBallUpdater;
-import game.updaters.MovePlayerUpdater;
-import game.updaters.PassUpdater;
-import game.updaters.PlaceBallOnPlayerUpdater;
-import game.updaters.PlaceBallUpdater;
-import game.updaters.PlacePlayerUpdater;
-import game.updaters.PushUpdater;
-import game.updaters.RerollUpdater;
-import game.updaters.SelectActionUpdater;
-import game.updaters.SelectDieUpdater;
-import game.updaters.StandUpUpdater;
 
 import ai.AIAgent;
 import ai.actions.Action;
@@ -54,6 +54,7 @@ import ai.util.GameStateCloner;
 
 import models.GameStage;
 import models.GameState;
+import models.Turn;
 
 public class GameMaster {
 	
@@ -61,7 +62,7 @@ public class GameMaster {
 	private RuleBook rulebook;
 	private AIAgent homeAgent;
 	private AIAgent awayAgent;
-	private boolean awaitUI;
+	private HashMap<Class<? extends Action>, GameProcess> processes;
 	
 	public GameMaster(GameState gameState, RuleBook rulebook, AIAgent homeAgent, AIAgent awayAgent) {
 		super();
@@ -69,9 +70,34 @@ public class GameMaster {
 		this.rulebook = rulebook;
 		this.homeAgent = homeAgent;
 		this.awayAgent = awayAgent;
-		this.awaitUI = false;
+		init();
 	}
 	
+	private void init() {
+		processes = new HashMap<Class<? extends Action>, GameProcess>();
+		processes.put(RerollAction.class, new RerollProcess());
+		processes.put(SelectDieAction.class, new SelectDieProcess());
+		processes.put(PlacePlayerAction.class, new PlacePlayerProcess());
+		processes.put(SelectPlayerTurnAction.class, new SelectActionProcess());
+		processes.put(PlaceBallOnPlayerAction.class, new PlaceBallOnPlayerProcess());
+		processes.put(MovePlayerAction.class, new MovePlayerProcess());
+		processes.put(StandPlayerUpAction.class, new StandUpProcess());
+		processes.put(BlockPlayerAction.class, new BlockProcess());
+		processes.put(PassPlayerAction.class, new PassProcess());
+		processes.put(HandOffPlayerAction.class, new HandOffProcess());
+		processes.put(FoulPlayerAction.class, new FoulProcess());
+		processes.put(FollowUpAction.class, new FollowUpProcess());
+		processes.put(SelectPushSquareAction.class, new PushProcess());
+		processes.put(EndPlayerTurnAction.class, new EndPlayerTurnProcess());
+		processes.put(EndPhaseAction.class, new EndPhaseProcess());
+		processes.put(SelectInterceptionAction.class, new InterceptionProcess());
+		processes.put(KickBallAction.class, new KickBallProcess());
+		processes.put(SelectCoinSideAction.class, new CoinTossProcess());
+		processes.put(SelectCoinTossEffectAction.class, new CoinTossProcess());
+		processes.put(EndSetupAction.class, new EndSetupProcess());
+		processes.put(PlaceBallAction.class, new PlaceBallProcess());
+	}
+
 	/**
 	 * Starts the blood bowl game.
 	 */
@@ -91,7 +117,7 @@ public class GameMaster {
 		// Begin game if not started
 		if (state.getGameStage() == GameStage.START_UP){
 			try {
-				GameStartUpdater.getInstance().update(state, null, rulebook);
+				GameStartProcess.getInstance().run(state, null, rulebook);
 			} catch (IllegalActionException e) {
 				e.printStackTrace();
 			}
@@ -102,7 +128,7 @@ public class GameMaster {
 		if (state.getGameStage() == GameStage.GAME_ENDED)
 			return;
 
-		boolean home = isHomeTurn(state);
+		boolean home = Turn.isHomeTurn(state);
 		
 		Action action = null;
 		GameState clone = new GameStateCloner().clone(state);
@@ -112,13 +138,11 @@ public class GameMaster {
 			action = homeAgent.takeAction(this, clone);
 		else if (!home && awayAgent != null)
 			action = awayAgent.takeAction(this, clone);
-		else
-			awaitUI = true;
 		
 		if (action != null){
 			
 			try {
-				performAction(action);
+				act(action);
 			} catch (IllegalActionException e) {
 				e.printStackTrace();
 			}
@@ -127,181 +151,17 @@ public class GameMaster {
 		
 	}
 	
-	/**
-	 * Returns true if it is home turn to take action and false if not.
-	 * @param state
-	 * @return
-	 */
-	private boolean isHomeTurn(GameState state) {
-		
-		boolean home = false;
-		
-		if (state.getGameStage() == GameStage.HOME_TURN){
-			home = true;
-			if (state.getCurrentPass() != null &&
-					state.getCurrentPass().getInterceptionPlayers() != null &&
-					state.getCurrentPass().getInterceptionPlayers().size() > 0){
-				home = false;
-			}
-			if (state.isAwaitingReroll() && state.getCurrentDiceRoll() != null && state.getCurrentBlock() != null && state.getCurrentGoingForIt() == null){
-				if (!state.isAwaitingFollowUp() && !state.isAwaitingPush())
-					home = (state.getHomeTeam() == state.getCurrentBlock().getSelectTeam());
-			}
-		} else if (state.getGameStage() == GameStage.AWAY_TURN){
-			home = false;
-			if (state.getCurrentPass() != null &&
-					state.getCurrentPass().getInterceptionPlayers() != null &&
-					state.getCurrentPass().getInterceptionPlayers().size() > 0){
-				home = true;
-			}
-			if (state.isAwaitingReroll() && state.getCurrentDiceRoll() != null && state.getCurrentBlock() != null && state.getCurrentGoingForIt() == null){
-				if (!state.isAwaitingFollowUp() && !state.isAwaitingPush())
-					home = (state.getHomeTeam() == state.getCurrentBlock().getSelectTeam());
-			}
-		} else if (state.getGameStage() == GameStage.COIN_TOSS){
-			home = false;
-		} else if (state.getGameStage() == GameStage.PICK_COIN_TOSS_EFFECT){
-			if (state.getCoinToss().hasAwayPickedHeads() == state.getCoinToss().isResultHeads())
-				home = false;
-			else 
-				home = true;
-		} else if (state.getGameStage() == GameStage.KICK_OFF){
-			home = false;
-		} else if (state.getGameStage() == GameStage.KICKING_SETUP){
-			if (state.getKickingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getKickingTeam() == state.getAwayTeam())
-				home = false;
-			
-		} else if (state.getGameStage() == GameStage.RECEIVING_SETUP){
-			if (state.getReceivingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getReceivingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.KICK_PLACEMENT){
-			if (state.getKickingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getKickingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.PLACE_BALL_ON_PLAYER){
-			if (state.getReceivingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getReceivingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.BLITZ){
-			if (state.getKickingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getKickingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.QUICK_SNAP){
-			if (state.getReceivingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getReceivingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.HIGH_KICK){
-			if (state.getReceivingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getReceivingTeam() == state.getAwayTeam())
-				home = false;
-		} else if (state.getGameStage() == GameStage.PERFECT_DEFENSE){
-			if (state.getKickingTeam() == state.getHomeTeam())
-				home = true;
-			else if (state.getKickingTeam() == state.getAwayTeam())
-				home = false;
-		}
-		return home;
-	}
-
-	public void performAction(Action action) throws IllegalActionException {
+	public void act(Action action) throws IllegalActionException {
 
 		if (action == null)
-			return;
+			throw new IllegalActionException("Action is null!");
 		
-		if(action instanceof RerollAction){
-			
-			RerollUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectDieAction){
-			
-			SelectDieUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof PlacePlayerAction){
-			
-			PlacePlayerUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectPlayerTurnAction){
-			
-			SelectActionUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof PlaceBallOnPlayerAction){
-			
-			PlaceBallOnPlayerUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof MovePlayerAction){
-			
-			MovePlayerUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof StandPlayerUpAction){
-			
-			StandUpUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof BlockPlayerAction){
-			
-			BlockUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof PassPlayerAction){
-			
-			PassUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof HandOffPlayerAction){
-			
-			HandOffUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof FoulPlayerAction){
-
-			FoulUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof FollowUpAction){
-
-			FollowUpUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectPushSquareAction){
-			
-			PushUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof EndPlayerTurnAction){
-			
-			EndPlayerTurnUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof EndPhaseAction){
-			
-			EndPhaseUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectInterceptionAction){
-			
-			InterceptionUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof KickBallAction){
-			
-			KickBallUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectCoinSideAction){
-			
-			CoinTossUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof SelectCoinTossEffectAction){
-			
-			CoinTossUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof EndSetupAction){
-			
-			EndSetupUpdater.getInstance().update(state, action, rulebook);
-			
-		} else if(action instanceof PlaceBallAction){
-			
-			PlaceBallUpdater.getInstance().update(state, action, rulebook);
-			
-		}
+		GameProcess process = processes.get(action);
+		
+		if (process == null)
+			throw new IllegalActionException("Unsupported action!");
+		
+		process.run(state, action, rulebook);
 		
 	}
 
