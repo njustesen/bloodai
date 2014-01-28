@@ -15,11 +15,13 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ui.layers.ActionButtonLayer;
 import ui.layers.BackgroundLayer;
 import ui.layers.GraphicsLayer;
 import ui.layers.MouseOverPitchLayer;
 import ui.layers.PitchLayer;
 import ui.layers.PlayerLayer;
+import ui.layers.ScoreBoardLayer;
 import view.Point2D;
 
 import game.GameMaster;
@@ -36,7 +38,7 @@ public class BloodBowlUI extends JPanel implements KeyListener, MouseListener, M
 	private int topHeight = tilesize*2;
 	
 	
-	Font fontStandard = new Font("Arial", Font.PLAIN, 25);
+	
 	private List<GraphicsLayer> layers;
 	private int mouseX = 0;
 	private int mouseY = 0;
@@ -65,17 +67,15 @@ public class BloodBowlUI extends JPanel implements KeyListener, MouseListener, M
 		// Layers
 		layers = new ArrayList<GraphicsLayer>();
 		layers.add(new BackgroundLayer(0, 0, width, height));
+		layers.add(new ScoreBoardLayer(0, 0, width, topHeight));
 		layers.add(new PitchLayer(0, topHeight, 30*tilesize, 15*tilesize));
 		layers.add(new MouseOverPitchLayer(0, topHeight, 30*tilesize, 15*tilesize));
 		layers.add(new PlayerLayer(0, topHeight, width, height));
+		layers.add(new ActionButtonLayer(width/2 - 60*6, topHeight+15*tilesize, 60*6, 60));
 		
 	}
 
 	public void paintComponent(Graphics g) {  
-	    g.setFont(fontStandard); //<--
-	    g.setColor(Color.WHITE);
-	    
-	    g.fillRect(0, 0, width, height);
 	    
 	    for(GraphicsLayer layer : layers)
 	    	layer.paint(g, master.getState(), new Point2D(mouseX, mouseY), tilesize);

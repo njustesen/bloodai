@@ -1,5 +1,6 @@
 package ui.layers;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import view.Point2D;
 
@@ -11,6 +12,9 @@ public abstract class GraphicsLayer {
 	protected int origY;
 	protected int width;
 	protected int height;
+	protected Font font25;
+	protected Font font32;
+	protected Font font60;
 	
 	public abstract void paint(Graphics g, GameState state, Point2D mouse, int tilesize);
 	
@@ -20,6 +24,9 @@ public abstract class GraphicsLayer {
 		this.origY = origY;
 		this.width = width;
 		this.height = height;
+		this.font25 = new Font("Arial", Font.PLAIN, 25);
+		this.font32 = new Font("Arial", Font.PLAIN, 32);
+		this.font60 = new Font("Arial", Font.PLAIN, 60);
 	}
 
 	public int getOrigX() {

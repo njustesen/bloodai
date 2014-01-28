@@ -32,8 +32,8 @@ public class Main {
 		boolean restart = false;
 		boolean fast = false;
 		
-		Team homeTeam = TeamFactory.getOrcTeam();
-		Team awayTeam = TeamFactory.getHumanTeam();
+		Team homeTeam = TeamFactory.getHumanTeam();
+		Team awayTeam = TeamFactory.getOrcTeam();
 
 		AIAgent homeAgent = null;
 		AIAgent awayAgent = null;
@@ -49,11 +49,18 @@ public class Main {
 		while(true){
 			
 			//startTime = new Date().getTime();
+			gameMaster.update();
+			
 			if (ui != null){
 				ui.repaint();
 			}
 			
-			gameMaster.update();
+			try {
+				Thread.sleep(1000/24);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}
