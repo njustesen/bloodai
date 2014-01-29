@@ -50,6 +50,7 @@ import ai.actions.SelectDieAction;
 import ai.actions.SelectPlayerTurnAction;
 import ai.actions.SelectPushSquareAction;
 import ai.actions.StandPlayerUpAction;
+import ai.actions.StartGameAction;
 import ai.util.GameStateCloner;
 
 import models.GameStage;
@@ -75,27 +76,28 @@ public class GameMaster {
 	
 	private void init() {
 		processes = new HashMap<Class<? extends Action>, GameProcess>();
-		processes.put(RerollAction.class, new RerollProcess());
-		processes.put(SelectDieAction.class, new SelectDieProcess());
-		processes.put(PlacePlayerAction.class, new PlacePlayerProcess());
-		processes.put(SelectPlayerTurnAction.class, new SelectActionProcess());
-		processes.put(PlaceBallOnPlayerAction.class, new PlaceBallOnPlayerProcess());
-		processes.put(MovePlayerAction.class, new MovePlayerProcess());
-		processes.put(StandPlayerUpAction.class, new StandUpProcess());
-		processes.put(BlockPlayerAction.class, new BlockProcess());
-		processes.put(PassPlayerAction.class, new PassProcess());
-		processes.put(HandOffPlayerAction.class, new HandOffProcess());
-		processes.put(FoulPlayerAction.class, new FoulProcess());
-		processes.put(FollowUpAction.class, new FollowUpProcess());
-		processes.put(SelectPushSquareAction.class, new PushProcess());
-		processes.put(EndPlayerTurnAction.class, new EndPlayerTurnProcess());
-		processes.put(EndPhaseAction.class, new EndPhaseProcess());
-		processes.put(SelectInterceptionAction.class, new InterceptionProcess());
-		processes.put(KickBallAction.class, new KickBallProcess());
-		processes.put(SelectCoinSideAction.class, new CoinTossProcess());
+		processes.put(StartGameAction.class, 			new GameStartProcess());
+		processes.put(RerollAction.class, 				new RerollProcess());
+		processes.put(SelectDieAction.class, 			new SelectDieProcess());
+		processes.put(PlacePlayerAction.class, 			new PlacePlayerProcess());
+		processes.put(SelectPlayerTurnAction.class, 	new SelectActionProcess());
+		processes.put(PlaceBallOnPlayerAction.class, 	new PlaceBallOnPlayerProcess());
+		processes.put(MovePlayerAction.class, 			new MovePlayerProcess());
+		processes.put(StandPlayerUpAction.class, 		new StandUpProcess());
+		processes.put(BlockPlayerAction.class, 			new BlockProcess());
+		processes.put(PassPlayerAction.class, 			new PassProcess());
+		processes.put(HandOffPlayerAction.class, 		new HandOffProcess());
+		processes.put(FoulPlayerAction.class, 			new FoulProcess());
+		processes.put(FollowUpAction.class, 			new FollowUpProcess());
+		processes.put(SelectPushSquareAction.class, 	new PushProcess());
+		processes.put(EndPlayerTurnAction.class, 		new EndPlayerTurnProcess());
+		processes.put(EndPhaseAction.class, 			new EndPhaseProcess());
+		processes.put(SelectInterceptionAction.class, 	new InterceptionProcess());
+		processes.put(KickBallAction.class, 			new KickBallProcess());
+		processes.put(SelectCoinSideAction.class, 		new CoinTossProcess());
 		processes.put(SelectCoinTossEffectAction.class, new CoinTossProcess());
-		processes.put(EndSetupAction.class, new EndSetupProcess());
-		processes.put(PlaceBallAction.class, new PlaceBallProcess());
+		processes.put(EndSetupAction.class, 			new EndSetupProcess());
+		processes.put(PlaceBallAction.class, 			new PlaceBallProcess());
 	}
 
 	/**
@@ -115,6 +117,7 @@ public class GameMaster {
 	public void update(){
 		
 		// Begin game if not started
+		/*
 		if (state.getGameStage() == GameStage.START_UP){
 			try {
 				GameStartProcess.getInstance().run(state, null, rulebook);
@@ -123,6 +126,7 @@ public class GameMaster {
 			}
 			return;
 		}
+		*/
 		
 		// If game is ended
 		if (state.getGameStage() == GameStage.GAME_ENDED)

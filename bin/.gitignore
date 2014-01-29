@@ -1,4 +1,7 @@
 /ai
 /game
-/ui
 /main
+/models
+/sound
+/ui
+/view

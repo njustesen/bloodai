@@ -3,6 +3,7 @@ package main;
 import java.util.Date;
 
 import ai.AIAgent;
+import ai.actions.IllegalActionException;
 
 import models.GameState;
 import models.Pitch;
@@ -48,17 +49,20 @@ public class Main {
 
 		while(true){
 			
-			//startTime = new Date().getTime();
+			try {
+				ui.readInput();
+			} catch (IllegalActionException e1) {
+				e1.printStackTrace();
+			}
+			
 			gameMaster.update();
 			
-			if (ui != null){
+			if (ui != null)
 				ui.repaint();
-			}
 			
 			try {
 				Thread.sleep(1000/24);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

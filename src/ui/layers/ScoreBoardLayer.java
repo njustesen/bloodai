@@ -5,17 +5,18 @@ import java.awt.Graphics;
 import view.Point2D;
 
 import models.GameState;
+import ui.BloodBowlUI;
 import ui.ImageLoader;
 
 public class ScoreBoardLayer extends GraphicsLayer {
 
-	public ScoreBoardLayer(int origX, int origY, int width, int height) {
-		super(origX, origY, width, height);
+	public ScoreBoardLayer(int origX, int origY, int width, int height, BloodBowlUI bloodBowlUI, boolean active) {
+		super(origX, origY, width, height, bloodBowlUI, active);
 		
 	}
 
 	@Override
-	public void paint(Graphics g, GameState state, Point2D mouse, int tilesize) {
+	public void paint(Graphics g, GameState state, Point2D mouse) {
 		
 		// Score
 		g.setFont(font60);

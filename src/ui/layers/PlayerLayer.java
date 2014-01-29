@@ -3,29 +3,40 @@ package ui.layers;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.PageAttributes.OriginType;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 import view.Point2D;
 
 import models.GameState;
 import models.Player;
 import models.Race;
+import ui.BloodBowlUI;
 import ui.ImageLoader;
 
 public class PlayerLayer extends GraphicsLayer {
 
-	public PlayerLayer(int origX, int origY, int width, int height) {
-		super(origX, origY, width, height);
+	public PlayerLayer(int origX, int origY, int width, int height, BloodBowlUI bloodBowlUI, boolean active) {
+		super(origX, origY, width, height, bloodBowlUI, active);
 		
 	}
 
 	@Override
-	public void paint(Graphics g, GameState state, Point2D mouse, int tilesize) {
+	public void paint(Graphics g, GameState state, Point2D mouse) {
 		
 		// Draw players on pitch
 		for(int y = 0; y < state.getPitch().getPlayerArr().length; y++){
 			for(int x = 0; x < state.getPitch().getPlayerArr()[0].length; x++){
 				
 				if (state.getPitch().getPlayerArr()[y][x] != null){
-					drawPlayer(g, state.getPitch().getPlayerArr()[y][x], x, y);
+					Player player = state.getPitch().getPlayerArr()[y][x];
+					if (ui.getSelectedPlayer() == player){
+						g.setColor(new Color(255,255,255,180));
+						int screenX = (int) arrayToScreen(x, y).getX();
+						int screenY = (int) arrayToScreen(x, y).getY();
+						g.fillRect(screenX, screenY, tilesize, tilesize);
+					}
+					drawPlayer(g, player, x, y);
 				}
 				
 			}
@@ -87,6 +98,12 @@ public class PlayerLayer extends GraphicsLayer {
 	private void drawPlayer(Graphics g, Player p, int x, int y){
 		int screenX = (int) arrayToScreen(x, y).getX();
 		int screenY = (int) arrayToScreen(x, y).getY();
+		
+		if (ui.getSelectedPlayer() != null && p == ui.getSelectedPlayer()){
+			g.setColor(new Color(255,255,255,160));
+			g.fillRect(screenX, screenY, tilesize, tilesize);
+		}
+		
 		if(p.getRace() == Race.HUMANS){
 			if(p.getTitle() == "Blitzer"){
 				g.drawImage(ImageLoader.hblitzer.getBufferedImage(), screenX, screenY, null);
