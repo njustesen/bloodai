@@ -160,7 +160,7 @@ public class GameMaster {
 		if (action == null)
 			throw new IllegalActionException("Action is null!");
 		
-		GameProcess process = processes.get(action);
+		GameProcess process = processes.get(action.getClass());
 		
 		if (process == null)
 			throw new IllegalActionException("Unsupported action!");

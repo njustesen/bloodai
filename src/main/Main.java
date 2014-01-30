@@ -41,6 +41,7 @@ public class Main {
 		
 		gameMaster = new GameMaster(new GameState(homeTeam, awayTeam), new LVRB6(), homeAgent, awayAgent);
 		ui = new BloodBowlUI(gameMaster);
+		
 		loop();
 		
 	}

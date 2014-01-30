@@ -64,7 +64,7 @@ public class BBImage{
 		if(fileName.endsWith(".JPG") || fileName.endsWith(".PNG") || fileName.endsWith(".GIF") || fileName.endsWith(".BMP") || fileName.endsWith(".BNM") ||
 			fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp") || fileName.endsWith(".bnm")){	
 			try {
-				image = ImageIO.read(new File("./media/pictures/"+fileName));
+				image = ImageIO.read(new File("./assets/img/"+fileName));
 					
 				} catch (IOException e) {
 					e.printStackTrace();

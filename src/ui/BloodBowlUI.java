@@ -16,17 +16,21 @@ import javax.swing.JPanel;
 
 import ai.actions.IllegalActionException;
 
+import models.GameStage;
+import models.GameState;
 import models.Player;
 import models.Square;
 
+import ui.buttons.BBButton;
 import ui.layers.ActionButtonLayer;
 import ui.layers.BackgroundLayer;
 import ui.layers.GraphicsLayer;
+import ui.layers.IntroMenuLayer;
+import ui.layers.MainLayer;
 import ui.layers.MouseOverPitchLayer;
 import ui.layers.PitchLayer;
 import ui.layers.PlayerLayer;
 import ui.layers.ScoreBoardLayer;
-import ui.layers.StartGameLayer;
 import view.Point2D;
 
 import game.GameMaster;
@@ -37,19 +41,16 @@ public class BloodBowlUI extends JPanel {
 	private JFrame frame;
 	private InputManager input;
 	private ActionHandler handler;
+	private boolean initialized = false;
 	
 	private int width = 900;
 	private int height = 600;
-	private int tilesize = 30;
-	private int topHeight = tilesize*2;
-	private int menuWidth = 400;
-	private int menuHieght = 250;
 	
-	private List<GraphicsLayer> layers;
+	private PitchLayer pitchLayer;
+	private GraphicsLayer mainLayer;
 	
 	protected Player selectedPlayer;
-	private PitchLayer pitchLayer;
-	private ActionButtonLayer actionButtonLayer;
+	private IntroMenuLayer introMenu;
 	
 	public BloodBowlUI(GameMaster master) {
 		super();
@@ -74,81 +75,43 @@ public class BloodBowlUI extends JPanel {
 		this.addMouseMotionListener(input);
 		
 		// Layers
-		layers = new ArrayList<GraphicsLayer>();
-		layers.add(new BackgroundLayer(0, 0, width, height, this, true));
-		layers.add(new ScoreBoardLayer(0, 0, width, topHeight, this, true));
-		pitchLayer = new PitchLayer(0, topHeight, 30*tilesize, 15*tilesize, this, true);
-		layers.add(pitchLayer);
-		layers.add(new MouseOverPitchLayer(0, topHeight, 30*tilesize, 15*tilesize, this, true));
-		layers.add(new PlayerLayer(0, topHeight, width, height, this, true));
-		actionButtonLayer = new ActionButtonLayer(width/2 - 60*6, topHeight+15*tilesize, 60*6, 60, this, true);
-		layers.add(actionButtonLayer);
-		layers.add(new StartGameLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, this, true));
+		mainLayer = new MainLayer(0, 0, width, height, this, true);
 		
 		selectedPlayer = null;
+		
+		initialized = true;
 		
 	}
 
 	public void readInput() throws IllegalActionException{
 		
-		if (input.isMouseClicked()){
-			
-			// Over pitch
-			if (input.getMouseX() >= pitchLayer.getOrigX() && input.getMouseX() <= pitchLayer.getOrigX() + pitchLayer.getWidth()){
-				if (input.getMouseY() >= pitchLayer.getOrigY() && input.getMouseY() <= pitchLayer.getOrigY() + pitchLayer.getHeight()){
-					clickOnPitchLayer();
-				}	
-			}
-			
-			// Action button
-			if (input.getMouseX() >= actionButtonLayer.getOrigX() && input.getMouseX() <= actionButtonLayer.getOrigX() + actionButtonLayer.getWidth()){
-				if (input.getMouseY() >= actionButtonLayer.getOrigY() && input.getMouseY() <= actionButtonLayer.getOrigY() + actionButtonLayer.getHeight()){
-					clickOnActionButtonLayer();
-				}	
-			}
-			
-		}
+		// Click
+		if (input.isMouseClicked())
+			mainLayer.clicked(master, this, input);
 		
 		input.refresh();
 		
 	}
-	
-	private void clickOnActionButtonLayer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void clickOnPitchLayer() throws IllegalActionException {
-		
-		int x = (input.getMouseX() - pitchLayer.getOrigX()) / tilesize;
-		int y = (input.getMouseY() - pitchLayer.getOrigY()) / tilesize;
-		
-		// Home reserves
-		if (x < 2){
-			int i = y * 2 + x;
-			handler.clickOnReserves(master, false, i, this);
-		}
-		
-		// Away reserves
-		if (x >= 28){
-			int i = y * 2 + (x - 2 - 26);
-			handler.clickOnReserves(master, false, i, this);
-		}
-		
-		// On actual pitch
-		x -= 2;
-		handler.clickOnSquare(master, new Square(x, y), this);
-		
-	}	
 
 	public void paintComponent(Graphics g) {  
+		
+		if (!initialized)
+			return;
+		
+		mainLayer.checkActivation(master.getState());
 	    
-	    for(GraphicsLayer layer : layers){
-	    	if (layer.isActive())
-	    		layer.paint(g, master.getState(), new Point2D(input.getMouseX(), input.getMouseY()));
-	    }
+		mainLayer.paint(g, master.getState(), input);
+	    
 	}
-	
+
+	public ActionHandler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(ActionHandler handler) {
+		this.handler = handler;
+	}
+
 	public Player getSelectedPlayer() {
 		return selectedPlayer;
 	}

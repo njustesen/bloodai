@@ -10,6 +10,8 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	
 	private int mouseX;
 	private int mouseY;
+	private int mouseClickX;
+	private int mouseClickY;
 	private boolean mouseClicked;
 	private boolean mouseDown;
 	
@@ -39,9 +41,8 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		mouseClicked = true;
-		mouseX = e.getX();
-		mouseY = e.getY();
+		
+		
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -56,10 +57,13 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouseDown = true;
+		mouseClickX = e.getX();
+		mouseClickY = e.getY();
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouseDown = false;
+		mouseClicked = true;
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -88,6 +92,22 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 
 	public void setMouseY(int mouseY) {
 		this.mouseY = mouseY;
+	}
+	
+	public int getMouseClickX() {
+		return mouseClickX;
+	}
+
+	public void setMouseClickX(int mouseClickX) {
+		this.mouseClickX = mouseClickX;
+	}
+
+	public int getMouseClickY() {
+		return mouseClickY;
+	}
+
+	public void setMouseClickY(int mouseClickY) {
+		this.mouseClickY = mouseClickY;
 	}
 
 	public boolean isMouseClicked() {

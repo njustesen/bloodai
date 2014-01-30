@@ -1,10 +1,16 @@
 package ui.layers;
 
+import game.GameMaster;
+
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 import ui.BloodBowlUI;
+import ui.InputManager;
 import ui.Listener;
+import ui.buttons.BBButton;
 import view.Point2D;
 
 import models.GameState;
@@ -21,9 +27,14 @@ public abstract class GraphicsLayer {
 	protected Font font32;
 	protected Font font60;
 	protected BloodBowlUI ui;
+	protected List<GraphicsLayer> layers;
 	
-	public abstract void paint(Graphics g, GameState state, Point2D mouse);
+	public abstract void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input);
 	
+	public abstract void paintLayer(Graphics g, GameState state, InputManager input);
+	
+	public abstract void checkLayerActivation(GameState state);
+
 	public GraphicsLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
 		super();
 		this.origX = origX;
@@ -35,12 +46,61 @@ public abstract class GraphicsLayer {
 		this.font60 = new Font("Arial", Font.PLAIN, 60);
 		this.ui = ui;
 		this.active = active;
+		this.layers = new ArrayList<GraphicsLayer>();
 	}
 	
+	public void clicked(GameMaster master, BloodBowlUI ui, InputManager input){
+		
+		clickedLayer(master, ui, input);
+		
+		for(GraphicsLayer layer : layers)
+			if(layer.isActive())
+				layer.clicked(master, ui, input);
+		
+	}
+	
+	public void paint(Graphics g, GameState state, InputManager input){
+		
+		paintLayer(g, state, input);
+		
+		for(GraphicsLayer layer : layers)
+			if(layer.isActive())
+				layer.paint(g, state, input);
+		
+	}
+	
+	public void checkActivation(GameState state){
+		
+		checkLayerActivation(state);
+		
+		for(GraphicsLayer layer : layers)
+			layer.checkActivation(state);
+		
+	}
+	
+	public void activate(){
+		active = true;
+		for(GraphicsLayer layer : layers)
+			layer.activate();
+	}
+	
+	public void deactivate(){
+		active = false;
+		for(GraphicsLayer layer : layers)
+			layer.deactivate();
+	} 
+	
 	protected Point2D fitInSquare(int x, int y){ 
-		int screenX = (x / tilesize) * tilesize;
-		int screenY = (y / tilesize) * tilesize;
-		return new Point2D(screenX, screenY);	 
+		return new Point2D(	(x / tilesize) * tilesize, 
+							(y / tilesize) * tilesize);	 
+	}
+	
+	public List<GraphicsLayer> getLayers() {
+		return layers;
+	}
+
+	public void setLayers(List<GraphicsLayer> layers) {
+		this.layers = layers;
 	}
 
 	public boolean isActive() {
@@ -90,5 +150,11 @@ public abstract class GraphicsLayer {
 	public void setTilesize(int tilesize) {
 		this.tilesize = tilesize;
 	}
+
+	public boolean inBounds(int x, int y) {
+		return (x >= origX && x <= origX + width && y >= origY && y <= origY + height);
+	}
+
+	
 	
 }
