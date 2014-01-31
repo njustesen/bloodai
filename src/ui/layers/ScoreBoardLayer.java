@@ -26,15 +26,17 @@ public class ScoreBoardLayer extends GraphicsLayer {
 		g.setFont(font60);
 		g.setColor(Color.blue);
 		g.drawString("" + state.getHomeTeam().getTeamStatus().getScore(), origX + width/2 - 46 - 17, origY + 50);
+		g.setColor(new Color(200,200,200));
+		g.drawString("-", origX + width/2 - 11, origY + 50);
 		g.setColor(Color.red);
 		g.drawString("" + state.getAwayTeam().getTeamStatus().getScore(), origX + width/2 + 46 - 17, origY + 50);
 		
 		// Team names
 		g.setFont(font32);
 		g.setColor(Color.blue);
-		g.drawString("" + state.getHomeTeam().getTeamName(), origX + width/2 - width/4 - state.getHomeTeam().getTeamName().length() * 12, origY + 42);
+		g.drawString("" + state.getHomeTeam().getTeamName(), (int) (origX + width/2 - width/3.5 - state.getHomeTeam().getTeamName().length() * 9), origY + 42);
 		g.setColor(Color.red);
-		g.drawString("" + state.getAwayTeam().getTeamName(), origX + width/2 + width/4 - state.getAwayTeam().getTeamName().length() * 12, origY + 42);
+		g.drawString("" + state.getAwayTeam().getTeamName(), (int) (origX + width/2 + width/3.5 - state.getAwayTeam().getTeamName().length() * 9), origY + 42);
 		
 		// Turn
 		g.setFont(font25);

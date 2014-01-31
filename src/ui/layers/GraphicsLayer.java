@@ -54,7 +54,7 @@ public abstract class GraphicsLayer {
 		clickedLayer(master, ui, input);
 		
 		for(GraphicsLayer layer : layers)
-			if(layer.isActive())
+			if(layer.isActive() && layer.inBounds(input.getMouseClickX(), input.getMouseClickY()))
 				layer.clicked(master, ui, input);
 		
 	}

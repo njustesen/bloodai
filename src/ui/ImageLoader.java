@@ -15,7 +15,18 @@ public class ImageLoader {
 	//buttons
 	public static BBImage startButton = new BBImage("buttons/start.png");
 	public static BBImage startButtonHover = new BBImage("buttons/start_hover.png");
+	public static BBImage headsButton = new BBImage("buttons/heads.png");
+	public static BBImage headsButtonHover = new BBImage("buttons/heads_hover.png");
+	public static BBImage tailsButton = new BBImage("buttons/tails.png");
+	public static BBImage tailsButtonHover = new BBImage("buttons/tails_hover.png");
+	public static BBImage kickButton = new BBImage("buttons/kick.png");
+	public static BBImage kickButtonHover = new BBImage("buttons/kick_hover.png");
+	public static BBImage receiveButton = new BBImage("buttons/receive.png");
+	public static BBImage receiveButtonHover = new BBImage("buttons/receive_hover.png");
 	
+	//menu
+	public static BBImage startMenu = new BBImage("menu/start_menu.png");
+		
 	//ball
 	public static BBImage ball = new BBImage("pitch/ball.png");
 	
