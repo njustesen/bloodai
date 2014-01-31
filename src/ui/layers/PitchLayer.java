@@ -35,7 +35,7 @@ public class PitchLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) throws IllegalActionException {
 		int x = (input.getMouseClickX() - origX) / tilesize;
 		int y = (input.getMouseClickY() - origY) / tilesize;
 		
@@ -43,21 +43,27 @@ public class PitchLayer extends GraphicsLayer {
 		if (x < 2){
 			int i = y * 2 + x;
 			ui.getHandler().clickOnReserves(master, true, i, ui);
+			return true;
 		}
 		
 		// Away reserves
 		if (x >= 28){
 			int i = y * 2 + (x - 2 - 26);
 			ui.getHandler().clickOnReserves(master, false, i, ui);
+			return true;
 		}
 		
 		// On actual pitch
 		x -= 2;
+		y += 1;
+		x += 1;
 		try {
 			ui.getHandler().clickOnSquare(master, new Square(x, y), ui);
 		} catch (IllegalActionException e) {
 			e.printStackTrace();
 		}
+		
+		return true;
 	}
 
 	@Override

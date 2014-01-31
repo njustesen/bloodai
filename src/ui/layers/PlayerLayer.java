@@ -138,9 +138,8 @@ public class PlayerLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
-		// TODO Auto-generated method stub
-		
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+		return false;
 	}
 
 	@Override

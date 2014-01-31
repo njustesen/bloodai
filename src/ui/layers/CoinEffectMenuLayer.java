@@ -63,8 +63,8 @@ public class CoinEffectMenuLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
-		
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+		return false;
 	}
 
 	@Override

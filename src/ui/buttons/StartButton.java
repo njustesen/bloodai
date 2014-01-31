@@ -29,12 +29,13 @@ public class StartButton extends BBButton {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
 		try {
 			master.act(new StartGameAction());
 		} catch (IllegalActionException e) {
 			e.printStackTrace();
 		}
+		return true;
 	}
 
 	@Override

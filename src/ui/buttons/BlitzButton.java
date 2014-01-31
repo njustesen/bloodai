@@ -28,9 +28,8 @@ public class BlitzButton extends BBButton {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
-		// TODO Auto-generated method stub
-		
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+		return true;
 	}
 
 	@Override

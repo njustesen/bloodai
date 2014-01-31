@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import ai.actions.IllegalActionException;
+
 import ui.BloodBowlUI;
 import ui.InputManager;
 import ui.Listener;
@@ -29,7 +31,7 @@ public abstract class GraphicsLayer {
 	protected BloodBowlUI ui;
 	protected List<GraphicsLayer> layers;
 	
-	public abstract void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input);
+	public abstract boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) throws IllegalActionException;
 	
 	public abstract void paintLayer(Graphics g, GameState state, InputManager input);
 	
@@ -49,14 +51,18 @@ public abstract class GraphicsLayer {
 		this.layers = new ArrayList<GraphicsLayer>();
 	}
 	
-	public void clicked(GameMaster master, BloodBowlUI ui, InputManager input){
+	public boolean clicked(GameMaster master, BloodBowlUI ui, InputManager input) throws IllegalActionException{
 		
-		clickedLayer(master, ui, input);
+		if (!clickedLayer(master, ui, input)){
+			for(int i = layers.size()-1; i >= 0; i--)
+				if(layers.get(i).isActive() && layers.get(i).inBounds(input.getMouseClickX(), input.getMouseClickY()))
+					if (layers.get(i).clicked(master, ui, input))
+						return true;
+			return false;
+		}
 		
-		for(GraphicsLayer layer : layers)
-			if(layer.isActive() && layer.inBounds(input.getMouseClickX(), input.getMouseClickY()))
-				layer.clicked(master, ui, input);
-		
+		return true;
+					
 	}
 	
 	public void paint(Graphics g, GameState state, InputManager input){

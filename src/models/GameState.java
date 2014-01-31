@@ -352,9 +352,13 @@ public class GameState {
 	}
 	
 	public boolean onDifferentTeams(Player a, Player b) {
-		if (owner(a) != owner(b))
+		if (!owner(a).getId().equals(owner(b)))
 			return true;
 		return false;
+	}
+	
+	public boolean onSameTeam(Player a, Player b) {
+		return !onDifferentTeams(a, b);
 	}
 	
 	public void placePlayerOnSquare(Player player, Square square) {

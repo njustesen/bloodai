@@ -1,19 +1,15 @@
 package main;
 
-import java.util.Date;
 
 import ai.AIAgent;
 import ai.actions.IllegalActionException;
 
 import models.GameState;
-import models.Pitch;
 import models.Team;
 import models.TeamFactory;
 
 import game.GameMaster;
 import game.rulebooks.LVRB6;
-import sound.FakeSoundManager;
-import sound.SoundManager;
 import ui.BloodBowlUI;
 
 public class Main {

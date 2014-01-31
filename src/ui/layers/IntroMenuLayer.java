@@ -31,12 +31,7 @@ public class IntroMenuLayer extends GraphicsLayer {
 
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
-/*
-		g.setColor(new Color(0,0,0,180));
-		g.fillRect(origX, origY, width, height);
-		g.setColor(new Color(255,255,255,255));
-		g.drawRect(origX, origY, width, height);
-		*/
+
 		g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
 		
 		g.setFont(font32);
@@ -58,8 +53,8 @@ public class IntroMenuLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
-		
+	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
+		return false;
 	}
 
 	@Override
