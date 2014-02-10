@@ -63,15 +63,26 @@ public class ImageLoader {
 	public static BBImage hblitzer = new BBImage("players/humans/hblitzer.png");
 	
 	// Board
-	public static BBImage scoreboard = new BBImage("board/board.png");
+	public static BBImage scoreboardframe = new BBImage("board/frame.png");
 	public static BBImage weather = new BBImage();
 	public static BBImage background = new BBImage("background/background.png");
 	public static Map<Integer, BBImage> scores = new HashMap<Integer, BBImage>();
-	static
-    {
+	static{
 		for(int i = 0; i < 10; i++)
 			scores.put(i, new BBImage("board/score/"+i+".png"));
     }
-	
+	public static Map<Character, BBImage> letters = new HashMap<Character, BBImage>();
+	private static String chars = "ABCDEFGHIJKLMNOPQRSTUVXYZW";
+	static{
+		for(Character c : chars.toCharArray()){
+			letters.put(c, new BBImage("board/letters/"+c+".png"));
+		}
+		letters.put(new Character('.'), new BBImage("board/letters/PERIOD.png"));
+		letters.put(new Character(','), new BBImage("board/letters/COMMA.png"));
+		letters.put(new Character('/'), new BBImage("board/letters/SLASH.png"));
+		letters.put(new Character('-'), new BBImage("board/letters/DASH.png"));
+		letters.put(new Character('_'), new BBImage("board/letters/UNDER.png"));
+		letters.put(new Character(' '), new BBImage("board/letters/SPACE.png"));
+    }
 	
 }

@@ -5,6 +5,7 @@ import game.GameMaster;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import models.GameStage;
 import models.GameState;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
@@ -47,8 +48,9 @@ public class ScoreLayer extends GraphicsLayer {
 
 	@Override
 	public void checkLayerActivation(GameState state) {
-		// TODO Auto-generated method stub
-
+		if (!active){
+			activate();
+		}
 	}
 
 }

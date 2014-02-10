@@ -17,6 +17,8 @@ public class ScoreBoardLayer extends GraphicsLayer {
 	static int scoreWidth = 30;
 	static int scoreHeight = 48;
 	static int div = 6;
+	private int teamNameWidth = 128;
+	private int teamNameHeight = 22;
 	
 	public ScoreBoardLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
 		super(origX, origY, width, height, ui, active);
@@ -24,37 +26,19 @@ public class ScoreBoardLayer extends GraphicsLayer {
 		layers.add(new ScoreLayer(origX + width/2 - scoreWidth - div, origY + div, scoreWidth, scoreHeight, ui, active, true));
 		layers.add(new ScoreLayer(origX + width/2 + div, origY + div, scoreWidth, scoreHeight, ui, active, false));
 		
+		layers.add(new TeamNameLayer(	origX + width/2 + div + scoreWidth + div + div/2, 
+				origY + div, teamNameWidth, teamNameHeight, ui, active, false, 21));
+		
+		layers.add(new TeamNameLayer(	origX + width/2 - div - scoreWidth - div - div/2 - teamNameWidth, 
+				origY + div, teamNameWidth, teamNameHeight, ui, active, true, 21));
+		
+		layers.add(new ScoreBoardFrameLayer(origX, origY, width, height, ui, active));
+		
 	}
 
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 		
-		g.drawImage(ImageLoader.scoreboard.getImage(), origX, origY, null);
-		
-		/*
-		// Score
-		g.setFont(font60);
-		g.setColor(Color.blue);
-		g.drawString("" + state.getHomeTeam().getTeamStatus().getScore(), origX + width/2 - 46 - 17, origY + 50);
-		g.setColor(new Color(200,200,200));
-		g.drawString("-", origX + width/2 - 11, origY + 50);
-		g.setColor(Color.red);
-		g.drawString("" + state.getAwayTeam().getTeamStatus().getScore(), origX + width/2 + 46 - 17, origY + 50);
-		
-		// Team names
-		g.setFont(font32);
-		g.setColor(Color.blue);
-		g.drawString("" + state.getHomeTeam().getTeamName(), (int) (origX + width/2 - width/3.5 - state.getHomeTeam().getTeamName().length() * 9), origY + 42);
-		g.setColor(Color.red);
-		g.drawString("" + state.getAwayTeam().getTeamName(), (int) (origX + width/2 + width/3.5 - state.getAwayTeam().getTeamName().length() * 9), origY + 42);
-		
-		// Turn
-		g.setFont(font25);
-		g.setColor(Color.white);
-		g.drawString("" + state.getHomeTurn() + "/16", origX + width/2 - 100 - 26, origY + 48);
-		g.setColor(Color.white);
-		g.drawString("" + state.getAwayTurn() + "/16", origX + width/2 + 100 - 26, origY + 48);
-		*/
 	}
 
 	@Override
@@ -64,13 +48,7 @@ public class ScoreBoardLayer extends GraphicsLayer {
 
 	@Override
 	public void checkLayerActivation(GameState state) {
-		if (state.getGameStage() == GameStage.START_UP || 
-			state.getGameStage() == GameStage.COIN_TOSS || 
-			state.getGameStage() == GameStage.PICK_COIN_TOSS_EFFECT){
-			if (active){
-				deactivate();
-			}
-		}else if (!active){
+		if (!active){
 			activate();
 		}
 	}

@@ -92,6 +92,9 @@ public class BloodBowlUI extends JPanel {
 		}
 		
 		if (input.hasMouseMoved())
+			repaint = true;
+		
+		if (repaint)
 			repaint();
 		
 		input.refresh();
