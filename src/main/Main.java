@@ -43,7 +43,9 @@ public class Main {
 	}
 	
 	private static void loop() {
-
+		
+		ui.repaint();
+		
 		while(true){
 			
 			try {
@@ -53,10 +55,10 @@ public class Main {
 			}
 			
 			gameMaster.update();
-			
+			/*
 			if (ui != null)
 				ui.repaint();
-			
+			*/
 			try {
 				Thread.sleep(1000/24);
 			} catch (InterruptedException e) {

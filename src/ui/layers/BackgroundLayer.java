@@ -21,10 +21,12 @@ public class BackgroundLayer extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 		
-		//g.drawImage(ImageLoader.background.getImage(), origX, origY, Color.black, null);
+		g.drawImage(ImageLoader.background.getImage(), origX, origY, Color.black, null);
+		/*
 		g.setColor(Color.black);
 		g.fillRect(origX, origY, width, height);
 		g.drawRect(origX, origY, width, height);
+		*/
 		
 	}
 

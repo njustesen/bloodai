@@ -17,13 +17,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class PitchInvasionUpdater extends GameProcess {
+public class PitchInvasionProcess extends GameProcess {
 	
-	private static PitchInvasionUpdater instance;
+	private static PitchInvasionProcess instance;
 	
-	public static PitchInvasionUpdater getInstance(){
+	public static PitchInvasionProcess getInstance(){
 		if (instance == null)
-			instance = new PitchInvasionUpdater();
+			instance = new PitchInvasionProcess();
 		return instance;
 	}
 

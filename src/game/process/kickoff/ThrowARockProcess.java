@@ -21,13 +21,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class ThrowARockUpdater extends GameProcess {
+public class ThrowARockProcess extends GameProcess {
 	
-	private static ThrowARockUpdater instance;
+	private static ThrowARockProcess instance;
 	
-	public static ThrowARockUpdater getInstance(){
+	public static ThrowARockProcess getInstance(){
 		if (instance == null)
-			instance = new ThrowARockUpdater();
+			instance = new ThrowARockProcess();
 		return instance;
 	}
 

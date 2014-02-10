@@ -4,11 +4,9 @@ import sound.Sound;
 import game.GameLog;
 import game.process.CatchProcess;
 import game.process.GameProcess;
-import game.process.KickScatterProcess;
 import game.process.ScatterBallProcess;
 import game.rulebooks.RuleBook;
 import ai.actions.Action;
-import ai.actions.IllegalActionException;
 import models.GameStage;
 import models.GameState;
 import models.Player;
@@ -19,22 +17,20 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class HighKickUpdater extends GameProcess {
+public class QuickSnapProcess extends GameProcess {
 	
-	private static HighKickUpdater instance;
+	private static QuickSnapProcess instance;
 	
-	public static HighKickUpdater getInstance(){
+	public static QuickSnapProcess getInstance(){
 		if (instance == null)
-			instance = new HighKickUpdater();
+			instance = new QuickSnapProcess();
 		return instance;
 	}
 
 	@Override
-	public void run(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
+	public void run(GameState state, Action action, RuleBook rulebook) {
 	
-		state.setGameStage(GameStage.HIGH_KICK);
-		
-		KickScatterProcess.getInstance().run(state, action, rulebook);
+		state.setGameStage(GameStage.QUICK_SNAP);
 		
 	}
 }

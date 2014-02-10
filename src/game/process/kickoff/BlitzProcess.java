@@ -17,13 +17,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class BlitzUpdater extends GameProcess {
+public class BlitzProcess extends GameProcess {
 	
-	private static BlitzUpdater instance;
+	private static BlitzProcess instance;
 	
-	public static BlitzUpdater getInstance(){
+	public static BlitzProcess getInstance(){
 		if (instance == null)
-			instance = new BlitzUpdater();
+			instance = new BlitzProcess();
 		return instance;
 	}
 

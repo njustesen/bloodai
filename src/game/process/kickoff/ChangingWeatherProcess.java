@@ -13,24 +13,29 @@ import models.Player;
 import models.Square;
 import models.Standing;
 import models.Team;
+import models.Weather;
 import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class PerfectDefenseUpdater extends GameProcess {
+public class ChangingWeatherProcess extends GameProcess {
 	
-	private static PerfectDefenseUpdater instance;
+	private static ChangingWeatherProcess instance;
 	
-	public static PerfectDefenseUpdater getInstance(){
+	public static ChangingWeatherProcess getInstance(){
 		if (instance == null)
-			instance = new PerfectDefenseUpdater();
+			instance = new ChangingWeatherProcess();
 		return instance;
 	}
 
 	@Override
 	public void run(GameState state, Action action, RuleBook rulebook) {
 	
-		state.setGameStage(GameStage.PERFECT_DEFENSE);
+		rulebook.rollForWeather(state);
+		
+		// Gentle gust
+		if (state.getWeather() == Weather.NICE)
+			state.setGust(true);
 		
 	}
 }

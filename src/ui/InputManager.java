@@ -14,6 +14,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	private int mouseClickY;
 	private boolean mouseClicked;
 	private boolean mouseDown;
+	private boolean mouseMoved;
 	
 	//boolean [] keysDown = new boolean [256];
 	//boolean [] keysToggled = new boolean [256];
@@ -27,15 +28,18 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	
 	public void refresh(){
 		mouseClicked = false;
+		mouseMoved = false; 
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		mouseMoved = true;
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		mouseMoved = true;
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
@@ -124,6 +128,10 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 
 	public void setMouseDown(boolean mouseDown) {
 		this.mouseDown = mouseDown;
+	}
+
+	public boolean hasMouseMoved() {
+		return mouseMoved;
 	}
 	
 	

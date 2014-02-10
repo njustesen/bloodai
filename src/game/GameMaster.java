@@ -158,15 +158,15 @@ public class GameMaster {
 		
 	}
 	
-	public void act(Action action) throws IllegalActionException {
+	public void act(Action action) throws IllegalActionException, NullPointerException {
 
 		if (action == null)
-			throw new IllegalActionException("Action is null!");
+			throw new NullPointerException("Action is null!");
 		
 		GameProcess process = processes.get(action.getClass());
 		
 		if (process == null)
-			throw new IllegalActionException("Unsupported action!");
+			throw new IllegalActionException("Unsupported action type!");
 		
 		process.run(state, action, rulebook);
 		

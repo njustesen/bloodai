@@ -1,5 +1,9 @@
 package ui;
 
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+
 import view.BBImage;
 
 public class ImageLoader {
@@ -58,6 +62,16 @@ public class ImageLoader {
 	public static BBImage hcatcher = new BBImage("players/humans/hcatcher1b.png");
 	public static BBImage hblitzer = new BBImage("players/humans/hblitzer.png");
 	
+	// Board
+	public static BBImage scoreboard = new BBImage("board/board.png");
 	public static BBImage weather = new BBImage();
+	public static BBImage background = new BBImage("background/background.png");
+	public static Map<Integer, BBImage> scores = new HashMap<Integer, BBImage>();
+	static
+    {
+		for(int i = 0; i < 10; i++)
+			scores.put(i, new BBImage("board/score/"+i+".png"));
+    }
+	
 	
 }

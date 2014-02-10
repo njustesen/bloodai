@@ -18,13 +18,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class CheeringFansUpdater extends GameProcess {
+public class CheeringFansProcess extends GameProcess {
 	
-	private static CheeringFansUpdater instance;
+	private static CheeringFansProcess instance;
 	
-	public static CheeringFansUpdater getInstance(){
+	public static CheeringFansProcess getInstance(){
 		if (instance == null)
-			instance = new CheeringFansUpdater();
+			instance = new CheeringFansProcess();
 		return instance;
 	}
 

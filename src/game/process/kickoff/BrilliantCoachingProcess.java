@@ -18,13 +18,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class BrilliantCoachingUpdater extends GameProcess {
+public class BrilliantCoachingProcess extends GameProcess {
 	
-	private static BrilliantCoachingUpdater instance;
+	private static BrilliantCoachingProcess instance;
 	
-	public static BrilliantCoachingUpdater getInstance(){
+	public static BrilliantCoachingProcess getInstance(){
 		if (instance == null)
-			instance = new BrilliantCoachingUpdater();
+			instance = new BrilliantCoachingProcess();
 		return instance;
 	}
 

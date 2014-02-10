@@ -18,13 +18,13 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class RiotUpdater extends GameProcess {
+public class RiotProcess extends GameProcess {
 	
-	private static RiotUpdater instance;
+	private static RiotProcess instance;
 	
-	public static RiotUpdater getInstance(){
+	public static RiotProcess getInstance(){
 		if (instance == null)
-			instance = new RiotUpdater();
+			instance = new RiotProcess();
 		return instance;
 	}
 

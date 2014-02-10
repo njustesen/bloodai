@@ -14,14 +14,24 @@ import ui.InputManager;
 
 public class ScoreBoardLayer extends GraphicsLayer {
 
-	public ScoreBoardLayer(int origX, int origY, int width, int height, BloodBowlUI bloodBowlUI, boolean active) {
-		super(origX, origY, width, height, bloodBowlUI, active);
+	static int scoreWidth = 30;
+	static int scoreHeight = 48;
+	static int div = 6;
+	
+	public ScoreBoardLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
+		super(origX, origY, width, height, ui, active);
+		
+		layers.add(new ScoreLayer(origX + width/2 - scoreWidth - div, origY + div, scoreWidth, scoreHeight, ui, active, true));
+		layers.add(new ScoreLayer(origX + width/2 + div, origY + div, scoreWidth, scoreHeight, ui, active, false));
 		
 	}
 
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 		
+		g.drawImage(ImageLoader.scoreboard.getImage(), origX, origY, null);
+		
+		/*
 		// Score
 		g.setFont(font60);
 		g.setColor(Color.blue);
@@ -44,7 +54,7 @@ public class ScoreBoardLayer extends GraphicsLayer {
 		g.drawString("" + state.getHomeTurn() + "/16", origX + width/2 - 100 - 26, origY + 48);
 		g.setColor(Color.white);
 		g.drawString("" + state.getAwayTurn() + "/16", origX + width/2 + 100 - 26, origY + 48);
-		
+		*/
 	}
 
 	@Override

@@ -46,11 +46,9 @@ public class BloodBowlUI extends JPanel {
 	private int width = 900;
 	private int height = 600;
 	
-	private PitchLayer pitchLayer;
 	private GraphicsLayer mainLayer;
 	
 	protected Player selectedPlayer;
-	private IntroMenuLayer introMenu;
 	
 	public BloodBowlUI(GameMaster master) {
 		super();
@@ -85,9 +83,16 @@ public class BloodBowlUI extends JPanel {
 
 	public void readInput() throws IllegalActionException{
 		
+		boolean repaint = false;
+		
 		// Click
-		if (input.isMouseClicked())
+		if (input.isMouseClicked()){
 			mainLayer.clicked(master, this, input);
+			repaint = true;
+		}
+		
+		if (input.hasMouseMoved())
+			repaint();
 		
 		input.refresh();
 		

@@ -17,28 +17,20 @@ import models.dice.D6;
 import models.dice.D8;
 import models.dice.IDice;
 
-public class GetTheRefUpdater extends GameProcess {
+public class PerfectDefenseProcess extends GameProcess {
 	
-	private static GetTheRefUpdater instance;
+	private static PerfectDefenseProcess instance;
 	
-	public static GetTheRefUpdater getInstance(){
+	public static PerfectDefenseProcess getInstance(){
 		if (instance == null)
-			instance = new GetTheRefUpdater();
+			instance = new PerfectDefenseProcess();
 		return instance;
 	}
 
 	@Override
-	/**
-	 * Get the Ref: The fans exact gruesome revenge on the 
-	 * referee for some of the dubious decisions he has 
-	 * made, either during this match or in the past. His 
-	 * replacement is so intimidated that for the rest of the 
-	 * half he will not send players from either team off for
-	 */
 	public void run(GameState state, Action action, RuleBook rulebook) {
 	
-		state.setRefAgainstHomeTeam(false);
-		state.setRefAgainstAwayTeam(false);
-
+		state.setGameStage(GameStage.PERFECT_DEFENSE);
+		
 	}
 }
