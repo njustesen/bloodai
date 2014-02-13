@@ -74,15 +74,31 @@ public class ImageLoader {
 	public static Map<Character, BBImage> letters = new HashMap<Character, BBImage>();
 	private static String chars = "ABCDEFGHIJKLMNOPQRSTUVXYZW";
 	static{
-		for(Character c : chars.toCharArray()){
+		for(Character c : chars.toCharArray())
 			letters.put(c, new BBImage("board/letters/"+c+".png"));
+		
+		for(int i = 0; i < 10; i++){
+			char c = String.valueOf(i).charAt(0);
+			letters.put(c, new BBImage("board/letters/"+c+"i.png"));
 		}
+		
 		letters.put(new Character('.'), new BBImage("board/letters/PERIOD.png"));
 		letters.put(new Character(','), new BBImage("board/letters/COMMA.png"));
 		letters.put(new Character('/'), new BBImage("board/letters/SLASH.png"));
 		letters.put(new Character('-'), new BBImage("board/letters/DASH.png"));
 		letters.put(new Character('_'), new BBImage("board/letters/UNDER.png"));
 		letters.put(new Character(' '), new BBImage("board/letters/SPACE.png"));
+		
+    }
+	
+	public static Map<String, BBImage> icons = new HashMap<String, BBImage>();
+	static{
+		icons.put("reroll", new BBImage("board/letters/reroll.png"));
+		icons.put("cheerleader", new BBImage("board/letters/cheerleader.png"));
+		icons.put("apothecary", new BBImage("board/letters/apothecary.png"));
+		icons.put("apothecary_used", new BBImage("board/letters/apothecary_used.png"));
+		icons.put("fame", new BBImage("board/letters/fame.png"));
+		icons.put("coach", new BBImage("board/letters/coach.png"));
     }
 	
 }

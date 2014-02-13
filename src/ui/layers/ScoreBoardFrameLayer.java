@@ -27,8 +27,11 @@ public class ScoreBoardFrameLayer extends GraphicsLayer {
 
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
-		g.drawImage(ImageLoader.scoreboardframe.getImage(), origX, origY, null);
 		
+		//if (!painted){
+			g.drawImage(ImageLoader.scoreboardframe.getImage(), origX, origY, null);
+			//painted = true;
+		//}
 
 	}
 

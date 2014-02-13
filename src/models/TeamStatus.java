@@ -7,6 +7,7 @@ public class TeamStatus {
 	private int fans;
 	private int FAME;
 	private int babes;
+	private boolean hasUsedApothecary;
 	private boolean hasBlitzed;
 	private boolean hasFouled;
 	private boolean hasPassed;
@@ -139,6 +140,14 @@ public class TeamStatus {
 
 	public void setHasHandedOf(boolean hasHandedOf) {
 		this.hasHandedOf = hasHandedOf;
+	}
+	
+	public boolean hasUsedApothecary() {
+		return hasUsedApothecary;
+	}
+
+	public void setUsedApothecary(boolean hasUsedApothecary) {
+		this.hasUsedApothecary = hasUsedApothecary;
 	}
 
 	@Override

@@ -38,27 +38,32 @@ public class CoinEffectMenuLayer extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 
-		g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
+		if (!painted){
 		
-		if (state.getCoinToss().hasAwayPickedHeads() == state.getCoinToss().isResultHeads()){
-			g.setFont(font32);
-			g.setColor(Color.red);
-			g.drawString(state.getAwayTeam().getTeamName(), 
-					(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
-					(int) (origY + height/3));
-		} else {
-			g.setFont(font32);
-			g.setColor(Color.blue);
-			g.drawString(state.getHomeTeam().getTeamName(), 
-					(int) (origX + width/2 - state.getHomeTeam().getTeamName().length() * 8.2), 
-					(int) (origY + height/3));
+			g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
+			
+			if (state.getCoinToss().hasAwayPickedHeads() == state.getCoinToss().isResultHeads()){
+				g.setFont(font32);
+				g.setColor(Color.red);
+				g.drawString(state.getAwayTeam().getTeamName(), 
+						(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
+						(int) (origY + height/3));
+			} else {
+				g.setFont(font32);
+				g.setColor(Color.blue);
+				g.drawString(state.getHomeTeam().getTeamName(), 
+						(int) (origX + width/2 - state.getHomeTeam().getTeamName().length() * 8.2), 
+						(int) (origY + height/3));
+			}
+			g.setFont(font25);
+			g.setColor(Color.white);
+			g.drawString("won the toss and must select", 
+					origX + width/2 - 172, 
+					(int) (origY + height/2));
+			
+			painted = true;
+			
 		}
-		g.setFont(font25);
-		g.setColor(Color.white);
-		g.drawString("won the toss and must select", 
-				origX + width/2 - 172, 
-				(int) (origY + height/2));
-		
 		
 	}
 

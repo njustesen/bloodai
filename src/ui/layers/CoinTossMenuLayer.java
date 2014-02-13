@@ -36,19 +36,24 @@ public class CoinTossMenuLayer extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 
-		g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
+		if (!painted){
 		
-		g.setFont(font32);
-		g.setColor(Color.red);
-		g.drawString(state.getAwayTeam().getTeamName(), 
-				(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
-				(int) (origY + height/3));
-		g.setFont(font25);
-		g.setColor(Color.white);
-		g.drawString("to select", 
-				origX + width/2 - 48, 
-				(int) (origY + height/2));
-		
+			g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
+			
+			g.setFont(font32);
+			g.setColor(Color.red);
+			g.drawString(state.getAwayTeam().getTeamName(), 
+					(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
+					(int) (origY + height/3));
+			g.setFont(font25);
+			g.setColor(Color.white);
+			g.drawString("to select", 
+					origX + width/2 - 48, 
+					(int) (origY + height/2));
+			
+			painted = true;
+			
+		}
 		
 	}
 

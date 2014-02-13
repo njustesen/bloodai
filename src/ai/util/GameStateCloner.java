@@ -408,7 +408,7 @@ public class GameStateCloner {
 			players.add(player);
 		}
 		
-		Team newTeam = new Team(team.getId(), players, team.getRerolls(), team.getFanFactor(), team.getAssistantCoaches(), team.getTeamName());
+		Team newTeam = new Team(team.getId(), players, team.getRerolls(), team.getFanFactor(), team.getAssistantCoaches(), team.hasApothecary(), team.getTeamName());
 		
 		newTeam.setTeamStatus(cloneTeamStatus(team.getTeamStatus()));
 		

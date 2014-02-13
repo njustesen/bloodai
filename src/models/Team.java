@@ -8,13 +8,14 @@ public class Team {
 	protected int rerolls;
 	protected int fanFactor;
 	protected int assistantCoaches;
+	protected boolean apothecary;
 	protected int cheerleaders;
 	protected TeamStatus teamStatus;
 	protected String teamName;
 	protected String id;
 	
 	public Team(String id, ArrayList<Player> players, int rerolls,
-			int fanFactor, int assistantCoaches, String teamName) {
+			int fanFactor, int assistantCoaches, boolean apothecary, String teamName) {
 		super();
 		this.id = id;
 		this.players = players;
@@ -24,6 +25,7 @@ public class Team {
 		this.teamStatus = new TeamStatus(4);
 		this.teamName = teamName;
 		this.cheerleaders = 0;
+		this.apothecary = apothecary;
 	}
 
 	public ArrayList<Player> getPlayers() {
@@ -99,6 +101,14 @@ public class Team {
 	
 	public String getId() {
 		return id;
+	}
+
+	public boolean hasApothecary() {
+		return apothecary;
+	}
+
+	public void setApothecary(boolean apothecary) {
+		this.apothecary = apothecary;
 	}
 
 	@Override

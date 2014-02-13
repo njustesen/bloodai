@@ -11,6 +11,7 @@ import ai.actions.IllegalActionException;
 
 import view.Point2D;
 
+import models.GameStage;
 import models.GameState;
 import models.Square;
 import ui.BloodBowlUI;
@@ -27,10 +28,13 @@ public class PitchLayer extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 		
-		g.drawImage(ImageLoader.pitch.getImage(), origX, origY, Color.black, null);
-//		g.setColor(Color.black);
-//		g.fillRect(origX, origY, width, height);
-//		g.drawRect(origX, origY, width, height);
+		if (!painted || !(
+				state.getGameStage() == GameStage.COIN_TOSS ||
+				state.getGameStage() == GameStage.PICK_COIN_TOSS_EFFECT || 
+				state.getGameStage() == GameStage.START_UP)){
+			g.drawImage(ImageLoader.pitch.getImage(), origX, origY, Color.black, null);
+			painted = true;
+		}
 		
 	}
 

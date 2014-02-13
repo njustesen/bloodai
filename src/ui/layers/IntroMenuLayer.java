@@ -32,23 +32,27 @@ public class IntroMenuLayer extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 
-		g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
-		
-		g.setFont(font32);
-		g.setColor(Color.blue);
-		g.drawString(state.getHomeTeam().getTeamName(), 
-				(int) (origX + width/2 - state.getHomeTeam().getTeamName().length() * 8.2),  
-				(int) (origY + height/8*2));
-		g.setColor(Color.red);
-		g.drawString(state.getAwayTeam().getTeamName(), 
-				(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
-				(int) (origY + height/8*4.5));
-		g.setColor(Color.white);
-		g.setFont(font32);
-		g.drawString("VS", 
-				origX + width/2 - 22, 
-				(int) (origY + height/8*3.3));
-		
+		if(!painted){
+			g.drawImage(ImageLoader.startMenu.getImage(), origX, origY, null);
+			
+			g.setFont(font32);
+			g.setColor(Color.blue);
+			g.drawString(state.getHomeTeam().getTeamName(), 
+					(int) (origX + width/2 - state.getHomeTeam().getTeamName().length() * 8.2),  
+					(int) (origY + height/8*2));
+			g.setColor(Color.red);
+			g.drawString(state.getAwayTeam().getTeamName(), 
+					(int) (origX + width/2 - state.getAwayTeam().getTeamName().length() * 8.2), 
+					(int) (origY + height/8*4.5));
+			g.setColor(Color.white);
+			g.setFont(font32);
+			g.drawString("VS", 
+					origX + width/2 - 22, 
+					(int) (origY + height/8*3.3));
+			
+			painted = true;
+			
+		}
 		
 	}
 

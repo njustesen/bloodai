@@ -35,7 +35,7 @@ public class TeamFactory {
 			);
 		
 
-		return new Team(teamId, players, 4, 5, 0, "Reikland Reavers");
+		return new Team(teamId, players, 4, 5, 0, true, "Reikland Reavers");
 	}
 
 	public static Team getOrcTeam() {
@@ -59,7 +59,7 @@ public class TeamFactory {
 			);
 		
 
-		return new Team(teamId, players, 3, 6, 0, "Gouged Eye");
+		return new Team(teamId, players, 3, 6, 0, false, "Gouged Eye");
 	}
 	
 }

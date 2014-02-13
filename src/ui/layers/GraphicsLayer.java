@@ -11,7 +11,6 @@ import ai.actions.IllegalActionException;
 
 import ui.BloodBowlUI;
 import ui.InputManager;
-import ui.Listener;
 import ui.buttons.BBButton;
 import view.Point2D;
 
@@ -30,6 +29,7 @@ public abstract class GraphicsLayer {
 	protected Font font60;
 	protected BloodBowlUI ui;
 	protected List<GraphicsLayer> layers;
+	protected boolean painted;
 	
 	public abstract boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) throws IllegalActionException;
 	
@@ -49,6 +49,7 @@ public abstract class GraphicsLayer {
 		this.ui = ui;
 		this.active = active;
 		this.layers = new ArrayList<GraphicsLayer>();
+		this.painted = false;
 	}
 	
 	public boolean clicked(GameMaster master, BloodBowlUI ui, InputManager input) throws IllegalActionException{

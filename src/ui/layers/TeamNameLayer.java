@@ -39,29 +39,33 @@ public class TeamNameLayer extends GraphicsLayer {
 
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
-		if(letters == null)
-			initLetters(state);
 		
-		if (home){
-			int x = 0;
-			for(BBImage img : letters){
-				g.drawImage(img.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
-				x--;
+		if (!painted){
+			if(letters == null)
+				initLetters(state);
+			
+			if (home){
+				int x = 0;
+				for(BBImage img : letters){
+					g.drawImage(img.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
+					x--;
+				}
+				while(x > -maxLength){
+					g.drawImage(space.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
+					x--;
+				}
+			} else {
+				int x = 0;
+				for(BBImage img : letters){
+					g.drawImage(img.getImage(), origX + x*letterWidth, origY, null);
+					x++;
+				}
+				while(x < maxLength){
+					g.drawImage(space.getImage(), origX + x*letterWidth, origY, null);
+					x++;
+				}
 			}
-			while(x > -maxLength){
-				g.drawImage(space.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
-				x--;
-			}
-		} else {
-			int x = 0;
-			for(BBImage img : letters){
-				g.drawImage(img.getImage(), origX + x*letterWidth, origY, null);
-				x++;
-			}
-			while(x < maxLength){
-				g.drawImage(space.getImage(), origX + x*letterWidth, origY, null);
-				x++;
-			}
+			painted = true;
 		}
 		
 	}
