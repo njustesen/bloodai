@@ -143,7 +143,7 @@ public class PlayerLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		if (state.getGameStage() == GameStage.START_UP || 
 			state.getGameStage() == GameStage.COIN_TOSS || 
 			state.getGameStage() == GameStage.PICK_COIN_TOSS_EFFECT){

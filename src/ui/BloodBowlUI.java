@@ -1,37 +1,25 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.im.InputContext;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+
+import ui.layers.GraphicsLayer;
+import ui.layers.MainLayer;
 
 import ai.actions.IllegalActionException;
 
-import models.GameStage;
-import models.GameState;
 import models.Player;
-import models.Square;
-
-import ui.buttons.BBButton;
-import ui.layers.ActionButtonLayer;
-import ui.layers.BackgroundLayer;
-import ui.layers.GraphicsLayer;
-import ui.layers.IntroMenuLayer;
-import ui.layers.MainLayer;
-import ui.layers.MouseOverPitchLayer;
-import ui.layers.PitchLayer;
-import ui.layers.PlayerLayer;
-import ui.layers.ScoreBoardLayer;
-import view.Point2D;
 
 import game.GameMaster;
 
@@ -51,7 +39,7 @@ public class BloodBowlUI extends JPanel {
 	protected Player selectedPlayer;
 	
 	public BloodBowlUI(GameMaster master) {
-		super();
+		super(new GridLayout(2,2,225,428));
 		this.master = master;
 		this.frame = new JFrame();
 		init();
@@ -65,6 +53,22 @@ public class BloodBowlUI extends JPanel {
 		this.setPreferredSize(new Dimension(width, height));
 		frame.add(this);
 		frame.setResizable(false);
+		
+		JTextArea ta = new JTextArea("", 5, 10);
+		ta.setAutoscrolls(true);
+		ta.setEditable(false);
+		ta.setText("dsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsf");
+		ta.setWrapStyleWord(true);
+		ta.setLineWrap(true);
+		JScrollPane sp = new JScrollPane(ta);
+		
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(sp);
+		
+		
+		
 		frame.pack();
 		input = new InputManager();
 		handler = new ActionHandler();
@@ -78,6 +82,7 @@ public class BloodBowlUI extends JPanel {
 		selectedPlayer = null;
 		
 		initialized = true;
+		
 		
 	}
 
@@ -106,7 +111,7 @@ public class BloodBowlUI extends JPanel {
 		if (!initialized)
 			return;
 		
-		mainLayer.checkActivation(master.getState());
+		mainLayer.checkActivation(master.getState(), this);
 	    
 		mainLayer.paint(g, master.getState(), input);
 	    

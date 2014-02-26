@@ -15,9 +15,9 @@ import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
 import ui.buttons.BBButton;
-import ui.buttons.HeadsButton;
-import ui.buttons.StartButton;
-import ui.buttons.TailsButton;
+import ui.buttons.menu.HeadsButton;
+import ui.buttons.menu.StartButton;
+import ui.buttons.menu.TailsButton;
 
 public class CoinTossMenuLayer extends GraphicsLayer {
 
@@ -28,8 +28,8 @@ public class CoinTossMenuLayer extends GraphicsLayer {
 		int xb = origX + width/4*3;
 		int y = origY + height/4*3;
 		
-		layers.add(new HeadsButton(xa, y, ImageLoader.headsButton.getImage(), ImageLoader.headsButtonHover.getImage(), ui));
-		layers.add(new TailsButton(xb, y, ImageLoader.tailsButton.getImage(), ImageLoader.tailsButtonHover.getImage(), ui));
+		layers.add(new HeadsButton(xa, y, ImageLoader.headsButton.getImage(), ImageLoader.headsButtonHover.getImage(), ui, true));
+		layers.add(new TailsButton(xb, y, ImageLoader.tailsButton.getImage(), ImageLoader.tailsButtonHover.getImage(), ui, true));
 		
 	}
 
@@ -63,7 +63,7 @@ public class CoinTossMenuLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		
 		if (state.getGameStage() == GameStage.COIN_TOSS){
 			if (!active){

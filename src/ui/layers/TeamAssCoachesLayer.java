@@ -74,7 +74,7 @@ public class TeamAssCoachesLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		// TODO Auto-generated method stub
 
 	}

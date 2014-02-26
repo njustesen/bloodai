@@ -1,5 +1,4 @@
 package models;
-import game.GameLog;
 import models.actions.Block;
 import models.actions.Catch;
 import models.actions.Dodge;

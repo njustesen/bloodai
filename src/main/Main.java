@@ -24,11 +24,6 @@ public class Main {
 		
 		System.out.println("Welcome to Blood Bowl!");
 		
-		boolean h = false;
-		boolean a = false;
-		boolean restart = false;
-		boolean fast = false;
-		
 		Team homeTeam = TeamFactory.getHumanTeam();
 		Team awayTeam = TeamFactory.getOrcTeam();
 

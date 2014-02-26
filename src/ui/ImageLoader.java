@@ -8,13 +8,36 @@ import view.BBImage;
 
 public class ImageLoader {
 
-	//action buttons
-	public static BBImage run = new BBImage("actions/footprints2.png");
-	public static BBImage block = new BBImage("actions/block.png");
-	public static BBImage blitz = new BBImage("actions/blitz.png");
-	public static BBImage foul = new BBImage("actions/foul.png");
-	public static BBImage pass = new BBImage("actions/pass.png");
-	public static BBImage handoff = new BBImage("actions/handoff.png");
+	//action panel
+	public static BBImage actionPanel = new BBImage("action_panel/action_panel.png");
+	
+	public static BBImage moveAvail = new BBImage("action_panel/move_avail.png");
+	public static BBImage blockAvail = new BBImage("action_panel/block_avail.png");
+	public static BBImage blitzAvail = new BBImage("action_panel/blitz_avail.png");
+	public static BBImage foulAvail = new BBImage("action_panel/foul_avail.png");
+	public static BBImage passAvail = new BBImage("action_panel/pass_avail.png");
+	public static BBImage handoffAvail = new BBImage("action_panel/handoff_avail.png");
+	
+	public static BBImage moveHover = new BBImage("action_panel/move_hover.png");
+	public static BBImage blockHover = new BBImage("action_panel/block_hover.png");
+	public static BBImage blitzHover = new BBImage("action_panel/blitz_hover.png");
+	public static BBImage foulHover = new BBImage("action_panel/foul_hover.png");
+	public static BBImage passHover = new BBImage("action_panel/pass_hover.png");
+	public static BBImage handoffHover = new BBImage("action_panel/handoff_hover.png");
+	
+	public static BBImage moveUnavail = new BBImage("action_panel/move_unavail.png");
+	public static BBImage blockUnavail = new BBImage("action_panel/block_unavail.png");
+	public static BBImage blitzUnavail = new BBImage("action_panel/blitz_unavail.png");
+	public static BBImage foulUnavail = new BBImage("action_panel/foul_unavail.png");
+	public static BBImage passUnavail = new BBImage("action_panel/pass_unavail.png");
+	public static BBImage handoffUnavail = new BBImage("action_panel/handoff_unavail.png");
+	
+	public static BBImage moveActive = new BBImage("action_panel/move_active.png");
+	public static BBImage blockActive = new BBImage("action_panel/block_active.png");
+	public static BBImage blitzActive = new BBImage("action_panel/blitz_active.png");
+	public static BBImage foulActive = new BBImage("action_panel/foul_active.png");
+	public static BBImage passActive = new BBImage("action_panel/pass_active.png");
+	public static BBImage handoffActive = new BBImage("action_panel/handoff_active.png");
 	
 	//buttons
 	public static BBImage startButton = new BBImage("buttons/start.png");

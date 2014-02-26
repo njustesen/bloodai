@@ -15,7 +15,7 @@ import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
 import ui.buttons.BBButton;
-import ui.buttons.StartButton;
+import ui.buttons.menu.StartButton;
 
 public class IntroMenuLayer extends GraphicsLayer {
 
@@ -25,7 +25,7 @@ public class IntroMenuLayer extends GraphicsLayer {
 		int x = origX + width/2;
 		int y = origY + height/4*3;
 		
-		layers.add(new StartButton(x, y, ImageLoader.startButton.getImage(), ImageLoader.startButtonHover.getImage(), ui));
+		layers.add(new StartButton(x, y, ImageLoader.startButton.getImage(), ImageLoader.startButtonHover.getImage(), ui, true));
 		
 	}
 
@@ -62,7 +62,7 @@ public class IntroMenuLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		
 		if (state.getGameStage() == GameStage.START_UP){
 			if (!active){

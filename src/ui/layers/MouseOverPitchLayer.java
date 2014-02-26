@@ -44,7 +44,7 @@ public class MouseOverPitchLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		
 		if (state.getGameStage() == GameStage.START_UP || 
 			state.getGameStage() == GameStage.COIN_TOSS || 

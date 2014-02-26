@@ -15,11 +15,11 @@ import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
 import ui.buttons.BBButton;
-import ui.buttons.HeadsButton;
-import ui.buttons.KickButton;
-import ui.buttons.ReceiveButton;
-import ui.buttons.StartButton;
-import ui.buttons.TailsButton;
+import ui.buttons.menu.HeadsButton;
+import ui.buttons.menu.KickButton;
+import ui.buttons.menu.ReceiveButton;
+import ui.buttons.menu.StartButton;
+import ui.buttons.menu.TailsButton;
 
 public class CoinEffectMenuLayer extends GraphicsLayer {
 
@@ -30,8 +30,8 @@ public class CoinEffectMenuLayer extends GraphicsLayer {
 		int xb = origX + width/4*3;
 		int y = origY + height/4*3;
 		
-		layers.add(new KickButton(xa, y, ImageLoader.kickButton.getImage(), ImageLoader.kickButtonHover.getImage(), ui));
-		layers.add(new ReceiveButton(xb, y, ImageLoader.receiveButton.getImage(), ImageLoader.receiveButtonHover.getImage(), ui));
+		layers.add(new KickButton(xa, y, ImageLoader.kickButton.getImage(), ImageLoader.kickButtonHover.getImage(), ui, true));
+		layers.add(new ReceiveButton(xb, y, ImageLoader.receiveButton.getImage(), ImageLoader.receiveButtonHover.getImage(), ui, true));
 		
 	}
 
@@ -73,7 +73,7 @@ public class CoinEffectMenuLayer extends GraphicsLayer {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		
 		if (state.getGameStage() == GameStage.PICK_COIN_TOSS_EFFECT){
 			if (!active){

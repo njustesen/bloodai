@@ -1,4 +1,4 @@
-package ui.buttons;
+package ui.buttons.menu;
 
 import game.GameMaster;
 
@@ -12,22 +12,14 @@ import ai.actions.StartGameAction;
 import models.GameState;
 import ui.BloodBowlUI;
 import ui.InputManager;
+import ui.buttons.BBButton;
 
 public class HeadsButton extends BBButton {
 	
-	public HeadsButton(int centerX, int centerY, BufferedImage image, BufferedImage imageHover, BloodBowlUI ui) {
-		super(centerX, centerY, image, imageHover, ui);
+	public HeadsButton(int centerX, int centerY, BufferedImage image, BufferedImage imageHover, BloodBowlUI ui, boolean active) {
+		super(centerX, centerY, image, imageHover, ui, active);
 	}
 
-	@Override
-	public void paintLayer(Graphics g, GameState state, InputManager input) {
-		
-		if(inBounds(input.getMouseX(), input.getMouseY()))
-			g.drawImage(imageHover, origX, origY, width, height, null);
-		else
-			g.drawImage(image, origX, origY, width, height, null);
-		
-	}
 
 	@Override
 	public boolean clickedLayer(GameMaster master, BloodBowlUI ui, InputManager input) {
@@ -40,7 +32,7 @@ public class HeadsButton extends BBButton {
 	}
 
 	@Override
-	public void checkLayerActivation(GameState state) {
+	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		// TODO Auto-generated method stub
 		
 	}

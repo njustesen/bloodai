@@ -35,7 +35,7 @@ public abstract class GraphicsLayer {
 	
 	public abstract void paintLayer(Graphics g, GameState state, InputManager input);
 	
-	public abstract void checkLayerActivation(GameState state);
+	public abstract void checkLayerActivation(GameState state, BloodBowlUI ui);
 
 	public GraphicsLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
 		super();
@@ -76,12 +76,15 @@ public abstract class GraphicsLayer {
 		
 	}
 	
-	public void checkActivation(GameState state){
+	public void checkActivation(GameState state, BloodBowlUI ui){
 		
-		checkLayerActivation(state);
+		checkLayerActivation(state, ui);
 		
-		for(GraphicsLayer layer : layers)
-			layer.checkActivation(state);
+		for(GraphicsLayer layer : layers){
+			if (isActive()){
+				layer.checkActivation(state, ui);
+			}
+		}
 		
 	}
 	
