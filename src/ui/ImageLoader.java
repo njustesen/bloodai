@@ -1,13 +1,17 @@
 package ui;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
 import view.BBImage;
 
 public class ImageLoader {
-
+	
+	// player panel
+	public static BBImage playerPanelRed = new BBImage("player_panel/player_panel_red.png");
+	public static BBImage playerPanelBlue = new BBImage("player_panel/player_panel_blue.png");
+	public static BBImage playerPanelEmpty = new BBImage("player_panel/player_panel_empty.png");
+	
 	//action panel
 	public static BBImage actionPanel = new BBImage("action_panel/action_panel.png");
 	

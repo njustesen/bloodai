@@ -17,6 +17,8 @@ public class MainLayer extends GraphicsLayer {
 	private int menuHieght = 280;
 	private int actionPanelWidth = 218;
 	private int actionPanelHeight = 92;
+	private int playerPanelHeight = 99;
+	private int playerPanelWidth = 341;
 	
 	public MainLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
 		super(origX, origY, width, height, ui, active);
@@ -27,6 +29,7 @@ public class MainLayer extends GraphicsLayer {
 		layers.add(new MouseOverPitchLayer(0, topHeight, 30*tilesize, 15*tilesize, ui, false));
 		layers.add(new PlayerLayer(0, topHeight, width, height, ui, false));
 		layers.add(new ActionPanelLayer(width/2 - actionPanelWidth/2, topHeight+15*tilesize, actionPanelWidth, actionPanelHeight, ui, true));
+		layers.add(new PlayerPanelLayer(0, height - playerPanelHeight , playerPanelWidth, playerPanelHeight, ui, true));
 		layers.add(new IntroMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));
 		layers.add(new CoinTossMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));
 		layers.add(new CoinEffectMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));
