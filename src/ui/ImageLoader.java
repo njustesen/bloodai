@@ -39,6 +39,26 @@ public class ImageLoader {
 	public static BBImage passActive = new BBImage("action_panel/pass_active.png");
 	public static BBImage handoffActive = new BBImage("action_panel/handoff_active.png");
 	
+	public static BBImage rerollActive = new BBImage("action_panel/reroll_active.png");
+	public static BBImage rerollInactive = new BBImage("action_panel/reroll_inactive.png");
+	public static BBImage rerollHover = new BBImage("action_panel/reroll_hover.png");
+	
+	// Dice
+	public static BBImage dieNone = new BBImage("action_panel/dice/die_none.png");
+	
+	public static BBImage die1 = new BBImage("action_panel/dice/die_1.png");
+	public static BBImage die2 = new BBImage("action_panel/dice/die_2.png");
+	public static BBImage die3 = new BBImage("action_panel/dice/die_3.png");
+	public static BBImage die4 = new BBImage("action_panel/dice/die_4.png");
+	public static BBImage die5 = new BBImage("action_panel/dice/die_5.png");
+	public static BBImage die6 = new BBImage("action_panel/dice/die_6.png");
+	
+	public static BBImage dieSkull = new BBImage("action_panel/dice/die_skull.png");
+	public static BBImage dieBoth = new BBImage("action_panel/dice/die_both.png");
+	public static BBImage diePush = new BBImage("action_panel/dice/die_push.png");
+	public static BBImage dieStumples = new BBImage("action_panel/dice/die_stumples.png");
+	public static BBImage dieDown = new BBImage("action_panel/dice/die_down.png");
+	
 	//buttons
 	public static BBImage startButton = new BBImage("buttons/start.png");
 	public static BBImage startButtonHover = new BBImage("buttons/start_hover.png");
@@ -56,19 +76,6 @@ public class ImageLoader {
 		
 	//ball
 	public static BBImage ball = new BBImage("pitch/ball.png");
-	
-	//dice-images
-	public static BBImage bbDice1 = new BBImage("dice/bbdiceSkull.png");
-	public static BBImage bbDice2 = new BBImage("dice/bbdiceBothDown.png");
-	public static BBImage bbDice3 = new BBImage("dice/bbdiceArrow.png");
-	public static BBImage bbDice4 = new BBImage("dice/bbdiceEx.png");
-	public static BBImage bbDice5 = new BBImage("dice/bbdiceBoom.png");
-	public static BBImage dice1 = new BBImage("dice/dice1.png");
-	public static BBImage dice2 = new BBImage("dice/dice2.png");
-	public static BBImage dice3 = new BBImage("dice/dice3.png");
-	public static BBImage dice4 = new BBImage("dice/dice4.png");
-	public static BBImage dice5 = new BBImage("dice/dice5.png");
-	public static BBImage dice6 = new BBImage("dice/dice6.png");
 	
 	//pitch
 	public static BBImage pitch = new BBImage("pitch/pitch.jpg");	

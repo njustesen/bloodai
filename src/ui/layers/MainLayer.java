@@ -26,7 +26,7 @@ public class MainLayer extends GraphicsLayer {
 		layers.add(new PitchLayer(0, topHeight, 30*tilesize, 15*tilesize, ui, false));
 		layers.add(new MouseOverPitchLayer(0, topHeight, 30*tilesize, 15*tilesize, ui, false));
 		layers.add(new PlayerLayer(0, topHeight, width, height, ui, false));
-		layers.add(new ActionPanelLayer(width/2 - actionPanelWidth/2, topHeight+15*tilesize+4, actionPanelWidth, actionPanelHeight, ui, true));
+		layers.add(new ActionPanelLayer(width/2 - actionPanelWidth/2, topHeight+15*tilesize, actionPanelWidth, actionPanelHeight, ui, true));
 		layers.add(new IntroMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));
 		layers.add(new CoinTossMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));
 		layers.add(new CoinEffectMenuLayer(width/2 - menuWidth/2, height/2 - menuHieght/2, menuWidth, menuHieght, ui, false));

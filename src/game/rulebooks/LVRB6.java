@@ -6,6 +6,7 @@ import models.Player;
 import models.Square;
 import models.Weather;
 import models.dice.D6;
+import models.dice.DiceRoll;
 
 public class LVRB6 implements RuleBook {
 
@@ -22,6 +23,10 @@ public class LVRB6 implements RuleBook {
 		// Fans
 		D6 a = new D6();
 		D6 b = new D6();
+		DiceRoll roll = new DiceRoll();
+		roll.addDice(a);
+		roll.addDice(b);
+		state.setCurrentDiceRoll(roll);
 		a.roll();
 		b.roll();
 		int homeFans = 1000 * (a.getResultAsInt() + b.getResultAsInt() + state.getHomeTeam().getFanFactor());

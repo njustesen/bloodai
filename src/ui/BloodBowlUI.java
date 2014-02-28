@@ -1,18 +1,15 @@
 package ui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
 
 import ui.layers.GraphicsLayer;
 import ui.layers.MainLayer;
@@ -39,7 +36,7 @@ public class BloodBowlUI extends JPanel {
 	protected Player selectedPlayer;
 	
 	public BloodBowlUI(GameMaster master) {
-		super(new GridLayout(2,2,225,428));
+		super(new GridLayout(2,2,219,423));
 		this.master = master;
 		this.frame = new JFrame();
 		init();
@@ -57,17 +54,17 @@ public class BloodBowlUI extends JPanel {
 		JTextArea ta = new JTextArea("", 5, 10);
 		ta.setAutoscrolls(true);
 		ta.setEditable(false);
-		ta.setText("dsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsf");
+		ta.setText("dsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfddfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfssfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsfdsfsdfsdfsfsdfsdfdsfdsf");
 		ta.setWrapStyleWord(true);
 		ta.setLineWrap(true);
+		ta.setBackground(new Color(15,15,15));
+		ta.setForeground(new Color(225,225,225));
 		JScrollPane sp = new JScrollPane(ta);
 		
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(sp);
-		
-		
 		
 		frame.pack();
 		input = new InputManager();

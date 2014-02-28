@@ -158,7 +158,7 @@ public class GameMaster {
 		
 	}
 	
-	public void act(Action action) throws IllegalActionException, NullPointerException {
+	public void act(Action action) throws IllegalActionException {
 
 		if (action == null)
 			throw new NullPointerException("Action is null!");
