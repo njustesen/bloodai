@@ -5,25 +5,26 @@ import java.util.ArrayList;
 public abstract class Player {
 
 	protected Race race;
-	protected String title;
+	protected String name;
 	protected int cost;
 	protected int MA;
 	protected int ST;
 	protected int AG;
 	protected int AV;
-	private int number;
+	protected int number;
 	protected ArrayList<Skill> skills = new ArrayList<Skill>();
 	protected PlayerStatus playerStatus;
-	private Square position;
+	protected Square position;
 
-	private String teamId;
-	private Team team;
-
+	protected String teamId;
+	protected Team team;
 	
-	public Player(Race race, String title, int number, String teamId) {
+	protected String title;
+	
+	public Player(Race race, String name, int number, String teamId) {
 		super();
 		this.race = race;
-		this.title = title;
+		this.name = name;
 		this.number = number;
 		this.playerStatus = new PlayerStatus(); 
 		this.position = null;
@@ -40,8 +41,8 @@ public abstract class Player {
 		return teamId;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
 	public int getCost() {
@@ -120,6 +121,10 @@ public abstract class Player {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
+	
+	public String getTitle(){
+		return title;
+	}
 
 	@Override
 	public int hashCode() {
@@ -140,7 +145,7 @@ public abstract class Player {
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
 		result = prime * result
 				+ ((teamId == null) ? 0 : teamId.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -192,10 +197,10 @@ public abstract class Player {
 				return false;
 		} else if (!teamId.equals(other.teamId))
 			return false;
-		if (title == null) {
-			if (other.title != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!title.equals(other.title))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}

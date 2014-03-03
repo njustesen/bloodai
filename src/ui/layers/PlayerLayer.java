@@ -125,7 +125,7 @@ public class PlayerLayer extends GraphicsLayer {
 				g.drawImage(ImageLoader.olineman.getBufferedImage(), screenX, screenY, null);
 			}else if(p.getTitle() == "Thrower"){
 				g.drawImage(ImageLoader.othrower.getBufferedImage(), screenX, screenY, null);
-			}else if(p.getTitle() == "black orc"){
+			}else if(p.getTitle() == "Black Orc"){
 				g.drawImage(ImageLoader.oblackorc.getBufferedImage(), screenX, screenY, null);
 			}
 		}

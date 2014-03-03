@@ -444,22 +444,22 @@ public class GameStateCloner {
 		
 		if (p.getRace() == Race.HUMANS){
 			if (p instanceof HumanLineman)
-				newPlayer = new HumanLineman(p.getNumber(), teamId);
+				newPlayer = new HumanLineman(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof HumanBlitzer)
-				newPlayer = new HumanBlitzer(p.getNumber(), teamId);
+				newPlayer = new HumanBlitzer(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof HumanCatcher)
-				newPlayer = new HumanCatcher(p.getNumber(), teamId);
+				newPlayer = new HumanCatcher(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof HumanThrower)
-				newPlayer = new HumanThrower(p.getNumber(), teamId);
+				newPlayer = new HumanThrower(p.getNumber(), p.getName(), teamId);
 		} else if (p.getRace() == Race.ORCS){
 			if (p instanceof OrcLineman)
-				newPlayer = new OrcLineman(p.getNumber(), teamId);
+				newPlayer = new OrcLineman(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof OrcBlitzer)
-				newPlayer = new OrcBlitzer(p.getNumber(), teamId);
+				newPlayer = new OrcBlitzer(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof OrcBlackOrc)
-				newPlayer = new OrcBlackOrc(p.getNumber(), teamId);
+				newPlayer = new OrcBlackOrc(p.getNumber(), p.getName(), teamId);
 			else if (p instanceof OrcThrower)
-				newPlayer = new OrcThrower(p.getNumber(), teamId);
+				newPlayer = new OrcThrower(p.getNumber(), p.getName(), teamId);
 		}
 		/*
 		newPlayer.setAG(p.getAG());
