@@ -2,7 +2,6 @@ package ui.buttons.menu;
 
 import game.GameMaster;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ai.actions.IllegalActionException;

@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 import models.GameState;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import view.BBImage;
 import ai.actions.IllegalActionException;
 
 public class TeamTurnLayer extends GraphicsLayer {
@@ -20,8 +20,7 @@ public class TeamTurnLayer extends GraphicsLayer {
 	private int teamTurn;
 	private List<BBImage> letters;
 	private static int letterWidth = 19;
-	private BBImage space;
-	
+
 	public TeamTurnLayer(int origX, int origY, int width, int height,
 			BloodBowlUI ui, boolean active, boolean home) {
 		super(origX, origY, width, height, ui, active);

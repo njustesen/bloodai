@@ -11,8 +11,7 @@ import ai.actions.IllegalActionException;
 
 import ui.BloodBowlUI;
 import ui.InputManager;
-import ui.buttons.BBButton;
-import view.Point2D;
+import ui.Point2D;
 
 import models.GameState;
 

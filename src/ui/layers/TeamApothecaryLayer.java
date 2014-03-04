@@ -4,14 +4,13 @@ import game.GameMaster;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import models.GameState;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import view.BBImage;
 import ai.actions.IllegalActionException;
 
 public class TeamApothecaryLayer extends GraphicsLayer {

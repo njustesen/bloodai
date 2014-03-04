@@ -2,13 +2,10 @@ package ui.buttons.menu;
 
 import game.GameMaster;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ai.actions.IllegalActionException;
-import ai.actions.SelectCoinSideAction;
 import ai.actions.SelectCoinTossEffectAction;
-import ai.actions.StartGameAction;
 
 import models.GameState;
 import ui.BloodBowlUI;

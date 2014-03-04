@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import ai.actions.IllegalActionException;
 import ai.actions.SelectCoinSideAction;
-import ai.actions.StartGameAction;
 
 import models.GameState;
 import ui.BloodBowlUI;

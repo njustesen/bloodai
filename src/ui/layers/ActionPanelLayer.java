@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.GameStage;
 import models.GameState;
 import models.dice.DiceFace;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
@@ -22,7 +22,6 @@ import ui.buttons.actions.HandoffButton;
 import ui.buttons.actions.MoveButton;
 import ui.buttons.actions.PassButton;
 import ui.buttons.dice.RerollButton;
-import view.BBImage;
 
 public class ActionPanelLayer extends GraphicsLayer {
 

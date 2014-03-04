@@ -1,7 +1,6 @@
 package ai.util;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import models.Ball;
 import models.CoinToss;
@@ -46,7 +45,7 @@ public class GameStateCloner {
 
 	public GameState clone(GameState state) {
 		
-		Date now = new Date();
+		//Date now = new Date();
 		
 		Team home = cloneTeam(state.getHomeTeam());
 		Team away = cloneTeam(state.getAwayTeam());
@@ -83,7 +82,7 @@ public class GameStateCloner {
 		s.setRefAgainstHomeTeam(state.isRefAgainstHomeTeam());
 		s.setWeather(state.getWeather());
 		
-		Date newNow = new Date();
+		//Date newNow = new Date();
 		
 		//System.out.println("clonetime: " + (newNow.getTime() - now.getTime()));
 		

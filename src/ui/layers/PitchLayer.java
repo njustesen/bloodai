@@ -4,12 +4,8 @@ import game.GameMaster;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import ai.actions.IllegalActionException;
-
-import view.Point2D;
 
 import models.GameStage;
 import models.GameState;

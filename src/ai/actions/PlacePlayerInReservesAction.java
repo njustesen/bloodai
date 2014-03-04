@@ -1,7 +1,6 @@
 package ai.actions;
 
 import models.Player;
-import models.Square;
 
 public class PlacePlayerInReservesAction extends PlayerAction {
 

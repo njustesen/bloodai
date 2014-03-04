@@ -7,10 +7,10 @@ import models.GameState;
 import models.dice.DiceFace;
 import ai.actions.IllegalActionException;
 import ai.actions.SelectDieAction;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.InputManager;
 import ui.buttons.BBButton;
-import view.BBImage;
 
 public class DiceButton extends BBButton {
 

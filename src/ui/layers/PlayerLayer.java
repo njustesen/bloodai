@@ -4,11 +4,6 @@ import game.GameMaster;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.PageAttributes.OriginType;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-import view.Point2D;
 
 import models.GameStage;
 import models.GameState;
@@ -17,6 +12,7 @@ import models.Race;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
+import ui.Point2D;
 
 public class PlayerLayer extends GraphicsLayer {
 

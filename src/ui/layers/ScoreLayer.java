@@ -3,14 +3,12 @@ package ui.layers;
 import game.GameMaster;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-import models.GameStage;
 import models.GameState;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import view.BBImage;
 import ai.actions.IllegalActionException;
 
 public class ScoreLayer extends GraphicsLayer {

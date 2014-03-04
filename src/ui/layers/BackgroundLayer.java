@@ -4,7 +4,6 @@ import game.GameMaster;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import view.Point2D;
 
 import models.GameState;
 import ui.BloodBowlUI;

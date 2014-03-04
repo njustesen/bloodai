@@ -2,18 +2,13 @@ package ui.buttons.actions;
 
 import game.GameMaster;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import models.GameStage;
 import models.GameState;
 import models.PlayerTurn;
 import ui.BloodBowlUI;
-import ui.ImageLoader;
 import ui.InputManager;
-import view.Point2D;
 
 public class BlitzButton extends ActionButton {
 	

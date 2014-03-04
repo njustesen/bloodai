@@ -3,7 +3,6 @@ package ui.layers;
 import game.GameMaster;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 import models.GameState;
 import ui.BloodBowlUI;

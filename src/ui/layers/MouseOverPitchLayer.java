@@ -4,17 +4,12 @@ import game.GameMaster;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-import view.Point2D;
 
 import models.GameStage;
 import models.GameState;
-import models.Square;
 import ui.BloodBowlUI;
-import ui.ImageLoader;
 import ui.InputManager;
+import ui.Point2D;
 
 public class MouseOverPitchLayer extends GraphicsLayer {
 

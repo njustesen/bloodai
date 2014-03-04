@@ -2,7 +2,6 @@ package models.humans;
 
 import models.Player;
 import models.Race;
-import models.Skill;
 
 public class HumanLineman extends Player{
 
@@ -13,7 +12,6 @@ public class HumanLineman extends Player{
 		this.ST = 3;
 		this.AG = 3;
 		this.AV = 8;
-		this.skills.add(Skill.NONE);
 		this.title = "Lineman";
 	}
 }

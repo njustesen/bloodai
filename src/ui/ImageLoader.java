@@ -3,7 +3,6 @@ package ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.BBImage;
 
 public class ImageLoader {
 	

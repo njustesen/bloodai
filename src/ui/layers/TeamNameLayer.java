@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 import models.GameState;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import view.BBImage;
 import ai.actions.IllegalActionException;
 
 public class TeamNameLayer extends GraphicsLayer {

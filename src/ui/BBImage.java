@@ -1,20 +1,14 @@
-package view;
+package ui;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.renderable.RenderableImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
-//import javax.swing.ImageIcon;
-import javax.xml.crypto.dsig.Transform;
 
 import main.Main;
 

@@ -5,12 +5,8 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
-
-import javax.swing.JPanel;
-
 import ai.actions.Action;
 import game.GameMaster;
-import models.Ball;
 import models.GameStage;
 import models.GameState;
 import models.Pitch;
@@ -187,7 +183,7 @@ public abstract class AIAgent {
 	//MIGHT WORK IF ASTAR GETS FIXED
 	protected ArrayList <Player> getNearestOpponents(Player player, GameState state){
 	//	System.out.println("GETNEARESTOPPONENT CALLED");
-		Pitch pitch = state.getPitch();
+	//	Pitch pitch = state.getPitch();
 		
 		ArrayList  <Player> theList;
 		ArrayList  <Player> theListOfNearest = new ArrayList <Player>();
@@ -299,7 +295,7 @@ public abstract class AIAgent {
 				
 				int goalX = goalPosition.getX();
 				int goalY = goalPosition.getY();
-				Pitch pitch = state.getPitch();
+				//Pitch pitch = state.getPitch();
 				Square playerPos = player.getPosition();
 				Mover curMover;
 //				System.out.println("HOMETEAM = "+homeTeam);

@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import models.GameState;
 
-import game.GameMaster;
 import ui.BloodBowlUI;
 import ui.InputManager;
 import ui.layers.GraphicsLayer;

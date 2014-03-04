@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 import models.GameState;
+import ui.BBImage;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import view.BBImage;
 import ai.actions.IllegalActionException;
 
 public class TeamFameLayer extends GraphicsLayer {
@@ -20,7 +20,6 @@ public class TeamFameLayer extends GraphicsLayer {
 	private int teamFame;
 	private List<BBImage> letters;
 	private static int letterWidth = 19;
-	private BBImage space;
 	
 	public TeamFameLayer(int origX, int origY, int width, int height,
 			BloodBowlUI ui, boolean active, boolean home) {

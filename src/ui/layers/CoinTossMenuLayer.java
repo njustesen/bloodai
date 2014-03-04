@@ -4,19 +4,13 @@ import game.GameMaster;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-import view.Point2D;
 
 import models.GameStage;
 import models.GameState;
 import ui.BloodBowlUI;
 import ui.ImageLoader;
 import ui.InputManager;
-import ui.buttons.BBButton;
 import ui.buttons.menu.HeadsButton;
-import ui.buttons.menu.StartButton;
 import ui.buttons.menu.TailsButton;
 
 public class CoinTossMenuLayer extends GraphicsLayer {

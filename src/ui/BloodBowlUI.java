@@ -20,6 +20,7 @@ import models.Player;
 
 import game.GameMaster;
 
+@SuppressWarnings("serial")
 public class BloodBowlUI extends JPanel {
 
 	private GameMaster master;
