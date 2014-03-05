@@ -29,10 +29,17 @@ public abstract class BBButton extends GraphicsLayer {
 	@Override
 	public void paintLayer(Graphics g, GameState state, InputManager input) {
 		
+		BufferedImage img = null;
+		
 		if(inBounds(input.getMouseX(), input.getMouseY()))
-			g.drawImage(imageHover, origX, origY, width, height, null);
+			img = imageHover;
 		else
-			g.drawImage(image, origX, origY, width, height, null);
+			img = image;
+		
+		if (img == null)
+			return;
+		
+		g.drawImage(img, origX, origY, width, height, null);
 		
 	}
 

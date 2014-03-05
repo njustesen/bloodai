@@ -1,4 +1,4 @@
-package ui.layers;
+package ui.buttons.actions;
 
 import java.util.Map;
 
@@ -40,14 +40,13 @@ public class DiceButton extends BBButton {
 	@Override
 	public void checkLayerActivation(GameState state, BloodBowlUI ui) {
 		
-		if(state.getCurrentDiceRoll() == null){
-			this.image = faceMap.get(null).getImage();
-			this.imageHover = this.image;
-		} else if (state.getCurrentDiceRoll().getFaces().size() - 1 >= num){
+		if (state.getCurrentDiceRoll() != null && state.getCurrentDiceRoll().getFaces().size() - 1 >= num){
 			this.image = faceMap.get(state.getCurrentDiceRoll().getFaces().get(num)).getImage();
 			this.imageHover = this.image;
+		} else {
+			this.image = faceMap.get(null).getImage();
+			this.imageHover = this.image;
 		}
-
 	}
 
 }

@@ -44,6 +44,10 @@ public class ActionHandler {
 						Action action = new PlacePlayerAction(ui.getSelectedPlayer(), square);
 						master.act(action);
 						
+					} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
+						
+						ui.setSelectedPlayer(null);
+						
 					} else {
 						
 						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));

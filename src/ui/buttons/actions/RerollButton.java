@@ -1,4 +1,4 @@
-package ui.buttons.dice;
+package ui.buttons.actions;
 
 import game.GameMaster;
 
@@ -43,8 +43,8 @@ public class RerollButton extends BBButton {
 			this.image = availableImage;
 			this.imageHover = availableImageHover;
 		} else {
-			this.image = unavailableImage;
-			this.imageHover = unavailableImage;
+			this.image = null;
+			this.imageHover = null;
 		}
 	}
 

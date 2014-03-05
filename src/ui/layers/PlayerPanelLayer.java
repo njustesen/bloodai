@@ -21,7 +21,7 @@ public class PlayerPanelLayer extends GraphicsLayer {
 	private int numberX = 22;
 	private int numberY = 32;
 	private int nameX = 46;
-	private int nameY = 32;
+	private int nameY = 31;
 	private int maY = 58;
 	private int maX = 79;
 	private int stX = maX + 72;
@@ -65,7 +65,7 @@ public class PlayerPanelLayer extends GraphicsLayer {
 		g.drawString(number, x, origY + numberY);
 		
 		// Draw name and position
-		g.setFont(new Font("Arial", 0, 16));
+		g.setFont(new Font("Arial", 0, 14));
 		String shortName = selectedPlayer.getName().substring(0, Math.min(24, selectedPlayer.getName().length()));
 		String name = shortName + " - " + selectedPlayer.getTitle();
         x = origX + nameX; 

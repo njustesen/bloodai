@@ -58,6 +58,9 @@ public class PlacePlayerInReservesProcess extends GameProcess {
 			
 		}
 		
+		if (state.getPitch().getDogout(team).getReserves().contains(player))
+			moveAllowed = false;
+		
 		if (moveAllowed){
 			state.removePlayerFromCurrentSquare(player);
 			state.getPitch().getDogout(team).getReserves().add(player);

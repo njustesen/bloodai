@@ -17,11 +17,13 @@ import ui.InputManager;
 import ui.buttons.BBButton;
 import ui.buttons.actions.BlitzButton;
 import ui.buttons.actions.BlockButton;
+import ui.buttons.actions.DiceButton;
 import ui.buttons.actions.FoulButton;
+import ui.buttons.actions.GoButton;
 import ui.buttons.actions.HandoffButton;
 import ui.buttons.actions.MoveButton;
 import ui.buttons.actions.PassButton;
-import ui.buttons.dice.RerollButton;
+import ui.buttons.actions.RerollButton;
 
 public class ActionPanelLayer extends GraphicsLayer {
 
@@ -34,6 +36,8 @@ public class ActionPanelLayer extends GraphicsLayer {
 	int rim = 3;
 	int rerollRim = 6;
 	int div = 4;
+	int goWidth = 55;
+	int goHeight = 46;
 	
 	public ActionPanelLayer(int origX, int origY, int width, int height, BloodBowlUI ui, boolean active) {
 		super(origX, origY, width, height, ui, active);
@@ -81,11 +85,17 @@ public class ActionPanelLayer extends GraphicsLayer {
 									ImageLoader.foulActive.getImage(), 
 									ui, true));
 		
-		buttons.add(new RerollButton(	origX + historyRim + (rim+diceWidth)*3 + rerollRim + diceWidth/2 -1, 
-				origY + rim + actionButtonSize + horiRim + diceHeight/2, 
+		buttons.add(new RerollButton(	origX + historyRim + (diceWidth)*3 + rerollRim + goWidth/2, 
+				origY + rim + actionButtonSize + horiRim + goHeight/2 +1, 
 				ImageLoader.rerollActive.getImage(),
 				ImageLoader.rerollInactive.getImage(), 
 				ImageLoader.rerollHover.getImage(),
+				ui, true));
+		
+		buttons.add(new GoButton(	origX + historyRim + (diceWidth)*3 + rerollRim + goWidth/2, 
+				origY + rim + actionButtonSize + horiRim + goHeight/2 +1, 
+				ImageLoader.go.getImage(),
+				ImageLoader.goHover.getImage(),
 				ui, true));
 		
 		Map<DiceFace, BBImage> faceMap = new HashMap<DiceFace, BBImage>();
@@ -102,17 +112,17 @@ public class ActionPanelLayer extends GraphicsLayer {
 		faceMap.put(DiceFace.DEFENDER_STUMBLES, ImageLoader.dieStumples);
 		faceMap.put(DiceFace.DEFENDER_KNOCKED_DOWN, ImageLoader.dieDown);
 		
-		buttons.add(new DiceButton(	origX + historyRim + (div+diceWidth)*0 + diceWidth/2, 
+		buttons.add(new DiceButton(	origX + historyRim + (diceWidth)*0 + diceWidth/2, 
 				origY + rim + actionButtonSize + horiRim + diceHeight/2 +1, 
 				0, faceMap,
 				ui, true));
 		
-		buttons.add(new DiceButton(	origX + historyRim + (div+diceWidth)*1 + diceWidth/2, 
+		buttons.add(new DiceButton(	origX + historyRim + (diceWidth)*1 + diceWidth/2, 
 				origY + rim + actionButtonSize + horiRim + diceHeight/2 +1, 
 				1, faceMap,
 				ui, true));
 		
-		buttons.add(new DiceButton(	origX + historyRim + (div+diceWidth)*2 + diceWidth/2, 
+		buttons.add(new DiceButton(	origX + historyRim + (diceWidth)*2 + diceWidth/2, 
 				origY + rim + actionButtonSize + horiRim + diceHeight/2 +1, 
 				2, faceMap,
 				ui, true));

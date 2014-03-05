@@ -43,8 +43,11 @@ public class ImageLoader {
 	public static BBImage handoffActive = new BBImage("action_panel/handoff_active.png");
 	
 	public static BBImage rerollActive = new BBImage("action_panel/reroll_active.png");
-	public static BBImage rerollInactive = new BBImage("action_panel/reroll_inactive.png");
+	public static BBImage rerollInactive = new BBImage("action_panel/dice/die_none.png");
 	public static BBImage rerollHover = new BBImage("action_panel/reroll_hover.png");
+	
+	public static BBImage go = new BBImage("action_panel/go.png");
+	public static BBImage goHover = new BBImage("action_panel/go_hover.png");
 	
 	// Dice
 	public static BBImage dieNone = new BBImage("action_panel/dice/die_none.png");

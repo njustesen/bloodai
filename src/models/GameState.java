@@ -7,6 +7,7 @@ import models.actions.GoingForIt;
 import models.actions.HandOff;
 import models.actions.Pass;
 import models.actions.PickUp;
+import models.dice.D6;
 import models.dice.DiceRoll;
 
 public class GameState {

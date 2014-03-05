@@ -1,19 +1,12 @@
 package game.process;
 
-import game.GameLog;
 import game.rulebooks.RuleBook;
-
-import java.util.Date;
 
 import ai.actions.Action;
 import ai.actions.IllegalActionException;
 
-import sound.Sound;
-
 import models.GameStage;
 import models.GameState;
-import models.Weather;
-import models.dice.D6;
 
 public class GameStartProcess extends GameProcess {
 	
