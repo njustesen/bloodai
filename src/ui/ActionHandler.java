@@ -37,99 +37,102 @@ public class ActionHandler {
 			
 			if (state.getGameStage() == GameStage.KICKING_SETUP){
 				
-				if (ui.getSelectedPlayer().getTeamId().equals(state.getKickingTeam().getId())){
+				if (state.getPitch().getPlayerAt(square) == null){
 					
-					if (state.getPitch().getPlayerAt(square) == null){
-						
+					if (ui.getSelectedPlayer().getTeamId() == state.getKickingTeam().getId()){
+					
 						Action action = new PlacePlayerAction(ui.getSelectedPlayer(), square);
 						master.act(action);
 						
-					} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
-						
-						ui.setSelectedPlayer(null);
-						
-					} else {
-						
-						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
-						
 					}
 					
+				} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
+					
+					ui.setSelectedPlayer(null);
+					
+				} else {
+					
+					ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
 				}
 				
 			}
 			
 			if (state.getGameStage() == GameStage.RECEIVING_SETUP){
 				
-				if (ui.getSelectedPlayer().getTeamId().equals(state.getReceivingTeam().getId())){
+				if (state.getPitch().getPlayerAt(square) == null){
 					
-					if (state.getPitch().getPlayerAt(square) == null){
+					if (ui.getSelectedPlayer().getTeamId() == state.getReceivingTeam().getId()){
 						
 						Action action = new PlacePlayerAction(ui.getSelectedPlayer(), square);
 						master.act(action);
 						
-					} else {
-						
-						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
-						
 					}
 					
+				} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
+					
+					ui.setSelectedPlayer(null);
+					
+				} else {
+					
+					ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
 				}
 				
 			}
 			
 			if (state.getGameStage() == GameStage.PERFECT_DEFENSE){
 				
-				if (ui.getSelectedPlayer().getTeamId().equals(state.getKickingTeam())){
+				if (state.getPitch().getPlayerAt(square) == null){
 					
-					if (state.getPitch().getPlayerAt(square) == null){
-						
+					if (ui.getSelectedPlayer().getTeamId() == state.getKickingTeam().getId()){
+					
 						Action action = new PlacePlayerAction(ui.getSelectedPlayer(), square);
 						master.act(action);
 						
-					} else {
-						
-						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
-						
 					}
 					
+				} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
+					
+					ui.setSelectedPlayer(null);
+					
+				} else {
+					
+					ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
 				}
 				
 			}
 			
 			if (state.getGameStage() == GameStage.HIGH_KICK){
 				
-				if (ui.getSelectedPlayer().getTeamId().equals(state.getReceivingTeam())){
-					
-					if (state.getPitch().getPlayerAt(square) == null){
+				 if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
 						
-						Action action = new PlacePlayerAction(ui.getSelectedPlayer(), square);
-						master.act(action);
+					ui.setSelectedPlayer(null);
 						
-					} else {
+				} else {
 						
-						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
-						
-					}
-					
+					ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
+				
 				}
 				
 			}
 			
 			if (state.getGameStage() == GameStage.QUICK_SNAP){
 				
-				if (ui.getSelectedPlayer().getTeamId().equals(state.getReceivingTeam())){
+				if (state.getPitch().getPlayerAt(square) == null){
 					
-					if (state.getPitch().getPlayerAt(square) == null){
-						
+					if (ui.getSelectedPlayer().getTeamId() == state.getReceivingTeam().getId()){
+					
 						Action action = new MovePlayerAction(ui.getSelectedPlayer(), square);
 						master.act(action);
 						
-					} else {
-						
-						ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
-						
 					}
 					
+				} else if (state.getPitch().getPlayerAt(square).equals(ui.getSelectedPlayer())){
+					
+					ui.setSelectedPlayer(null);
+					
+				} else {
+					
+					ui.setSelectedPlayer(state.getPitch().getPlayerAt(square));
 				}
 				
 			}

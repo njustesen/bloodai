@@ -773,5 +773,31 @@ public class GameState {
 		return true;
 	}
 
+	public Team getActingTeam() {
+		if (gameStage == GameStage.HOME_TURN)
+			return homeTeam;
+		else if (gameStage == GameStage.AWAY_TURN)
+			return awayTeam;
+		else if (gameStage == GameStage.BLITZ)
+			return kickingTeam;
+		else if (gameStage == GameStage.KICKING_SETUP)
+			return kickingTeam;
+		else if (gameStage == GameStage.RECEIVING_SETUP)
+			return receivingTeam;
+		else if (gameStage == GameStage.PERFECT_DEFENSE)
+			return kickingTeam;
+		else if (gameStage == GameStage.QUICK_SNAP)
+			return receivingTeam;
+		else if (gameStage == GameStage.HIGH_KICK)
+			return receivingTeam;
+		else if (gameStage == GameStage.COIN_TOSS)
+			return awayTeam;
+		else if (gameStage == GameStage.PICK_COIN_TOSS_EFFECT)
+			return coinToss.hasAwayPickedHeads() == coinToss.resultHeads ? awayTeam : homeTeam;
+		else if (gameStage == GameStage.KICK_PLACEMENT)
+			return coinToss.hasAwayPickedHeads() == coinToss.resultHeads ? awayTeam : homeTeam;
+		return null;
+	}
+
 
 }

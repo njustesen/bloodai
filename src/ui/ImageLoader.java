@@ -127,6 +127,9 @@ public class ImageLoader {
 		
     }
 	
+	public static BBImage turn_red = new BBImage("board/turn_red.png");
+	public static BBImage turn_blue = new BBImage("board/turn_blue.png");
+	
 	public static Map<String, BBImage> icons = new HashMap<String, BBImage>();
 	static{
 		icons.put("reroll", new BBImage("board/letters/reroll.png"));

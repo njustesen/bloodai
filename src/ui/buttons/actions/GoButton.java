@@ -48,6 +48,7 @@ public class GoButton extends BBButton {
 		if (call){
 			try {
 				master.act(new EndPhaseAction());
+				ui.setSelectedPlayer(null);
 			} catch (IllegalActionException e) {
 				e.printStackTrace();
 			}

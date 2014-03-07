@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import models.GameStage;
 import models.GameState;
 import ui.BBImage;
 import ui.BloodBowlUI;
@@ -20,6 +21,7 @@ public class TeamTurnLayer extends GraphicsLayer {
 	private int teamTurn;
 	private List<BBImage> letters;
 	private static int letterWidth = 19;
+	private GameStage lastStage;
 
 	public TeamTurnLayer(int origX, int origY, int width, int height,
 			BloodBowlUI ui, boolean active, boolean home) {
@@ -39,24 +41,29 @@ public class TeamTurnLayer extends GraphicsLayer {
 		
 		if(letters == null || 
 				home && state.getHomeTurn() != teamTurn || 
-				!home && state.getAwayTurn() != teamTurn)
+				!home && state.getAwayTurn() != teamTurn || 
+				lastStage != state.getGameStage()){
+			lastStage = state.getGameStage();
 			initLetters(state);
-		else 
-			return;
-		
-		if (home){
-			int x = 0;
-			for(BBImage img : letters){
-				g.drawImage(img.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
-				x--;
+			
+			if (home){
+				int x = 0;
+				for(BBImage img : letters){
+					g.drawImage(img.getImage(), origX + width - letterWidth + (x*letterWidth), origY, null);
+					x--;
+				}
+			} else {
+				int x = 0;
+				for(BBImage img : letters){
+					g.drawImage(img.getImage(), origX + x*letterWidth, origY, null);
+					x++;
+				}
 			}
 		} else {
-			int x = 0;
-			for(BBImage img : letters){
-				g.drawImage(img.getImage(), origX + x*letterWidth, origY, null);
-				x++;
-			}
+			return;
 		}
+		
+		
 		
 	}
 

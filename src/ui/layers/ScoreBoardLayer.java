@@ -68,6 +68,12 @@ public class ScoreBoardLayer extends GraphicsLayer {
 		
 		layers.add(new ScoreBoardFrameLayer(origX, origY, width, height, ui, active));
 
+		layers.add(new TeamTurnHighlightLayer(	origX + width/2 + div + scoreWidth + + div, 
+				origY + div + teamNameHeight + 2, letterWidth*2 + div*2, teamNameHeight + div*2, ui, active, false));
+		
+		layers.add(new TeamTurnHighlightLayer(	origX + width/2 - div - scoreWidth - div*2 - letterWidth*2, 
+				origY + div + teamNameHeight + 2, letterWidth*2 + div*2, teamNameHeight + div*2, ui, active, true));
+		
 	}
 
 	@Override
