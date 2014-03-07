@@ -35,6 +35,7 @@ public class GoButton extends BBButton {
 		switch(master.getState().getGameStage()){
 			case KICKING_SETUP : call = true; break;
 			case RECEIVING_SETUP : call = true; break;
+			case KICK_PLACEMENT : call = true; break;
 			case HOME_TURN : call = true; break;
 			case AWAY_TURN : call = true; break;
 			case BLITZ : call = true; break;

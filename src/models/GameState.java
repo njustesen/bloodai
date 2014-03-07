@@ -795,7 +795,7 @@ public class GameState {
 		else if (gameStage == GameStage.PICK_COIN_TOSS_EFFECT)
 			return coinToss.hasAwayPickedHeads() == coinToss.resultHeads ? awayTeam : homeTeam;
 		else if (gameStage == GameStage.KICK_PLACEMENT)
-			return coinToss.hasAwayPickedHeads() == coinToss.resultHeads ? awayTeam : homeTeam;
+			return coinToss.homeReceives ? awayTeam : homeTeam;
 		return null;
 	}
 

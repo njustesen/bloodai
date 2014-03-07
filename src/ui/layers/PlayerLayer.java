@@ -93,6 +93,20 @@ public class PlayerLayer extends GraphicsLayer {
 			drawPlayer(g, p, index%2 + 1 + 26, index/2 + 13);
 			
 		}
+		
+		// Draw ball
+		if (state.getPitch().getBall().isInGame()){
+			
+			int x = state.getPitch().getBall().getSquare().getX();
+			int y = state.getPitch().getBall().getSquare().getY();
+			
+			int screenX = (int) arrayToScreen(x, y).getX();
+			int screenY = (int) arrayToScreen(x, y).getY();
+			
+			g.drawImage(ImageLoader.ball.getImage(), screenX, screenY, null);
+			
+		}
+		
 	}
 
 	private void drawPlayer(Graphics g, Player p, int x, int y){

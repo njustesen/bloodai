@@ -28,16 +28,7 @@ public class EndSetupProcess extends GameProcess {
 	public void run(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
 		if (state.getGameStage() == GameStage.KICKING_SETUP){
-			
-			// Auto setup
-			/*
-			if (state.getPitch().teamPlayersOnPitch(state.getKickingTeam()) == 0){
-				
-				setupTeam(state.getKickingTeam());
-				
-				return;
-			}*/
-			
+
 			// Kicking team	
 			if (state.getPitch().isSetupLegal(state.getKickingTeam(), state.getHalf()))
 				state.setGameStage(GameStage.RECEIVING_SETUP);
@@ -45,16 +36,6 @@ public class EndSetupProcess extends GameProcess {
 				throw new IllegalActionException("Illegal setup!");
 			
 		} else if (state.getGameStage() == GameStage.RECEIVING_SETUP){
-			
-			// Auto setup
-			/*
-			if (state.getPitch().teamPlayersOnPitch(state.getReceivingTeam()) == 0 && 
-					 AUTO_SETUP){
-				
-				setupTeam(state.getReceivingTeam());
-				return;
-			}
-			*/
 			
 			// Receiving team	
 			if (state.getPitch().isSetupLegal(state.getReceivingTeam(), state.getHalf()))

@@ -31,6 +31,7 @@ public class EndPhaseProcess extends GameProcess {
 		switch(state.getGameStage()){
 			case KICKING_SETUP : EndSetupProcess.getInstance().run(state, action, rulebook); break;
 			case RECEIVING_SETUP : EndSetupProcess.getInstance().run(state, action, rulebook); break;
+			case KICK_PLACEMENT : PlaceBallProcess.getInstance().run(state, action, rulebook); break;
 			case HOME_TURN : EndTurnProcess.getInstance().run(state, action, rulebook); break;
 			case AWAY_TURN : EndTurnProcess.getInstance().run(state, action, rulebook); break;
 			case BLITZ : EndTurnProcess.getInstance().run(state, action, rulebook); break;
