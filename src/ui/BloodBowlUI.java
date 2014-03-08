@@ -17,6 +17,7 @@ import ui.layers.MainLayer;
 import ai.actions.IllegalActionException;
 
 import models.Player;
+import models.Square;
 
 import game.GameMaster;
 
@@ -35,6 +36,7 @@ public class BloodBowlUI extends JPanel {
 	private GraphicsLayer mainLayer;
 	
 	protected Player selectedPlayer;
+	private Square tempBallPos;
 	
 	public BloodBowlUI(GameMaster master) {
 		super(new GridLayout(2,2,219,423));
@@ -129,6 +131,14 @@ public class BloodBowlUI extends JPanel {
 
 	public void setSelectedPlayer(Player selectedPlayer) {
 		this.selectedPlayer = selectedPlayer;
+	}
+
+	public void setTempBallPos(Square square) {
+		this.tempBallPos = square;
+	}
+	
+	public Square getTempBallPos(){
+		return this.tempBallPos;
 	}
 	
 }

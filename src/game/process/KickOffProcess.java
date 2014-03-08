@@ -36,6 +36,8 @@ public class KickOffProcess extends GameProcess {
 	@Override
 	public void run(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 	
+		state.setGameStage(GameStage.KICK_OFF);
+		
 		D6 da = new D6();
 		D6 db = new D6();
 		da.roll(); 

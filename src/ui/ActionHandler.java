@@ -34,9 +34,7 @@ public class ActionHandler {
 		GameState state = master.getState();
 		
 		if (state.getGameStage() == GameStage.KICK_PLACEMENT){
-			state.getPitch().getBall().setOnGround(true);
-			state.getPitch().getBall().setSquare(square);
-			state.getPitch().getBall().setInGame(true);
+			ui.setTempBallPos(square);
 			return;
 		}
 		

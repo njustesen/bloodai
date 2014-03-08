@@ -105,6 +105,17 @@ public class PlayerLayer extends GraphicsLayer {
 			
 			g.drawImage(ImageLoader.ball.getImage(), screenX, screenY, null);
 			
+		} else if (ui.getTempBallPos() != null){
+			
+			int x = ui.getTempBallPos().getX();
+			int y = ui.getTempBallPos().getY();
+			
+			int screenX = (int) arrayToScreen(x, y).getX();
+			int screenY = (int) arrayToScreen(x, y).getY();
+			
+			g.drawImage(ImageLoader.ball.getImage(), screenX, screenY, null);
+			
+			
 		}
 		
 	}

@@ -32,26 +32,21 @@ public class KickBallProcess extends GameProcess {
 	@Override
 	public void run(GameState state, Action action, RuleBook rulebook) throws IllegalActionException {
 		
-		if (state.getGameStage() != GameStage.KICK_PLACEMENT)
+		if (state.getGameStage() != GameStage.KICK_OFF)
 			return;
 		
 		// Ball not placed?
 		if (state.getPitch().getBall().getSquare() == null)
-			throw new IllegalActionException("No square assigned!");
+			throw new IllegalActionException("No square assigned to ball!");
 		
 		// Ball corectly placed?
 		if (!state.getPitch().ballCorreclyPlaced(state.getKickingTeam()))
 			throw new IllegalActionException("Ball incorrectly placed!");
 		
-		//state.setGameStage(GameStage.KICK_OFF);
+		KickScatterProcess.getInstance().run(state, action, rulebook);
 		
-		KickOffProcess.getInstance().run(state, action, rulebook);
-		
-		// If special kick off phase started return
-		if (state.getGameStage() != GameStage.KICK_OFF)
-			return;
-		
-		EndPhaseProcess.getInstance().run(state, action, rulebook);
+		if (state.getGameStage() == GameStage.KICK_OFF)
+			EndPhaseProcess.getInstance().run(state, action, rulebook);
 		
 	}
 	

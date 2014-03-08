@@ -51,7 +51,7 @@ public class Pitch {
 	}
 	
 	public boolean ballCorreclyPlaced(Team kickingTeam) {
-		if (ball == null || ball.getSquare() == null || !ball.isOnGround())
+		if (ball == null || ball.getSquare() == null)
 			return false;
 		
 		if (kickingTeam == homeTeam && ball.getSquare().getX() >= 14){

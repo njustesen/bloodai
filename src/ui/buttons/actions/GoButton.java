@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import ai.actions.EndPhaseAction;
 import ai.actions.IllegalActionException;
+import ai.actions.PlaceBallAction;
 
 import models.GameStage;
 import models.GameState;
@@ -29,6 +30,17 @@ public class GoButton extends BBButton {
 		
 		if (activeImage == null)
 			return false;
+		
+		if (master.getState().getGameStage() == GameStage.KICK_PLACEMENT){
+			try {
+				master.act(new PlaceBallAction(ui.getTempBallPos()));
+				ui.setSelectedPlayer(null);
+				ui.setTempBallPos(null);
+			} catch (IllegalActionException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 		
 		boolean call = false;
 		
